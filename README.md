@@ -10,6 +10,8 @@ available at [arXiv](http://arxiv.org/abs/1502.05744).
 
 According to the [Elsevier's guide for "Theoretical Computer Science"
 journal](https://www.elsevier.com/journals/theoretical-computer-science/0304-3975/guide-for-authors),
-the paper must be formatted using *elsarticle* LaTeX style.  The **elsarticle** package is publicly available from the [CTAN
+the paper must be formatted using **elsarticle** LaTeX style.  The **elsarticle** package is publicly available from the [CTAN
 repository](http://www.ctan.org/tex-archive/macros/latex/contrib/elsarticle)
 together with its [documentation](http://get-software.net/macros/latex/contrib/elsarticle/doc/elsdoc.pdf).
+Elsevier has [web page with LaTeX intructions](https://www.elsevier.com/authors/author-schemas/latex-instructions)
+where samples and other useful information can be found.
