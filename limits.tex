@@ -1,0 +1,51 @@
+\section{Limits}
+\label{section:limits}
+
+\begin{lemma}
+\label{lemma:limit-existence}
+Let $K$ be a non-empty bounded closed convex subset of a finite dimensional
+normed real vector space $(V, \|\cdot\|)$.  Let $R:K \to \R$ be a strongly
+convex lower semi-continuous function bounded from above. Then, for any $x,y
+\in V^*$,
+$$
+\lim_{a \to 0^+} a \Breg_{R^*}(x/a, y/a) = \langle x, u - v \rangle \\
+$$
+where
+\begin{align*}
+u = \lim_{a \to 0^+} \argmin_{w \in K} \left( a R(w) - \langle x, w \rangle \right)
+\quad \text{and} \quad
+v = \lim_{a \to 0^+} \argmin_{w \in K} \left( a R(w) - \langle y, w \rangle \right) \; .
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+Using Part 3 of Proposition~\ref{proposition:conjugate-properties} we can write
+the divergence
+\begin{align*}
+a \Breg_{R^*}(x/a, y/a) & = a R^*(x/a) - a R^*(y/a) - \langle x - y, \grad R^*(y/a) \rangle \\
+& =
+ a \left[ \langle x/a, \grad R^*(x/a) \rangle - R(\grad R^*(x/a)) \right] \\
+& \qquad - a \left[ \langle y/a, \grad R^*(y/a) \rangle - R(\grad R^*(y/a)) \right]
+- \langle x - y, \grad R^*(y/a) \rangle \\
+& =
+\langle x, \grad R^*(x/a) - \grad R^*(y/a) \rangle - a R(\grad R^*(x/a))
++ a R(\grad R^*(y/a)) \; .
+\end{align*}
+Part 2 of Proposition~\ref{proposition:conjugate-properties} implies that
+\begin{align*}
+u = \lim_{a \to 0^+} \grad R^*(x/a) & = \lim_{a \to 0^+} \argmin_{w \in K} \left( a R(w) - \langle x, w \rangle \right) \; , \\
+v = \lim_{a \to 0^+} \grad R^*(y/a) & = \lim_{a \to 0^+} \argmin_{w \in K} \left( a R(w) - \langle y, w \rangle \right) \; .
+\end{align*}
+The limits on the right exist because of compactness of $K$. They are simply
+the minimizers $u= \argmin_{w \in K} - \langle x, w \rangle$ and $v= \argmin_{w
+\in K} - \langle y, w \rangle$ where ties in $\argmin$ are broken according to
+smaller value of $R(w)$.
+
+By assumption $R(w)$ is upper bounded. It is also lower bounded, since it is
+defined on a compact set and it is lower semi-continuous. Thus,
+\begin{align*}
+& \lim_{a \to 0^+} a \Breg_{R^*}(x/a, y/a) \\
+& = \lim_{a \to 0^+} \langle x, \grad R^*(x/a) - \grad R^*(y/a) \rangle - a R(\grad R^*(x/a)) + a R(\grad R^*(y/a)) \\
+& = \lim_{a \to 0^+} \langle x, \grad R^*(x/a) - \grad R^*(y/a) \rangle = \langle x, u - v \rangle \; .
+\end{align*}
+\end{proof}

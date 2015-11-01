@@ -1,0 +1,43 @@
+\section{Proofs for AdaFTRL}
+\label{section:ada-ftrl-proof}
+
+\begin{proof}[Proof of Corollary~\ref{corollary:ada-ftrl-regret-bound}]
+Let $S = \sup_{v \in K} f(v)$. Theorem~\ref{theorem:ada-ftrl-regret-bound}
+applied to the regularizer $R(w) = \frac{c}{S} f(w)$ and
+Proposition~\ref{proposition:diameter-vs-range} gives
+$$
+\Regret_T \le \sqrt{3}(1 + c) \max\left\{\sqrt{8}, \frac{1}{\sqrt{2c}} \right\} \sqrt{S \sum_{t=1}^T \|\ell_t\|_*^2} \; .
+$$
+It remains to find the minimum of $g(c) = \sqrt{3}(1 + c) \max\{\sqrt{8},
+1/\sqrt{2c}\}$.  The function $g$ is strictly convex on $(0, \infty)$ and has
+minimum at $c=1/16$ and $g(\frac{1}{16}) = \sqrt{3}(1+\frac{1}{16})\sqrt{8} \le
+5.3$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lemma:recurrence-solution}]
+Let $a_t = \|\ell_t\|_* \max\{D, 1/\sqrt{2\lambda}\}$. The statement of the
+lemma is equivalent to $\Delta_T \le \sqrt{3 \sum_{t=1}^T a_t^2}$ which we
+prove by induction on $T$.  The base case $T=0$ is trivial. For $T \ge 1$, we
+have
+$$
+\Delta_T
+\le \Delta_{T-1} + \min \left\{a_T, \ \frac{a_T^2}{\Delta_{T-1}} \right\}
+\le \sqrt{3 \sum_{t=1}^{T-1} a_t^2} + \min \left\{ a_T, \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
+$$
+where the first inequality follows from Lemma~\ref{lemma:gap-recurrence}, and
+the second inequality from the induction hypothesis and the fact that $f(x) = x
++ \min\{a_T, a_T^2/x\}$ is an increasing function of $x$.  It remains to prove
+that
+$$
+\sqrt{3 \sum_{t=1}^{T-1} a_t^2} + \min \left\{ a_T, \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
+\le  \sqrt{3 \sum_{t=1}^T a_t^2} \; .
+$$
+Dividing through by $a_T$ and making substitution $z=\frac{\sqrt{\sum_{t=1}^{T-1} a_t^2}}{a_T}$, leads to
+$$
+z\sqrt{3} + \min\left\{1,\frac{1}{z\sqrt{3}}\right\} \le \sqrt{3 + 3z^2}
+$$
+which can be easily checked by considering separately the cases $z \in
+[0,\frac{1}{\sqrt{3}})$ and $z \in [\frac{1}{\sqrt{3}}, \infty)$.
+\end{proof}
+
+

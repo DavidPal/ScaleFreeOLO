@@ -1,0 +1,16 @@
+\section{Proofs for SOLO FTRL}
+\label{section:solo-ftrl-proof}
+
+\begin{proof}[Proof of Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}]
+Let $S = \sup_{v \in K} f(v)$. Theorem~\ref{theorem:regret-solo-ftrl} applied
+to the regularizer $R(w) = \frac{c}{\sqrt{S}} f(w)$, together with
+Proposition~\ref{proposition:diameter-vs-range} and a crude bound
+$\max_{t=1,2,\dots,T} \|\ell_t\|_* \le \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2}$,
+give
+$$
+\Regret_T \le \left(c + \frac{2.75}{c}  + 3.5\sqrt{8} \right) \sqrt{S \sum_{t=1}^{T} \norm{\ell_t}_*^2} \; .
+$$
+We choose $c$ by minimizing $g(c) = c + \frac{2.75}{c} + 3.5\sqrt{8}$. Clearly,
+$g(c)$ has minimum at $c = \sqrt{2.75}$ and has minimal value $g(\sqrt{2.75}) =
+2\sqrt{2.75} + 3.5\sqrt{8} \le 13.3$.
+\end{proof}
