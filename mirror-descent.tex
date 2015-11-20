@@ -1,0 +1,70 @@
+\section{Mirror Descent}
+\label{section:mirror-descent}
+
+\begin{algorithm}[t]
+\caption{\textsc{Mirror Descent with Varying Regularizer}}
+\label{algorithm:mirror-descent-varying-regularizer}
+\begin{algorithmic}[1]
+\REQUIRE Non-empty closed convex set $K \subseteq V$
+\STATE Choose a regularizer $R_0:K \to \R$
+\STATE $w_1 \leftarrow \argmin_{w \in K} R_0(w)$
+\FOR{$t=1,2,3,\dots$}
+\STATE Predict $w_t$
+\STATE Observe $\ell_t \in V^*$
+\STATE Choose a regularizer $R_t:K \to \R$
+\STATE $w_{t+1} \leftarrow \argmin_{w \in K} \left( \langle \ell, w \rangle + \Breg_{R_t}(w, w_t) \right)$
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+
+\textsc{Mirror Descent} is a generic algorithm similar to \textsc{Follow The
+Regularized Leader} but quite different in details. The algorithm is stated as
+Algorithm~\ref{algorithm:mirror-descent-varying-regularizer}. The algorithm is
+parametrized by a sequence $\{R_t\}_{t=1}^\infty$ of convex functions $R_t:K
+\to \R$ where each $R_t$ can depend on $\ell_1, \ell_2, \dots, \ell_t$ in an
+arbitrary way. If $R_t$ is not differentiable\footnote{Note that this can
+happen even when $R_t$ is a restriction of a differentiable function defined on
+a superset of $K$.  If $K$ is bounded and closed, $R_t$ fails to be
+differentiable at the boundary of $K$. If $K$ is a subset of an affine subspace
+of a dimension smaller than then dimension of $V$, then $R_t$ fails to be
+differentiable everywhere.}, to define Bregman divergence $\Breg_{R_t}$ the
+algorithm has to choose together with $R_t$ a subgradient map $\grad R_t:K \to
+V$.  If $R_t$ is a restriction of a differentiable function, it is convenient
+to take $\grad R_t$ as the gradient of of that function.
+
+Several existing algorithms are special cases of \textsc{Mirror Descent}.
+Zinkevich's \textsc{Generalized Infinitesimal Gradient Ascent} (GIGA)
+algorithm~\cite{Zinkevich-2003} is an instance of \textsc{Mirror Descent} for
+any bounded closed convex $K$ with regularizer
+$$
+R_t(w) = \frac{\sqrt{t}}{2}\|w\|_2^2 \; .
+$$
+Full-matrix and diagonal versions of \textsc{AdaGrad with Composite Mirror
+Descent Update}~\cite{Duchi-Hazan-Singer-2011} are an instances of
+\textsc{Mirror Descent} for any bounded $K$ with regularizers
+$$
+R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} \!\!\!\! w
+\qquad \text{and} \qquad
+R_t(w) = \frac{1}{2} \sum_{j=1}^d w_j^2 \sqrt{ \sum_{i=1}^t \ell_{i,j}^2} \; .
+$$
+respectively. Notice that when $d=1$, both algorithms are equivalent to
+$$
+R_t(w) = \frac{\|w\|_2^2}{2} \sqrt{\sum_{i=1}^t \|\ell_i\|_2^2 } \; .
+$$
+
+
+Third, Exponentially-Weighted Average Forecaster~\cite[Chapter
+2]{Cesa-Bianchi-Lugosi-2006} with constant learning rate $\eta$ for the problem
+of prediction with expert advice is an instance of \textsc{Mirror Descent} for
+the probability simplex $K = \{ w \in \R^d ~:~ w_i \ge 0, \sum_{i=1}^d w_i = 0
+\}$ with negative entropy regularizer $R_t(w) = \frac{1}{\eta} \sum_{i=1}^d w_i
+\ln w_i$ where $R_t:K \to \R$.
+
+
+
+Scale-free version of the algorithm \textsc{Mirror Descent} can be obtained
+by using regularizers of the form
+$$
+\R_t(w) = R(w) \sqrt{\sum_{i=1}^t }
+$$
