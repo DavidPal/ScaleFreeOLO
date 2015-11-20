@@ -94,7 +94,7 @@ well-known technical Lemma~\ref{lemma:sum-of-square-roots-inverses}.
 \label{lemma:useful}
 Let $C, a_1, a_2, \dots, a_T\geq0$. Then,
 $$
-\sum_{t=1}^T \min \left\{ a_t^2 / \sqrt{\sum_{s=1}^{t-1} a_s^2}, \ C a_t \right\}
+\sum_{t=1}^T \min \left\{ \frac{a_t^2}{\sqrt{\sum_{s=1}^{t-1} a_s^2}}, \ C a_t \right\}
 \le 3.5 C \max_{t=1,2,\dots,T} a_t + 3.5 \sqrt{\sum_{t=1}^T a_t^2} \; .
 $$
 \end{lemma}
@@ -134,7 +134,7 @@ where we have used that $a_t = M_t$ and $\sqrt{\sum_{s=1}^{t-1} a_s^2} \ge M_{t-
 \label{lemma:sum-of-square-roots-inverses}
 Let $a_1, a_2, \dots, a_T$ be non-negative real numbers. If $a_1 > 0$ then,
 $$
-\sum_{t=1}^T a_t / \sqrt{\sum_{s=1}^t a_s} \le 2 \sqrt{\sum_{t=1}^T a_t} \; .
+\frac{\sum_{t=1}^T a_t}{\sqrt{\sum_{s=1}^t a_s}} \le 2 \sqrt{\sum_{t=1}^T a_t} \; .
 $$
 \end{lemma}
 

@@ -21,19 +21,22 @@ Sometimes we will assume that $K$ is also bounded. We denote by $D$ its
 diameter with respect to $\|\cdot\|$, i.e. $D = \sup_{u,v \in K} \|u - v\|$. If
 $K$ is unbounded, $D = +\infty$.
 
-\textbf{Convex Analysis.} The \emph{Bregman divergence} of a convex
-differentiable function $f$ is defined as $\Breg_f(u,v) = f(u) - f(v) - \langle
-\grad f(v), u - v \rangle$.  Note that $\Breg_f(u,v) \ge 0$ for any $u,v$ which
-follows directly from the definition of convexity of $f$.
+\subsection{Convex Analysis}
+
+The \emph{Bregman divergence} of a convex differentiable function $f$ is
+defined as $\Breg_f(u,v) = f(u) - f(v) - \langle \grad f(v), u - v \rangle$.
+Note that $\Breg_f(u,v) \ge 0$ for any $u,v$ which follows directly from the
+definition of convexity of $f$.
 
 The \emph{Fenchel conjugate} of a function $f:K \to \R$ is the function
 $f^*:V^* \to \R \cup \{+\infty\}$ defined as $f^*(\ell) = \sup_{w \in K} \left(
 \langle \ell, w \rangle - f(w) \right)$.  The Fenchel conjugate of any function
-is convex (since it is a supremum of affine functions) and satisfies for all $w
-\in K$ and all $\ell \in V^*$  the \emph{Fenchel-Young inequality}
-$
-f(w) + f^*(\ell) \ge \langle \ell, w \rangle
-$.
+is convex (since it is a supremum of affine functions) and satisfies
+ the \emph{Fenchel-Young inequality}
+$$
+\text{$\forall w \in K$, $\forall \ell \in V^*$} \qquad
+f(w) + f^*(\ell) \ge \langle \ell, w \rangle \; .
+$$
 
 Monotonicity of Fenchel conjugates follows easily from the definition: If
 $f,g:K \to \R$ satisfy $f(w) \le g(w)$ for all $w \in K$ then $f^*(\ell) \ge
@@ -69,16 +72,18 @@ Let $\lambda > 0$, and let $f:K \to \R$ be a lower semi-continuous function
 that is $\lambda$-strongly convex with respect to $\|\cdot\|$.
 The Fenchel conjugate of $f$ satisfies:
 \begin{enumerate}
+
 \item $f^*$ is finite everywhere and differentiable.
-\item $\grad f^*(\ell) = \argmin_{w \in K} \left( f(w) - \langle \ell, w \rangle \right)$
-\item For any $\ell \in V^*$,
-$f^*(\ell) + f(\grad f^*(\ell)) = \langle \ell, \grad f^*(\ell) \rangle$.
-\item $f^*$ is $\frac{1}{\lambda}$-strongly smooth i.e. for any $x,y \in V^*$,
-$\Breg_{f^*}(x, y) \le \frac{1}{2\lambda} \|x - y\|_*^2$.
+
+\item For any $\ell \in V^*$, $\grad f^*(\ell) = \argmin_{w \in K} \left( f(w) - \langle \ell, w \rangle \right)$
+
+\item For any $\ell \in V^*$, $f^*(\ell) + f(\grad f^*(\ell)) = \langle \ell, \grad f^*(\ell) \rangle$.
+
+\item $f^*$ is $\frac{1}{\lambda}$-strongly smooth i.e. for any $x,y \in V^*$, $\Breg_{f^*}(x, y) \le \frac{1}{2\lambda} \|x - y\|_*^2$.
 
 \item $f^*$ has $\frac{1}{\lambda}$-Lipschitz continuous gradients i.e.
-$\|\grad f^*(x) - \grad f^*(y)\| \le \frac{1}{\lambda} \|x - y\|_*$
-for any $x,y \in V^*$.
+for any $x,y \in V^*$,
+$\|\grad f^*(x) - \grad f^*(y)\| \le \frac{1}{\lambda} \|x - y\|_*$.
 
 \item $\Breg_{f^*}(x,y) \le D\|x-y\|_*$ for any $x,y \in V^*$.
 
@@ -93,16 +98,13 @@ in~\cite{Shalev-Shwartz-2007}.  Property 6 is proven in
 Appendix~\ref{section:definitions-proofs}. Property 7 trivially follows from
 property 2.
 
-
-%\label{section:generic-ftrl}
-
 \begin{algorithm}[t]
 \caption{\textsc{FTRL with Varying Regularizer}}
 \label{algorithm:ftrl-varying-regularizer}
 \begin{algorithmic}[1]
-\REQUIRE Sequence of regularizers $\{R_t\}_{t=1}^\infty$
 \STATE Initialize $L_0 \leftarrow 0$
 \FOR{$t=1,2,3,\dots$}
+\STATE Choose a regularizer $R_t:K \to \R$
 \STATE $w_t \leftarrow \argmin_{w \in K} \left( \langle L_{t-1}, w \rangle + R_t(w) \right)$
 \STATE Predict $w_t$
 \STATE Observe $\ell_t \in V^*$
@@ -111,7 +113,9 @@ property 2.
 \end{algorithmic}
 \end{algorithm}
 
-\textbf{Generic FTRL with Varying Regularizer.}
+\subsection{Generic FTRL with Varying Regularizer}
+\label{section:generic-ftrl}
+
 Our scale-free online learning algorithms are versions of the \textsc{Follow
 The Regularized Leader} (FTRL) algorithm with varying regularizers, presented
 as Algorithm~\ref{algorithm:ftrl-varying-regularizer}.  The following lemma
@@ -127,6 +131,7 @@ $$
 \Regret_T(u) \le R_{T+1}(u) + R_1^*(0) + \sum_{t=1}^{T} \Breg_{R_t^*}(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t) \; .
 $$
 \end{lemma}
-%
-The lemma allows data dependent regularizers. That is, $R_t$ can depend on the past loss
-vectors $\ell_1, \ell_2, \dots, \ell_{t-1}$.
+
+\begin{proof}
+
+\end{proof}
