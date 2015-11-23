@@ -9,13 +9,13 @@ Let
 & = \langle \ell_t, w \rangle + R_t(w) - R_t(w_t) - \langle \grad R_t(w_t) , w - w_t \rangle \; .
 \end{align*}
 Then, $w_{t+1} = \argmin_{w \in K} \Psi_{t+1}(w)$. Note that $\grad \Psi_{t+1}(w) = \ell_t + \grad R_t(w) - \grad R_t(w_t)$. The optimality
-condition for $w_{t+1}$ states that $\langle \grad \Psi_{t+1}(w_{t+1}), u - w_{t+1} \rangle \ge 0$ for all $u \in K$. Written more explicitly,
+condition for $w_{t+1}$ states that $\langle \grad \Psi_{t+1}(w_{t+1}), u - w_{t+1} \rangle \ge 0$ for all $u \in K$. Written explicitly,
 $$
 \langle \ell_t + \grad R_t(w_{t+1}) - \grad R_t(w_t), u - w_{t+1} \rangle \ge 0 \; .
 $$
 Adding $\langle \ell_t, w_{t+1} - w_t \rangle$ to both sides and rearranging, we have
 \begin{align*}
-\langle \ell_t, w_t - u \rangle 
+\langle \ell_t, w_t - u \rangle
 & \le \langle \grad R_t(w_{t+1}) - \grad R_t(w_t), u - w_{t+1} \rangle  + \langle \ell_t, w_t - w_{t+1} \rangle \\
 & = \langle \ell_t, w_t - w_{t+1} \rangle - \Breg_{R_t}(w_{t+1}, w_t) + \Breg_{R_t}(u,w_t) - \Breg_{R_t}(u, w_{t+1}) \; .
 \end{align*}
@@ -24,7 +24,8 @@ Summing over all $t=1,2,\dots,T$ we get the final regret bound.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{theorem:regret-scale-free-mirror-descent}]
-Let $\eta_t = \frac{1}{\sqrt{\sum_{s=1}^t \|\ell_s\|_*^2}}$. Hence $R_t(w) = \frac{1}{\eta_t} R(w)$.
+Let $\eta_t = \frac{1}{\sqrt{\sum_{s=1}^t \|\ell_s\|_*^2}}$. We define $\eta_0 = +\infty$ and $1/\eta_0 = 0$.
+Hence $R_t(w) = \frac{1}{\eta_t} R(w)$.
 Since $R_t$ is $\frac{\lambda}{\eta_t}$-strongly convex, we have
 \begin{align*}
 \langle \ell_t, w_t - w_{t+1} \rangle - D_{R_t}(w_{t+1}, w_t)
@@ -112,7 +113,7 @@ w_{t,1} \le 1$ and $w_{t,1} \ge 0$ and $w_{t,2} \ge 0$, the inequality $w_{t,1}/
 $$
 w_{t,2} \le \frac{1}{5} \qquad \qquad \text{(for any $t \ge \lceil T/3 \rceil + 1$)}.
 $$
-Now, for $T \ge 120$,
+Now, we lower bound the regret. Since $T \ge 120$,
 \begin{align*}
 \Regret_T
 & \ge \Regret_T(e_2) \\
