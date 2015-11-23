@@ -28,14 +28,17 @@ not differentiable\footnote{Note that this can happen even when $R_t$ is a
 restriction of a differentiable function defined on a superset of $K$.  If $K$
 is bounded and closed, $R_t$ fails to be differentiable at the boundary of $K$.
 If $K$ is a subset of an affine subspace of a dimension smaller than the
-dimension of $V$, then $R_t$ fails to be differentiable everywhere.}, to define
-Bregman divergence, $\Breg_{R_t}(u,v) = R(u) - R(v) - \langle \grad R(v), u - v
-\rangle$, the algorithm has to choose together with $R_t$ a subgradient map
-$\grad R_t:K \to V$.  If $R_t$ is a restriction of a differentiable function
+dimension of $V$, then $R_t$ fails to be differentiable everywhere.}, Bregman
+divergence, $\Breg_{R_t}(u,v) = R(u) - R(v) - \langle \grad R(v), u - v
+\rangle$ needs to be defined. This is done by choosing a subgradient map $\grad
+R_t:K \to V$, i.e. a function such that $\grad R_t(w)$ is a subgradient of
+$R_t$ at a point $w$. If $R_t$ is a restriction of a differentiable function
 $R'_t$, it is convenient to define $\grad R_t(w) = \grad R'_t(w)$ for all $w
-\in K$. The following lemma bounds regret of \textsc{Mirror Descent}.
+\in K$. The following lemma bounds regret of \textsc{Mirror Descent}.  Proof
+can be found in~\ref{section:mirror-descent-proofs}.
 
 \begin{lemma}[Regret of Mirror Descent]
+\label{lemma:mirror-descent-regret}
 Algorithm~\ref{algorithm:mirror-descent-varying-regularizer} satisfies, for any
 $u \in K$,
 $$
@@ -59,7 +62,7 @@ Descent} for any bounded $K$ with regularizers
 $$
 R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} \!\!\!\! w
 \qquad \text{and} \qquad
-R_t(w) = \frac{1}{2} \sum_{j=1}^d w_j^2 \sqrt{ \sum_{i=1}^t \ell_{i,j}^2} \; .
+R_t(w) = \frac{1}{2} \sum_{j=1}^d w_j^2 \sqrt{ \sum_{i=1}^t \ell_{i,j}^2}
 $$
 respectively. When $d=1$, both algorithms are equivalent to
 \begin{equation}
@@ -67,20 +70,20 @@ respectively. When $d=1$, both algorithms are equivalent to
 R_t(w) = \frac{\|w\|_2^2}{2} \sqrt{\sum_{i=1}^t \|\ell_i\|_2^2 } \; .
 \end{equation}
 All three sequences of regularizers give a scale-free algorithm. Regularizer
-\eqref{equation:ada-grad} can be viewed as a scale-free generalization of
-Zinkevich's GIGA algorithm; in particular, when $\|\ell_i\|_2 = 1$ for all $i$,
+\eqref{equation:ada-grad-regularizer} can be viewed as a scale-free generalization of
+Zinkevich's GIGA algorithm. In particular, when $\|\ell_i\|_2 = 1$ for all $i$,
 \textsc{Mirror Descent} with regularizer \eqref{equation:ada-grad-regularizer}
 coincides with GIGA.
 
 \textsc{Exponentially-Weighted Average Forecaster}~\cite[Chapter
 2]{Cesa-Bianchi-Lugosi-2006} with constant learning rate $\eta$ for the problem
 of prediction with expert advice is an instance of \textsc{Mirror Descent} for
-the probability simplex $K = \{ w \in \R^d ~:~ w_i \ge 0, \sum_{i=1}^d w_i = 0
-\}$ with negative entropy regularizer $R_t(w) = \frac{1}{\eta} \sum_{i=1}^d w_i
-\ln w_i$ where $R_t:K \to \R$. Note that this algorithm is \emph{not}
+the probability simplex $K = \{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1
+\}$ with negative entropy regularizer $R_t(w) = \frac{1}{\eta} \sum_{j=1}^d w_j
+\ln w_j$ where $R_t:K \to \R$. Note that this algorithm is \emph{not}
 scale-free.
 
-Replacing $\frac{1}{2}\|w\|_2^2$ in equation $\label{equation:ada-grad}$ with
+Replacing $\frac{1}{2}\|w\|_2^2$ in equation \eqref{equation:ada-grad-regularizer} with
 an arbitrary convex function $R:K \to \R$ yields
 \begin{equation}
 \label{equation:scale-free-mirror-descent}
@@ -89,6 +92,7 @@ R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2} \; .
 We call the resulting algorithm \textsc{Scale-Free Mirror Descent} with
 regularizer $R$.  Generalizing existing regret bound for
 \textsc{AdaGrad}~\cite{Duchi-Hazan-Singer-2011} we can upper bound its regret.
+Proof can be found in~\ref{section:mirror-descent-proofs}.
 
 \begin{theorem}[Regret of Scale-Free Mirror Descent]
 \label{theorem:regret-scale-free-mirror-descent}
@@ -154,24 +158,24 @@ $$
 $$
 \end{theorem}
 
-The second counter-example is as Theorem~\ref{theorem:second-counter-example}
+The second counter-example is stated as Theorem~\ref{theorem:second-counter-example}
 below.  The decision set is the $d$-dimensional probability simplex $K = \{ w
-\in \R^d ~:~ w_i \ge 0, \sum_{i=1}^d w_i = 0 \}$ and the regularizer is the
-negative entropy $R(w) = \sum_{i=1}^d w_i \ln w_i$.  Negative entropy is
+\in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}$ and the regularizer is the
+negative entropy $R(w) = \sum_{j=1}^d w_j \ln w_j$.  Negative entropy is
 $1$-strongly convex with respect to $\|\cdot\|_1$ and the dual norm of
 $\|\cdot\|_1$ is \mbox{$\|\cdot\|_\infty$}.  The corresponding Bregman
-divergence is the Kullback-Leibler divergence $\Breg_R(u,v) = \sum_{i=1}^d u_i
-\ln(u_i/v_i)$.  Note that despite that negative entropy is upper- and
+divergence is the Kullback-Leibler divergence $\Breg_R(u,v) = \sum_{j=1}^d u_j
+\ln(u_j/v_j)$.  Note that despite that negative entropy is upper- and
 lower-bounded, Kullback-Leibler divergence is not.
 
 \begin{theorem}[Second Counter-Example]
 \label{theorem:second-counter-example}
-Let $d \ge 2$ and let $K = \{ w \in \R^d ~:~ w_i \ge 0, \sum_{i=1}^d w_i = 0 \}
+Let $d \ge 2$ and let $K = \{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}
 \subseteq V$ be the $d$-dimensional probability simplex.  For any $T \ge 120$
 there exists a sequence of loss vectors $\ell_1, \ell_2, \dots, \ell_T \in V^*$
 such that $\|\ell_1\|_\infty = \|\ell_2\|_\infty = \dots = \|\ell_T\|_\infty =
-1$ and \textsc{Scale-Free Mirror Descent} with regularizer $R(w) = \sum_{i=1}^d
-w_i \ln w_i$ satisfies
+1$ and \textsc{Scale-Free Mirror Descent} with regularizer $R(w) = \sum_{j=1}^d
+w_j \ln w_j$ satisfies
 $$
 \Regret_T \ge \frac{T}{6} \; .
 $$

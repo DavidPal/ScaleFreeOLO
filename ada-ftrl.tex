@@ -22,14 +22,15 @@ The sequence $\{\Delta_t\}_{t=0}^\infty$ is non-negative and non-decreasing.
 Also, $\Delta_t$ as a function of $\{\ell_s\}_{s=1}^t$ is positive homogenous
 of degree one, making the algorithm scale-free.
 
-If $\Delta_{i-1} = 0$, we define 
-$\Delta_{i-1} \Breg_{R^*}(\frac{-L_i}{\Delta_{i-1}}, \frac{-L_{i-1}}{\Delta_{i-1}})$ 
-as $\lim_{a \to 0^+} a \Breg_{R^*}(\frac{-L_i}{a}, \frac{-L_{i-1}}{a})$ which always exists and is
-finite; see Appendix~\ref{section:limits}.  Similarly, when $\Delta_{t-1} = 0$, we
-define $w_t = \argmin_{w \in K} \langle L_{t-1}, w \rangle$ where ties among
-minimizers are broken by taking the one with the smallest value of $R(w)$,
-which is unique due to strong convexity; this is the same as $w_t = \lim_{a \to
-0^+} \argmin_{w \in K} (\langle L_{t-1}, w \rangle + aR(w))$.
+If $\Delta_{i-1} = 0$, we define $\Delta_{i-1}
+\Breg_{R^*}(\frac{-L_i}{\Delta_{i-1}}, \frac{-L_{i-1}}{\Delta_{i-1}})$ as
+$\lim_{a \to 0^+} a \Breg_{R^*}(\frac{-L_i}{a}, \frac{-L_{i-1}}{a})$ which
+always exists and is finite; see Appendix~\ref{section:limits}.  Similarly,
+when $\Delta_{t-1} = 0$, we define $w_t = \argmin_{w \in K} \langle L_{t-1}, w
+\rangle$ where ties among minimizers are broken by taking the one with the
+smallest value of $R(w)$, which is unique due to strong convexity; this is the
+same as $w_t = \lim_{a \to 0^+} \argmin_{w \in K} (\langle L_{t-1}, w \rangle +
+aR(w))$.
 
 Our main result is an $O(\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$ upper bound on
 the regret of the algorithm after $T$ rounds, without the need to know before
@@ -51,8 +52,7 @@ $$
 The regret bound can be optimized by choosing the optimal multiple of the
 regularizer.  Namely, we choose regularizer of the form $\lambda f(w)$ where
 $f(w)$ is $1$-strongly convex and optimize over $\lambda$. The result of the
-optimization is the following corollary.  Its proof can be found in
-Appendix~\ref{section:ada-ftrl-proof}.
+optimization is the following corollary.  Its proof can be found in~\ref{section:ada-ftrl-proofs}.
 
 \begin{corollary}[Regret Bound]
 \label{corollary:ada-ftrl-regret-bound}
@@ -115,7 +115,6 @@ $$
 $$
 \end{lemma}
 %
-Proof of the Lemma~\ref{lemma:recurrence-solution} is deferred to
-Appendix~\ref{section:ada-ftrl-proof}.
+Proof of the Lemma~\ref{lemma:recurrence-solution} is deferred to~\ref{section:ada-ftrl-proofs}.
 Theorem~\ref{theorem:ada-ftrl-regret-bound} follows from
 Lemmas~\ref{lemma:initial-regret-bound}~and~\ref{lemma:recurrence-solution}.

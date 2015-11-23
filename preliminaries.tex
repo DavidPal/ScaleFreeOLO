@@ -94,9 +94,9 @@ $\|\grad f^*(x) - \grad f^*(y)\| \le \frac{1}{\lambda} \|x - y\|_*$.
 \end{proposition}
 
 Except for properties 6 and 7, the proofs can be found
-in~\cite{Shalev-Shwartz-2007}.  Property 6 is proven in
-Appendix~\ref{section:definitions-proofs}. Property 7 trivially follows from
-property 2.
+in~\cite{Shalev-Shwartz-2007}.  Property 6 is proven
+in~\ref{section:definitions-proofs}. Property 7 trivially follows from property
+2.
 
 \begin{algorithm}[t]
 \caption{\textsc{FTRL with Varying Regularizer}}
@@ -121,7 +121,7 @@ The Regularized Leader} (FTRL) algorithm with varying regularizers, presented
 as Algorithm~\ref{algorithm:ftrl-varying-regularizer}.  The following lemma
 bounds its regret.
 
-\begin{lemma}[Lemma 1 in \cite{Orabona-Crammer-Cesa-Bianchi-2014}]
+\begin{lemma}[Regret of Follow The Regularized Leader]
 \label{lemma:generic-regret-bound}
 For any sequence $\{R_t\}_{t=1}^\infty$ of strongly convex lower
 semi-continuous regularizers, regret of
@@ -132,6 +132,5 @@ $$
 $$
 \end{lemma}
 
-\begin{proof}
-
-\end{proof}
+Proof of the lemma can be found in~\cite{Orabona-Crammer-Cesa-Bianchi-2014}. For completeness,
+we include it in~\ref{section:definitions-proofs}.

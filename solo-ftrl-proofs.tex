@@ -1,5 +1,16 @@
 \section{Proofs for SOLO FTRL}
-\label{section:solo-ftrl-proof}
+\label{section:solo-ftrl-proofs}
+
+\begin{proof}[Proof of Lemma~\ref{lemma:sum-of-square-roots-inverses}]
+We use the inequality $x/\sqrt{x+y} \le 2(\sqrt{x+y} - \sqrt{y})$ which holds
+for non-negative $x,y$ that are not both zero. Substituting $x = a_t$ and $y=\sum_{s=1}^{t-1} a_s$,
+we get that for any $t \ge 1$,
+$$
+\frac{a_t}{\sqrt{\sum_{s=1}^t a_s}} \le 2 \sqrt{\sum_{s=1}^t a_s} \ - \ 2 \sqrt{\sum_{s=1}^{t-1} a_s} \; .
+$$
+Summing the above inequality over all $t=1,2,\dots,T$, the right side telescopes to
+$2 \sqrt{\sum_{t=1}^T a_t}$.
+\end{proof}
 
 \begin{proof}[Proof of Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}]
 Let $S = \sup_{v \in K} f(v)$. Theorem~\ref{theorem:regret-solo-ftrl} applied

@@ -19,7 +19,8 @@ $$
 \end{proof}
 
 \begin{proof}[Proof of Property 6 of Proposition~\ref{proposition:conjugate-properties}]
-To bound $\Breg_{f^*}(x,y)$ we add a non-negative divergence term $\Breg_{f^*}(y,x)$.
+To bound $\Breg_{f^*}(x,y)$ we add a non-negative divergence term
+$\Breg_{f^*}(y,x)$.
 \begin{align*}
 \Breg_{f^*}(x, y)
 & \le \Breg_{f^*}(x,y) + \Breg_{f^*}(y,x)
@@ -28,4 +29,31 @@ To bound $\Breg_{f^*}(x,y)$ we add a non-negative divergence term $\Breg_{f^*}(y
 \le D \|x - y\|_* \; ,
 \end{align*}
 where we have used H\"older's inequality and Part 7 of the Proposition.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lemma:generic-regret-bound}]
+By Fenchel-Young inequality,
+\begin{align*}
+\sum_{t=1}^T \left( R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) \right)
+& = R_{T+1}^*(-L_T) - R_1^*(0) \\
+& \ge - \langle L_T, u \rangle - R_{T+1}(u)  - R_1^*(0) \\
+& = - R_{T+1}(u)  - R_1^*(0) - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+\end{align*}
+We add $\sum_{t=1}^T \langle \ell_t, w_t \rangle$ to both sides and we obtain
+$\Regret_T(u)$ on the right side. After rearrangement of the terms, we get an upper bound
+on the regret:
+\begin{align*}
+\Regret_T(u)
+& = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \\
+& \le R_{T+1}(u) + R_1^*(0) + \sum_{t=1}^T \left( R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, w_t \rangle \right) \; .
+\end{align*}
+By Proposition~\ref{proposition:conjugate-properties}, part 2, we have $w_t =
+\grad R_t^*(-L_{t-1})$ and therefore we can rewrite the sum in last expression as
+\begin{align*}
+& \sum_{t=1}^T R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, w_t \rangle \\
+& = \sum_{t=1}^T R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, \grad R_t^*(-L_{t-1}) \rangle \\
+& = \sum_{t=1}^T R_t^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, \grad R_t^*(-L_{t-1}) \rangle - R_t^*(-L_t) + R_{t+1}^*(-L_t) \\
+& = \sum_{t=1}^T \Breg_{R_t^*}(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t) \; .
+\end{align*}
+This finishes the proof.
 \end{proof}
