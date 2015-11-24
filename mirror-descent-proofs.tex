@@ -101,8 +101,8 @@ First, for any $t \ge \lceil T/3 \rceil + 1$,
 & = \frac{\exp(\sum_{s=1}^{\lceil T/3 \rceil} 1/\sqrt{s})}{\exp(\sum_{s=\lceil T/3 \rceil + 1}^t 1/\sqrt{s})} \\
 & \ge \frac{\exp(\sum_{s=1}^{\lceil T/3 \rceil} 1/\sqrt{s})}{\exp(\sum_{s=\lceil T/3 \rceil + 1}^T 1/\sqrt{s})} \\
 & = \exp\left(\sum_{s=1}^{\lceil T/3 \rceil} \frac{1}{\sqrt{s}} - \sum_{s=\lceil T/3 \rceil + 1}^T 1/\sqrt{s} \right) \\
-& \ge \exp\left( \int_{1}^{\lceil T/3 \rceil + 1} \frac{dx}{\sqrt{x}} - \int_{\lceil T/3 \rceil + 1}^T \frac{dx}{\sqrt{x}} \right) \\
-& = \exp\left( 2\sqrt{\lceil T/3 \rceil + 1} - 2 - (2\sqrt{T} - 2 \sqrt{\lceil T/3 \rceil + 1}) \right) \\
+& \ge \exp\left( \int_{1}^{\lceil T/3 \rceil + 1} \frac{dx}{\sqrt{x}} - \int_{\lceil T/3 \rceil}^T \frac{dx}{\sqrt{x}} \right) \\
+& = \exp\left( 2\sqrt{\lceil T/3 \rceil + 1} - 2 - (2\sqrt{T} - 2 \sqrt{\lceil T/3 \rceil}) \right) \\
 & \ge \exp\left( \left( \frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right) \\
 & \ge 4
 \end{align*}
