@@ -116,22 +116,63 @@ $\|\cdot\|$.  \textsc{Scale-Free Mirror Descent} with regularizer
 $$
 R(w) = \frac{f(w)}{\displaystyle \sqrt{\sup_{u,v \in K} \Breg_f(u,v)}}
 \quad \text{satisfies} \quad %
-\Regret_T(u) \le 2 \sqrt{\sup_{u,v \in K} \Breg_f(u,v) \sum_{t=1}^T \|\ell_t\|_*^2} \; .
+\Regret_T \le 2 \sqrt{\sup_{u,v \in K} \Breg_f(u,v) \sum_{t=1}^T \|\ell_t\|_*^2} \; .
 $$
 \end{corollary}
+
+The regret bound for \textsc{Scale-Free Mirror Descent}
+in the Corollary~\ref{corollary:regret-scale-free-mirror-descent}
+depends on $\sup_{u,v \in K} \Breg_f(u,v)$. In contrast,
+the regret bounds for \textsc{AdaFTRL} and \textsc{SOLO FTRL}
+in Corollaries~\ref{corollary:ada-ftrl-regret-bound}~and~\ref{corollary:regret-solo-ftrl-bounded-set}
+depend on $\sup_{u \in K} f(u)$.
+Similarly, regret bound in Theorem~\ref{theorem:regret-scale-free-mirror-descent} for
+\textsc{Scale-Free Mirror Descent} depends on $\sup_{v \in K} \Breg_R(u,v)$ and
+regret bounds in Theorems~\ref{theorem:ada-ftrl-regret-bound}~and~\ref{theorem:regret-solo-ftrl}
+for \textsc{AdaFTRL} and \textsc{SOLO FTRL} depend on $R(u)$. It is not hard to show that
+$$
+\forall u \in K \qquad R(u) \le \sup_{v \in K} \Breg_R(u,v)
+$$
+provided that at the minimizer $v^* = \argmin_{v \in K} R(v)$ both $R(v^*)$ and
+$\grad R(v^*)$ are zero. Indeed, in that case, $R(u) = \Breg_R(u,v^*) \le
+\sup_{v \in K} \Breg_R(u,v)$.
+
+The assumption $R(v^*) = 0$ and $\grad R(v^*) = 0$
+are easy to achieve by adding an affine function to the regularizer:
+$$
+R'(u) = R(u) - \langle \grad R(v^*), u - v^* \rangle - R(v^*) \; .
+$$
+The regularizer $R'$ has the same parameter of strong convexity as $R$, the
+associated Bregman divergences $D_{R'}$ and $D_{R}$ are equal, $R$ and $R'$
+have the same minimizer $v^*$, and $R'(v^*)$ and $\grad R'(v^*)$ are both zero.
+
+Thus, ignoring constant factors, regret bound for \textsc{Scale-Free Mirror
+Descent} is worse than the regret bounds for \textsc{AdaFTRL} and \textsc{SOLO
+FTRL}.  In fact, there are examples where $R(u)$ is finite whereas $\sup_{v \in
+K} \Breg_R(u,v)$ is infinite. We mention two examples. The first example is $R(w) =
+\frac{1}{2}\|w\|_2^2$ defined on the whole space $V$, where for any $u \in V$,
+$R(u)$ is a finite value but $\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in V}
+\frac{1}{2}\|u-v\|_2^2 = +\infty$. The second example is the negative entropy
+regularizer $R(w) = \ln d  + \sum_{j=1}^d w_j \ln w_j$ defined on the
+$d$-dimensional probability simplex $K = \{ w \in \R^d ~:~ w_j \ge 0,
+\sum_{j=1}^d w_j = 1 \}$, where for any $u \in K$, $R(u)$ is finite and in fact
+lies in the interval $[-\ln d, 0]$ but $\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in K}
+\sum_{j=1}^d u_j \ln(u_j/v_j) = + \infty$. We return to these examples in the
+following subsection.
 
 \subsection{Lower Bounds}
 
 The bounds in Theorem~\ref{theorem:regret-scale-free-mirror-descent} and
 Corollary~\ref{corollary:regret-scale-free-mirror-descent} are vacuous when
 $\Breg_R(u,v)$ is not bounded. One might wonder if the assumption that
-$\Breg_R(u,v)$ is bounded is necessary. We show necessity of this assumption on
+$\Breg_R(u,v)$ is bounded is necessary in order for \textsc{Scale-Free Mirror Descent}
+to have a ``small'' regret. We show necessity of this assumption on
 two counter-examples.  In these
 counter-examples, we consider strongly convex regularizers $R$ such that
 $\Breg_R(u,v)$ is not bounded and we construct sequences of loss vectors
 $\ell_1, \ell_2, \dots, \ell_T$ such that $\|\ell_1\|_* = \|\ell_2\|_* = \dots
-= \|\ell_T\|_* = 1$ and \textsc{Scale-Free Mirror Descent} has $\Omega(T)$ or
-worse regret.
+= \|\ell_T\|_* = 1$ and \textsc{Scale-Free Mirror Descent} has regret
+$\Omega(T)$ or worse.
 
 The first counter-example is stated as
 Theorem~\ref{theorem:first-counter-example} below. The decision set is the
