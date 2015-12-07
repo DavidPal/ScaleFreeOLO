@@ -35,7 +35,8 @@ R_t:K \to V$, i.e. a function such that $\grad R_t(w)$ is a subgradient of
 $R_t$ at a point $w$. If $R_t$ is a restriction of a differentiable function
 $R'_t$, it is convenient to define $\grad R_t(w) = \grad R'_t(w)$ for all $w
 \in K$. The following lemma bounds regret of \textsc{Mirror Descent}.  Proof
-can be found in~\ref{section:mirror-descent-proofs}.
+can be found in~\cite{Rakhlin-Sridharan-2009,Duchi-Shalev-Shwartz-Singer-Tewari-2010}.
+For completeness we give a proof in~\ref{section:mirror-descent-proofs}.
 
 \begin{lemma}[Regret of Mirror Descent]
 \label{lemma:mirror-descent-regret}
@@ -92,7 +93,9 @@ R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2} \; .
 We call the resulting algorithm \textsc{Scale-Free Mirror Descent} with
 regularizer $R$.  Generalizing existing regret bound for
 \textsc{AdaGrad}~\cite{Duchi-Hazan-Singer-2011} we can upper bound its regret.
-Proof can be found in~\ref{section:mirror-descent-proofs}.
+Proof is a generalization of the proof
+of~\cite{Duchi-Shalev-Shwartz-Singer-Tewari-2010,Duchi-Hazan-Singer-2011} and
+it can be found can be found in~\ref{section:mirror-descent-proofs}.
 
 \begin{theorem}[Regret of Scale-Free Mirror Descent]
 \label{theorem:regret-scale-free-mirror-descent}

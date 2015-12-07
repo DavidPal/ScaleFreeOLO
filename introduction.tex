@@ -64,7 +64,7 @@ guarantee that depends on $b$ rather than on $B$.
 \textsc{AdaHedge} \cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} & Probability Simplex & Negative Entropy & \textbf{Yes} \\ \hline
 \textsc{Optimistic MD} \cite{Rakhlin-Sridharan-2013} & $\sup_{u,v \in K} \Breg_f(u,v) < \infty$ & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
 \textsc{NAG} \cite{Ross-Mineiro-Langford-2013} & $\{u: \max_t \langle \ell_t, u\rangle \leq C\}$ & $\frac{1}{2}\|w\|_2^2 $& Partially\footnotemark \\ \hline
-\textsc{Scale invariant algorithms} \cite{Orabona-Crammer-Cesa-Bianchi-2014} & \textbf{Any} & $\frac{1}{2}\|w\|_p^2 + $ any convex func. \newline $1<p\leq2$ & Partially\textsuperscript{\ref{footnote-label}} \\ \hline
+\textsc{Scale invariant algorithms} \cite{Orabona-Crammer-Cesa-Bianchi-2014} & \textbf{Any} & $\frac{1}{2}\|w\|_p^2 + $ any convex func. \newline $1 < p \le 2$ & Partially\textsuperscript{\ref{footnote-label}} \\ \hline
 \textsc{AdaFTRL} \textbf{[this paper]} & Any Bounded & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
 \textsc{SOLO FTRL} \textbf{[this paper]} & \textbf{Any} & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
 \end{tabular}
@@ -73,8 +73,9 @@ guarantee that depends on $b$ rather than on $B$.
 }
 \end{table}
 
-\footnotetext{\label{footnote-label} These algorithms attempt to produce an invariant sequence of predictions $\langle w_t, \ell_t \rangle$, rather than a sequence of invariant $w_t$.}
-
+\footnotetext{\label{footnote-label} These algorithms attempt to produce an
+invariant sequence of predictions $\langle w_t, \ell_t \rangle$, rather than a
+sequence of invariant $w_t$.}
 
 There is a clear practical need to design algorithms that adapt automatically
 to norms of the loss vectors.  A natural, yet overlooked, design method to
