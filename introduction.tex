@@ -11,16 +11,21 @@ is the difference of cumulative losses of the algorithm and of the
 hindsight.
 
 OLO is a fundamental problem in machine
-learning~\cite{Cesa-Bianchi-Lugosi-2006,Shalev-Shwartz-2011}.  Many learning
-problems can be directly phrased as OLO, e.g., learning with expert
-advice~\cite{Littlestone-Warmuth-1994,Vovk-1998,Cesa-Bianchi-Haussler-Helmbold-Schapire-Warmuth-1997}, online combinatorial
-optimization~\cite{Koolen-Warmuth-Kivinen-2010}. Other
-problems can be reduced to OLO, e.g. online convex
-optimization~\cite[Chapter~2]{Shalev-Shwartz-2011}, online classification and
-regression~\cite[Chapters~11~and~12]{Cesa-Bianchi-Lugosi-2006}, multi-armed
-problems~\cite[Chapter~6]{Cesa-Bianchi-Lugosi-2006}, and batch and stochastic
-optimization of convex functions~\cite{Nemirovski-Yudin-1983}.  Hence, a result in OLO
-immediately implies other results in all these domains.
+learning~\cite{Cesa-Bianchi-Lugosi-2006, Rakhlin-Sridharan-2009,
+Shalev-Shwartz-2011}.  Many learning problems can be directly phrased as OLO,
+e.g., learning with expert advice~\cite{Littlestone-Warmuth-1994, Vovk-1998,
+Freund-Schapire-1997, Cesa-Bianchi-Haussler-Helmbold-Schapire-Warmuth-1997},
+online combinatorial optimization~\cite{Kalai-Vempala-2005,
+Helmbold-Warmuth-2009, Koolen-Warmuth-Kivinen-2010}. Other problems can be
+reduced to OLO, e.g. online convex
+optimization~\cite[Chapter~2]{Shalev-Shwartz-2011}, online classification
+~\cite{Rosenblatt-1958,Freund-Schapire-1999} and
+regression~\cite{Kivinen-Warmuth-1997},
+~\cite[Chapters~11~and~12]{Cesa-Bianchi-Lugosi-2006}, multi-armed
+problems~\cite[Chapter~6]{Cesa-Bianchi-Lugosi-2006},
+\cite{Bubeck-Cesa-Bianchi-2012}, and batch and stochastic optimization of
+convex functions~\cite{Nemirovski-Yudin-1983, Bubeck-2015}.  Hence, a result in
+OLO immediately implies other results in all these domains.
 
 The adversarial choice of the loss vectors received by the algorithm is what
 makes the OLO problem challenging. In particular, if an OLO algorithm commits
@@ -50,7 +55,7 @@ guarantee that depends on $b$ rather than on $B$.
 \begin{tabular}{|p{3.6cm}|c|p{3.4cm}|c|}
 \hline
 \textbf{Algorithm} & \textbf{Decisions Set(s)} & \textbf{Regularizer(s)} & \textbf{Scale-Free} \\ \hline \hline
-\textsc{Hedge} \cite{Freund-Schapire-1999} & Probability Simplex & Negative Entropy & No \\ \hline
+\textsc{Hedge} \cite{Freund-Schapire-1997} & Probability Simplex & Negative Entropy & No \\ \hline
 \textsc{GIGA} \cite{Zinkevich-2003} & Any Bounded & $\frac{1}{2}\|w\|_2^2$ & No \\ \hline
 \textsc{RDA} \cite{Xiao-2010} & \textbf{Any} & \textbf{Any Strongly Convex} & No \\ \hline
 \textsc{FTRL-Proximal} \cite{McMahan-Streeter-2010,McMahan-2014} & Any Bounded & $\frac{1}{2}\|w\|_2^2 + $ any convex func. & \textbf{Yes} \\ \hline
