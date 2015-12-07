@@ -133,9 +133,10 @@ Similarly, regret bound in Theorem~\ref{theorem:regret-scale-free-mirror-descent
 \textsc{Scale-Free Mirror Descent} depends on $\sup_{v \in K} \Breg_R(u,v)$ and
 regret bounds in Theorems~\ref{theorem:ada-ftrl-regret-bound}~and~\ref{theorem:regret-solo-ftrl}
 for \textsc{AdaFTRL} and \textsc{SOLO FTRL} depend on $R(u)$. It is not hard to show that
-$$
+\begin{equation}
+\label{equation:regularizer-vs-divergence}
 \forall u \in K \qquad R(u) \le \sup_{v \in K} \Breg_R(u,v)
-$$
+\end{equation}
 provided that at the minimizer $v^* = \argmin_{v \in K} R(v)$ both $R(v^*)$ and
 $\grad R(v^*)$ are zero. Indeed, in that case, $R(u) = \Breg_R(u,v^*) \le
 \sup_{v \in K} \Breg_R(u,v)$.
@@ -146,22 +147,24 @@ $$
 R'(u) = R(u) - \langle \grad R(v^*), u - v^* \rangle - R(v^*) \; .
 $$
 The regularizer $R'$ has the same parameter of strong convexity as $R$, the
-associated Bregman divergences $D_{R'}$ and $D_{R}$ are equal, $R$ and $R'$
-have the same minimizer $v^*$, and $R'(v^*)$ and $\grad R'(v^*)$ are both zero.
+associated Bregman divergences $\Breg_{R'}$ and $\Breg_{R}$ are equal, $R'$ and
+$R$ have the same minimizer $v^*$, and $\grad R'(v^*)$ and $\grad R'(v^*)$ are
+both zero.
 
-Thus, ignoring constant factors, regret bound for \textsc{Scale-Free Mirror
-Descent} is worse than the regret bounds for \textsc{AdaFTRL} and \textsc{SOLO
-FTRL}.  In fact, there are examples where $R(u)$ is finite whereas $\sup_{v \in
-K} \Breg_R(u,v)$ is infinite. We mention two examples. The first example is $R(w) =
-\frac{1}{2}\|w\|_2^2$ defined on the whole space $V$, where for any $u \in V$,
-$R(u)$ is a finite value but $\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in V}
-\frac{1}{2}\|u-v\|_2^2 = +\infty$. The second example is the negative entropy
-regularizer $R(w) = \ln d  + \sum_{j=1}^d w_j \ln w_j$ defined on the
-$d$-dimensional probability simplex $K = \{ w \in \R^d ~:~ w_j \ge 0,
-\sum_{j=1}^d w_j = 1 \}$, where for any $u \in K$, $R(u)$ is finite and in fact
-lies in the interval $[-\ln d, 0]$ but $\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in K}
-\sum_{j=1}^d u_j \ln(u_j/v_j) = + \infty$. We return to these examples in the
-following subsection.
+Thus, \eqref{equation:regularizer-vs-divergence} implies that ignoring constant
+factors, regret bound for \textsc{Scale-Free Mirror Descent} is \emph{not}
+better and possibly worse than the regret bounds for \textsc{AdaFTRL} and
+\textsc{SOLO FTRL}.  In fact, it is not hard to come up with examples where
+$R(u)$ is finite whereas $\sup_{v \in K} \Breg_R(u,v)$ is infinite. We mention
+two such examples. The first example is $R(w) = \frac{1}{2}\|w\|_2^2$ defined
+on the whole space $V$, where for any $u \in V$, $R(u)$ is a finite value but
+$\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in V} \frac{1}{2}\|u-v\|_2^2 =
++\infty$. The second example is the negative entropy regularizer $R(w) = \ln d
++ \sum_{j=1}^d w_j \ln w_j$ defined on the $d$-dimensional probability simplex
+$K = \{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}$, where for any $u
+\in K$, $R(u)$ is finite and in fact lies in the interval $[-\ln d, 0]$ but
+$\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in K} \sum_{j=1}^d u_j \ln(u_j/v_j) = +
+\infty$. We return to these examples in the following subsection.
 
 \subsection{Lower Bounds}
 
@@ -210,12 +213,12 @@ $1$-strongly convex with respect to $\|\cdot\|_1$ and the dual norm of
 $\|\cdot\|_1$ is \mbox{$\|\cdot\|_\infty$}.  The corresponding Bregman
 divergence is the Kullback-Leibler divergence $\Breg_R(u,v) = \sum_{j=1}^d u_j
 \ln(u_j/v_j)$.  Note that despite that negative entropy is upper- and
-lower-bounded, Kullback-Leibler divergence is not.
+lower-bounded, Kullback-Leibler divergence is unbounded from above.
 
 \begin{theorem}[Second Counter-Example]
 \label{theorem:second-counter-example}
-Let $d \ge 2$ and let $K = \{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}
-\subseteq V$ be the $d$-dimensional probability simplex.  For any $T \ge 120$
+Let $d \ge 2$, let $V = \R^d$, and let $K = \{ w \in V ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}$
+be the $d$-dimensional probability simplex.  For any $T \ge 120$
 there exists a sequence of loss vectors $\ell_1, \ell_2, \dots, \ell_T \in V^*$
 such that $\|\ell_1\|_\infty = \|\ell_2\|_\infty = \dots = \|\ell_T\|_\infty =
 1$ and \textsc{Scale-Free Mirror Descent} with regularizer $R(w) = \sum_{j=1}^d
