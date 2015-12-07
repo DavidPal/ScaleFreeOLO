@@ -37,7 +37,7 @@ For this reason, most of the existing OLO algorithms receive as an input---or
 explicitly assume---an upper bound $B$ on the norm of the loss vectors.  The
 input $B$ is often disguised as the learning rate, the regularization
 parameter, or the parameter of strong convexity of the regularizer. Examples of
-such algorithms include the Hedge algorithm or online projected gradient
+such algorithms include the \textsc{Hedge} algorithm or online projected gradient
 descent with fixed learning rate.  However, these algorithms have two obvious
 drawbacks.
 
@@ -86,10 +86,10 @@ if the sequence of loss vectors is multiplied by a positive constant.
 A summary of algorithms for OLO is presented in Table~\ref{table:results}.
 While the scale-free property has been looked at in the expert setting, in the
 general OLO setting this issue has been largely ignored.  In particular, the
-AdaHedge~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} algorithm, for
+\textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} algorithm, for
 prediction with expert advice, is specifically designed to be scale-free.  A
 notable exception in the OLO literature is the discussion of the ``off-by-one''
-issue in~\cite{McMahan-2014}, where it is explained that even the popular AdaGrad
+issue in~\cite{McMahan-2014}, where it is explained that even the popular \textsc{AdaGrad}
 algorithm~\cite{Duchi-Hazan-Singer-2011} is not completely adaptive; see also
 our discussion in Section~\ref{section:solo-ftrl}. In particular, existing
 scale-free algorithms cover only some norms/regularizers and \emph{only}
@@ -105,14 +105,14 @@ the loss vectors.
 
 The contribution of this paper is twofold. First, in
 Section~\ref{section:ada-ftrl} we show that the analysis and design of
-AdaHedge can be generalized to the OLO scenario and to any strongly convex
+\textsc{AdaHedge} can be generalized to the OLO scenario and to any strongly convex
 regularizer, in an algorithm we call \textsc{AdaFTRL}, providing a new and
 rather interesting way to adapt the learning rates to have scale-free
 algorithms.  Second, in Section~\ref{section:solo-ftrl} we propose a new and
 simple algorithm, \textsc{SOLO FTRL}, that is scale-free and is the
 \textbf{first} scale-free online algorithm for unbounded sets with a
-non-vacuous regret bound.  Both algorithms are instances of Follow The
-Regularized Leader (FTRL) with an adaptive learning rate.  Moreover, our
+non-vacuous regret bound.  Both algorithms are instances of \textsc{Follow The
+Regularized Leader} (\textsc{FTRL}) with an adaptive learning rate.  Moreover, our
 algorithms show that scale-free algorithms can be obtained in a ``native'' and
 simple way, i.e.  without using ``doubling tricks'' that attempt to fix poorly
 designed algorithms rather than directly solving the problem.

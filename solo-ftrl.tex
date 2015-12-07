@@ -1,7 +1,7 @@
-\section{SOLO FTRL}
+\section{\textsc{SOLO FTRL}}
 \label{section:solo-ftrl}
 
-The closest algorithm to a scale-free one in the OLO literature is the AdaGrad
+The closest algorithm to a scale-free one in the OLO literature is the \textsc{AdaGrad}
 algorithm~\cite{Duchi-Hazan-Singer-2011}.  It uses a regularizer on each
 coordinate of the form
 \begin{equation*}
@@ -12,8 +12,8 @@ $\delta=0$.  Unfortunately, the regret bound in~\cite{Duchi-Hazan-Singer-2011}
 becomes vacuous for such setting in the unbounded case. In fact, it requires
 $\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
 knowledge of the future (see Theorem~5 in~\cite{Duchi-Hazan-Singer-2011}). In
-other words, despite of its name, AdaGrad is not fully adaptive to the norm of
-the loss vectors. Identical considerations hold for the FTRL-Proximal in
+other words, despite of its name, \textsc{AdaGrad} is not fully adaptive to the norm of
+the loss vectors. Identical considerations hold for the \textsc{FTRL-Proximal} in
 \cite{McMahan-Streeter-2010,McMahan-2014}: the scale-free setting of the
 learning rate is valid only in the bounded case.
 
@@ -28,7 +28,7 @@ lack of space, we cannot include the regret bound for the doubling trick
 version. It would be exactly the same as in
 Theorem~\ref{theorem:regret-solo-ftrl}, following a similar analysis, but with
 the additional parameter of the doubling power.}, such strategy would give the
-feeling that FTRL needs to be ``fixed'' in order to obtain a scale-free
+feeling that \textsc{FTRL} needs to be ``fixed'' in order to obtain a scale-free
 algorithm.
 
 In the following, we propose a much simpler and better approach.  We propose to
@@ -49,7 +49,7 @@ Suppose $K \subseteq V$ is a non-empty closed convex subset.  Let $D =
 \sup_{u,v \in K} \|u - v\|$ be its diameter with respect to a norm $\|\cdot\|$.
 Suppose that the regularizer $R:K \to \R$ is a non-negative lower
 semi-continuous function that is $\lambda$-strongly convex with respect to
-$\|\cdot\|$. The regret of SOLO FTRL satisfies
+$\|\cdot\|$. The regret of \textsc{SOLO FTRL} satisfies
 \begin{align*}
 \Regret_T(u)
 & \le \left( R(u) + \frac{2.75}{\lambda}\right) \sqrt{\sum_{t=1}^{T} \norm{\ell_t}_*^2}
@@ -62,7 +62,7 @@ choose $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex function and
 optimize $\lambda$.  The result of the optimization is
 Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}; the proof is
 in~\ref{section:solo-ftrl-proofs}.  It is similar to
-Corollary~\ref{corollary:ada-ftrl-regret-bound} for AdaFTRL. The scaling
+Corollary~\ref{corollary:ada-ftrl-regret-bound} for \textsc{AdaFTRL}. The scaling
 however is different in the two corollaries.  In
 Corollary~\ref{corollary:ada-ftrl-regret-bound}, $\lambda \sim 1/(\sup_{v \in
 K} f(v))$ while in Corollary~\ref{corollary:regret-solo-ftrl-bounded-set} we
@@ -72,7 +72,7 @@ have $\lambda \sim 1/\sqrt{\sup_{v \in K} f(v)}$.
 \label{corollary:regret-solo-ftrl-bounded-set}
 Suppose $K \subseteq V$ is a non-empty bounded closed convex subset.  Suppose
 that $f:K \to \R$ is a non-negative lower semi-continuous function that is $1$-strongly
-convex with respect to $\|\cdot\|$. SOLO FTRL with regularizer
+convex with respect to $\|\cdot\|$. \textsc{SOLO FTRL} with regularizer
 $$
 R(w) = \frac{f(w)\sqrt{2.75}}{\sqrt{\sup_{v \in K} f(v)}}
 \quad \text{satisfies} \quad
@@ -80,7 +80,7 @@ R(w) = \frac{f(w)\sqrt{2.75}}{\sqrt{\sup_{v \in K} f(v)}}
 $$
 \end{corollary}
 
-\subsection{Proof of Regret Bound for SOLO FTRL}
+\subsection{Proof of Regret Bound for \textsc{SOLO FTRL}}
 \label{section:solo-ftrl-regret-bound}
 
 The proof of Theorem~\ref{theorem:regret-solo-ftrl} relies on an inequality
