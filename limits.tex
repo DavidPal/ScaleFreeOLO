@@ -1,8 +1,112 @@
 \section{Limits}
 \label{section:limits}
 
-\begin{lemma}
-\label{lemma:limit-existence}
+In this section we show that prediction of \textsc{AdaFTRL} is correctly
+defined when the regularizer is multiplied by zero.
+
+\begin{lemma}[Prediction for Zero Regularizer]
+\label{lemma:prediction-limit-existence}
+Let $K$ be non-empty bounded closed convex subset of a finite dimensional normed real vector space $(V, \|\cdot\|)$.
+Let $R:K \to \R$ be strictly convex and lower semi-continuous, and let $L \in V^*$. The limit
+\begin{equation}
+\label{equation:limit}
+\lim_{\eta \to +\infty}
+\argmin_{w \in K} \left( \langle L, w \rangle + \frac{1}{\eta} R(w) \right)
+\end{equation}
+exists and it is equal to the unique minimizer of $R(w)$ over the set (of minimizers)
+$$
+\left\{ w \in K ~:~ \langle L, w \rangle = \inf_{v \in K} \langle L, v \rangle \right\} \; .
+$$
+\end{lemma}
+
+Before we give the proof, we illustrate the lemma on a simple
+example.  Let $K = [-1,1]^2$ be the unit square in $\R^2$ and let
+$R(w) = \|w\|_2^2$. Let $L = (1,0)$. The minimizers are
+$$
+\argmin_{w \in K} \langle L, w \rangle = \{ (-1,y) ~:~ y \in [-1,1] \} \; .
+$$
+The minimizer with smallest value of $R(w)$ is $(-1,0)$. Hence the lemma implies
+that
+$$
+\lim_{\eta \to +\infty} \argmin_{w \in K}
+\left( \langle L, w \rangle + \frac{1}{\eta} \|w\|_2^2 \right) = (-1, 0) \; .
+$$
+
+\begin{proof}
+Without loss of generality, we can assume that $R(w)$ is non-negative for any $w \in K$.
+For otherwise, we can replace $R(w)$ with $R'(w) = R(w) - \inf_{v \in K} R(v)$.
+
+Since $K$ is a non-empty bounded closed convex subset of a finite dimensional normed vector space, it is compact
+and $r^* = \min_{w \in K} \langle L, w \rangle$ exists and is attained at some $w \in K$. Consider the hyperplane
+$$
+H = \{ w \in V ~:~ \langle L, w \rangle = r^* \} \; .
+$$
+The intersection $H \cap K$ is a non-empty compact convex set.
+Let
+$$
+v^* = \argmin_{v \in K \cap H} R(v) \; .
+$$
+The existence of $v^*$ follows from compactness of $H \cap K$ and lower
+semi-continuity of $R(v)$.  Uniqueness of $v^*$ follows from
+strict convexity of $R(v)$. We show that the limit (\ref{equation:limit})
+equals $v^*$.
+
+By the definition of $H$,
+\begin{equation}
+\label{equation:limit-is-minimizer}
+v^* \in \argmin_{w \in K} \ \langle L, w \rangle \; .
+\end{equation}
+Let $S = \{ w \in K ~:~ R(w) \le R(v^*) \}$. Since $R(w)$ is lower semi-continuous $S$
+is closed. Since $R(w)$ is strictly convex, $S \cap H = \{v^*\}$.
+
+For any $\eta > 0$, let
+$$
+w(\eta) = \argmin_{w \in K} \left( \langle L, w \rangle + \frac{1}{\eta} R(w) \rangle \right) \; .
+$$
+We prove that $w(\eta) \in S$. Indeed, by optimality of $v^*$ and $w(\eta)$
+$$
+\frac{1}{\eta} R(w(\eta))  + \langle L, w(\eta) \rangle
+\le
+\frac{1}{\eta} R(v^*)  + \langle L, v^* \rangle
+\le
+\frac{1}{\eta} R(v^*)  + \langle L, w(\eta) \rangle \; .
+$$
+and hence $R(w(\eta)) \le R(v^*)$.
+
+By non-negativity of $R$ and optimality of $w(\eta)$ we have
+$$
+\langle L, w(\eta) \rangle
+\le \langle L, w(\eta) \rangle + \frac{1}{\eta} R(w(\eta))
+\le \langle L, v^* \rangle + \frac{1}{\eta} R(v^*) \; .
+$$
+Taking the limit $\eta \to +\infty$, we see that
+$$
+\lim_{\eta \to +\infty} \langle L, w(\eta) \rangle \le
+\lim_{\eta \to +\infty} \left( \langle L, v^* \rangle + \frac{1}{\eta} R(v^*) \right)
+= \langle L, v^* \rangle \; .
+$$
+From~(\ref{equation:limit-is-minimizer}) we have
+$\langle L, v^* \rangle \le \langle L, w \rangle$ for any $w$, and therefore
+\begin{equation}
+\label{equation:limit-equality}
+\lim_{\eta \to +\infty} \langle L, w(\eta) \rangle = \langle L, v^* \rangle \; .
+\end{equation}
+
+Consider any sequence $\{\eta_t\}_{t=1}^\infty$ of positive numbers approaching
+$+\infty$.  Since $K$ is compact, $w(\eta_t)$ has a convergent subsequence.
+Thus $\{w(\eta_t)\}_{t=1}^\infty$ has at least one accumulation point; let
+$w^*$ be any of them. We will show that $w^* = v^*$.
+
+Consider a subsequence $\{\xi_t\}_{t=1}^\infty$ of
+$\{\eta_t\}_{t=1}^\infty$ such that $\lim_{t \to \infty} w(\xi_t) = w^*$.
+Since $w(\xi_t) \in S$ and $S$ is closed, $w^* \in S$.
+From (\ref{equation:limit-equality}) we have $\langle L, w^*
+\rangle = \langle L, v^* \rangle$ and hence $w^* \in H$. Thus $w^* \in S \cap H$.
+Since $v^*$ is the only point in $S \cap H$ we must have $w^* = v^*$.
+\end{proof}
+
+\begin{lemma}[Limit of Bregman Divergence]
+\label{lemma:limit-bregman-divergence}
 Let $K$ be a non-empty bounded closed convex subset of a finite dimensional
 normed real vector space $(V, \|\cdot\|)$.  Let $R:K \to \R$ be a strongly
 convex lower semi-continuous function bounded from above. Then, for any $x,y
