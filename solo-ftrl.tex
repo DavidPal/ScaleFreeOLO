@@ -5,7 +5,7 @@ The closest algorithm to a scale-free one in the OLO literature is the \textsc{A
 algorithm~\cite{Duchi-Hazan-Singer-2011}.  It uses a regularizer on each
 coordinate of the form
 \begin{equation*}
-R_t(w) = R(w) \left(\delta + \sqrt{\sum_{s=1}^{t-1} \|\ell_s\|_*^2} \right).
+R_t(w) = R(w) \left(\delta + \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \right).
 \end{equation*}
 This kind of regularizer would yield a scale-free algorithm \emph{only} for
 $\delta=0$.  Unfortunately, the regret bound in~\cite{Duchi-Hazan-Singer-2011}
@@ -34,7 +34,7 @@ algorithm.
 In the following, we propose a much simpler and better approach.  We propose to
 use Algorithm~\ref{algorithm:ftrl-varying-regularizer} with the regularizer
 \begin{equation*}
-R_t(w) = R(w) \sqrt{\sum_{s=1}^{t-1} \|\ell_s\|_*^2} \; ,
+R_t(w) = R(w) \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \; ,
 \end{equation*}
 where $R:K \to \R$ is any strongly convex function. Through a refined analysis,
 we show that the regularizer suffices to obtain an optimal regret bound for any
@@ -94,7 +94,7 @@ well-known technical Lemma~\ref{lemma:sum-of-square-roots-inverses}.
 \label{lemma:useful}
 Let $C, a_1, a_2, \dots, a_T\geq0$. Then,
 $$
-\sum_{t=1}^T \min \left\{ \frac{a_t^2}{\sqrt{\sum_{s=1}^{t-1} a_s^2}}, \ C a_t \right\}
+\sum_{t=1}^T \min \left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, \ C a_t \right\}
 \le 3.5 C \max_{t=1,2,\dots,T} a_t + 3.5 \sqrt{\sum_{t=1}^T a_t^2} \; .
 $$
 \end{lemma}
@@ -103,38 +103,38 @@ Without loss of generality, we can assume that $a_t > 0$ for all $t$. Since othe
 can remove all $a_t = 0$ without affecting either side of the inequality. Let $M_t = \max\{a_1, a_2, \dots, a_t\}$ and $M_0 = 0$.
 We prove that for any $\alpha > 1$
 $$
-\min\left\{ \frac{a_t^2}{\sqrt{\sum_{s=1}^{t-1} a_s^2}}, C a_t \right\}
-\le 2 \sqrt{1+\alpha^2} \left( \sqrt{\sum_{s=1}^t a_s^2} - \sqrt{\sum_{s=1}^{t-1} a_s^2} \right) + \frac{C\alpha( M_t  - M_{t-1})}{\alpha - 1}
+\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, C a_t \right\}
+\le 2 \sqrt{1+\alpha^2} \left( \sqrt{\sum_{i=1}^t a_i^2} - \sqrt{\sum_{i=1}^{t-1} a_i^2} \right) + \frac{C\alpha( M_t  - M_{t-1})}{\alpha - 1}
 $$
 from which the inequality follows by summing over $t=1,2,\dots,T$ and choosing $\alpha = \sqrt{2}$.
-The inequality follows by case analysis. If $a_t^2 \le \alpha^2 \sum_{s=1}^{t-1} a_s^2$, we have
+The inequality follows by case analysis. If $a_t^2 \le \alpha^2 \sum_{i=1}^{t-1} a_i^2$, we have
 \begin{multline*}
-\min\left\{ \frac{a_t^2}{\sqrt{\sum_{s=1}^{t-1} a_s^2}}, C a_t \right\}
-\le \frac{a_t^2}{\sqrt{\sum_{s=1}^{t-1} a_s^2}}
-= \frac{a_t^2}{\sqrt{\frac{1}{1+\alpha^2} \left( \alpha^2 \sum_{s=1}^{t-1} a_s^2 + \sum_{s=1}^{t-1} a_s^2 \right)}} \\
-\le \frac{a_t^2\sqrt{1+\alpha^2}}{\sqrt{ a_t^2 + \sum_{s=1}^{t-1} a_s^2 }}
-= \frac{a_t^2\sqrt{1+\alpha^2}}{\sqrt{\sum_{s=1}^t a_s^2}}
-\le 2\sqrt{1+\alpha^2} \left( \sqrt{\sum_{s=1}^t a_s^2} - \sqrt{\sum_{s=1}^{t-1} a_s^2} \right)
+\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, C a_t \right\}
+\le \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}
+= \frac{a_t^2}{\sqrt{\frac{1}{1+\alpha^2} \left( \alpha^2 \sum_{i=1}^{t-1} a_i^2 + \sum_{i=1}^{t-1} a_i^2 \right)}} \\
+\le \frac{a_t^2\sqrt{1+\alpha^2}}{\sqrt{ a_t^2 + \sum_{i=1}^{t-1} a_i^2 }}
+= \frac{a_t^2\sqrt{1+\alpha^2}}{\sqrt{\sum_{i=1}^t a_i^2}}
+\le 2\sqrt{1+\alpha^2} \left( \sqrt{\sum_{i=1}^t a_i^2} - \sqrt{\sum_{i=1}^{t-1} a_i^2} \right)
 \end{multline*}
 where we have used $x^2/\sqrt{x^2+y^2} \le 2(\sqrt{x^2+y^2} - \sqrt{y^2})$ in the last step.
-On the other hand, if $a_t^2 > \alpha^2 \sum_{t=1}^{t-1} a_s^2$, we have
+On the other hand, if $a_t^2 > \alpha^2 \sum_{t=1}^{t-1} a_i^2$, we have
 \begin{multline*}
-\min\left\{ \frac{a_t^2}{\sqrt{\sum_{s=1}^{t-1} a_s^2}}, C a_t \right\}
+\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, C a_t \right\}
 \le C a_t
 = C \frac{\alpha a_t  - a_t}{\alpha - 1}
-\le \frac{C}{\alpha - 1} \left( \alpha a_t  - \alpha \sqrt{\sum_{s=1}^{t-1} a_s^2} \right) \\
-= \frac{C\alpha}{\alpha - 1} \left( a_t  - \sqrt{\sum_{s=1}^{t-1} a_s^2} \right)
+\le \frac{C}{\alpha - 1} \left( \alpha a_t  - \alpha \sqrt{\sum_{i=1}^{t-1} a_i^2} \right) \\
+= \frac{C\alpha}{\alpha - 1} \left( a_t  - \sqrt{\sum_{i=1}^{t-1} a_i^2} \right)
 \le \frac{C\alpha}{\alpha - 1} \left( a_t  - M_{t-1} \right)
 = \frac{C\alpha}{\alpha - 1} \left( M_t  - M_{t-1} \right)
 \end{multline*}
-where we have used that $a_t = M_t$ and $\sqrt{\sum_{s=1}^{t-1} a_s^2} \ge M_{t-1}$.
+where we have used that $a_t = M_t$ and $\sqrt{\sum_{i=1}^{t-1} a_i^2} \ge M_{t-1}$.
 \end{proof}
 
 \begin{lemma}
 \label{lemma:sum-of-square-roots-inverses}
 Let $a_1, a_2, \dots, a_T$ be non-negative real numbers. If $a_1 > 0$ then,
 $$
-\sum_{t=1}^T \frac{a_t}{\sqrt{\sum_{s=1}^t a_s}} \le 2 \sqrt{\sum_{t=1}^T a_t} \; .
+\sum_{t=1}^T \frac{a_t}{\sqrt{\sum_{i=1}^t a_i}} \le 2 \sqrt{\sum_{t=1}^T a_t} \; .
 $$
 \end{lemma}
 %
@@ -143,7 +143,7 @@ Lemma~\ref{lemma:sum-of-square-roots-inverses} is from \cite[Lemma
 a proof in~\ref{section:solo-ftrl-proofs} for completeness.
 
 \begin{proof}[Proof of Theorem~\ref{theorem:regret-solo-ftrl}]
-Let $\eta_t=\tfrac{1}{\sqrt{\sum_{s=1}^{t-1} \|\ell_s\|_*^2}}$, hence $R_t(w) = \tfrac{1}{\eta_t} R(w)$.
+Let $\eta_t=\tfrac{1}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}$, hence $R_t(w) = \tfrac{1}{\eta_t} R(w)$.
 We assume without loss of
 generality that $\|\ell_t\|_* > 0$ for all $t$, since otherwise we can remove
 all rounds $t$ where $\ell_t = 0$ without affecting regret and the
@@ -165,8 +165,8 @@ Second, we have
 & \Breg_{R_t^*}(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t) \\
 & = \Breg_{R_{t+1}^*}(-L_t, -L_{t-1}) + R^*_{t+1}(-L_{t-1}) - R_t^*(-L_{t-1}) \\
 & \qquad + \langle \nabla R_t^*(-L_{t-1})-\nabla R_{t+1}^*(-L_{t-1}), \ell_t \rangle  \\
-& \le \tfrac{1}{2\lambda} \eta_{t+1} \|\ell_t\|_*^2 + \| \nabla R_t^*(-L_{t-1})-\nabla R_{t+1}^*(-L_{t-1})\| \cdot \|\ell_t\|_* \\
-& = \tfrac{1}{2\lambda} \eta_{t+1} \|\ell_t\|_*^2 + \| \nabla R^*(- \eta_{t} L_{t-1})-\nabla R^*(- \eta_{t+1} L_{t-1})\| \cdot \|\ell_t\|_* \\
+& \le \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda} + \| \nabla R_t^*(-L_{t-1})-\nabla R_{t+1}^*(-L_{t-1})\| \cdot \|\ell_t\|_* \\
+& = \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda} + \| \nabla R^*(- \eta_{t} L_{t-1})-\nabla R^*(- \eta_{t+1} L_{t-1})\| \cdot \|\ell_t\|_* \\
 & \le \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda} + \min\left\{\frac{1}{\lambda} \|L_{t-1}\|_* \left(\eta_{t} - \eta_{t+1} \right), D\right\} \|\ell_t\|_* \; ,
 \end{align*}
 where in the first inequality we have used the fact that $R^*_{t+1}(-L_{t-1})
@@ -187,19 +187,19 @@ Denoting by $H=\min\left\{\frac{\sqrt{T-1}}{\lambda},D\right\}$ we have
 & \Regret_T(u)
 \le \frac{1}{\eta_{T+1}} R(u) + \sum_{t=1}^T \min\left\{ \frac{\eta_t \|\ell_t\|_*^2}{2\lambda}, \ H \|\ell_t\|_* + \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda}  \right\} \\
 & \le \frac{1}{\eta_{T+1}} R(u) + \frac{1}{2\lambda} \sum_{t=1}^T  \eta_{t+1} \|\ell_t\|_*^2 + \frac{1}{2\lambda} \sum_{t=1}^T \min\left\{ \eta_t \|\ell_t\|_*^2, \ 2 \lambda H \|\ell_t\|_* \right\} \\
-& = \frac{1}{\eta_{T+1}} R(u) + \frac{1}{2\lambda} \sum_{t=1}^T  \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{s=1}^t \|\ell_t\|_*^2}} + \frac{1}{2 \lambda} \sum_{t=1}^T \min\left\{ \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{s=1}^{t-1} \|\ell_s\|_*^2}}, \ 2 \lambda H \|\ell_t\|_* \right\} \; .
+& = \frac{1}{\eta_{T+1}} R(u) + \frac{1}{2\lambda} \sum_{t=1}^T  \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}} + \frac{1}{2 \lambda} \sum_{t=1}^T \min\left\{ \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}, \ 2 \lambda H \|\ell_t\|_* \right\} \; .
 \end{align*}
 We bound each of the three terms separately. By definition of $\eta_{T+1}$, the
 first term is $\frac{1}{\eta_{T+1}} R(u) = R(u) \sqrt{\sum_{t=1}^T
 \|\ell_t\|_*^2}$.  We upper bound the second term using
 Lemma~\ref{lemma:sum-of-square-roots-inverses} as
 $$
-\frac{1}{2\lambda} \sum_{t=1}^T  \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{s=1}^t \|\ell_t\|_*^2}}
+\frac{1}{2\lambda} \sum_{t=1}^T  \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}}
 \le \frac{1}{\lambda} \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} \; .
 $$
 Finally, by Lemma~\ref{lemma:useful} we upper bound the third term as
 $$
-\frac{1}{2 \lambda} \sum_{t=1}^T \min\left\{ \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{s=1}^{t-1} \|\ell_s\|_*^2}}, \ 2 \lambda \|\ell_t\|_* H \right\}
+\frac{1}{2 \lambda} \sum_{t=1}^T \min\left\{ \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}, \ 2 \lambda \|\ell_t\|_* H \right\}
 \le 3.5 H \max_{t \le T} \|\ell_t\|_* + \frac{1.75}{\lambda} \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} \; .
 $$
 Putting everything together gives the stated bound.

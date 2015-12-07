@@ -24,7 +24,7 @@ Summing over all $t=1,2,\dots,T$ we get the final regret bound.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{theorem:regret-scale-free-mirror-descent}]
-Let $\eta_t = \frac{1}{\sqrt{\sum_{s=1}^t \|\ell_s\|_*^2}}$. We define $\eta_0 = +\infty$ and $1/\eta_0 = 0$.
+Let $\eta_t = \frac{1}{\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}}$. We define $\eta_0 = +\infty$ and $1/\eta_0 = 0$.
 Hence $R_t(w) = \frac{1}{\eta_t} R(w)$.
 Since $R_t$ is $\frac{\lambda}{\eta_t}$-strongly convex, we have
 \begin{align*}
@@ -97,10 +97,10 @@ $$
 First, for any $t \ge \lceil T/3 \rceil + 1$,
 \begin{align*}
 \frac{w_{t,1}}{w_{t,2}}
-& = \frac{\exp(-\sum_{s=1}^{t-1} \ell_{s,1}/\sqrt{s})}{\exp(-\sum_{s=1}^{t-1} \ell_{s,2}/\sqrt{s})} \\
-& = \frac{\exp(\sum_{s=1}^{\lceil T/3 \rceil} 1/\sqrt{s})}{\exp(\sum_{s=\lceil T/3 \rceil + 1}^t 1/\sqrt{s})} \\
-& \ge \frac{\exp(\sum_{s=1}^{\lceil T/3 \rceil} 1/\sqrt{s})}{\exp(\sum_{s=\lceil T/3 \rceil + 1}^T 1/\sqrt{s})} \\
-& = \exp\left(\sum_{s=1}^{\lceil T/3 \rceil} \frac{1}{\sqrt{s}} - \sum_{s=\lceil T/3 \rceil + 1}^T 1/\sqrt{s} \right) \\
+& = \frac{\exp(-\sum_{i=1}^{t-1} \ell_{i,1}/\sqrt{i})}{\exp(-\sum_{i=1}^{t-1} \ell_{i,2}/\sqrt{i})} \\
+& = \frac{\exp(\sum_{i=1}^{\lceil T/3 \rceil} 1/\sqrt{i})}{\exp(\sum_{i=\lceil T/3 \rceil + 1}^t 1/\sqrt{i})} \\
+& \ge \frac{\exp(\sum_{i=1}^{\lceil T/3 \rceil} 1/\sqrt{i})}{\exp(\sum_{i=\lceil T/3 \rceil + 1}^T 1/\sqrt{i})} \\
+& = \exp\left(\sum_{i=1}^{\lceil T/3 \rceil} \frac{1}{\sqrt{i}} - \sum_{i=\lceil T/3 \rceil + 1}^T 1/\sqrt{i} \right) \\
 & \ge \exp\left( \int_{1}^{\lceil T/3 \rceil + 1} \frac{dx}{\sqrt{x}} - \int_{\lceil T/3 \rceil}^T \frac{dx}{\sqrt{x}} \right) \\
 & = \exp\left( 2\sqrt{\lceil T/3 \rceil + 1} - 2 - (2\sqrt{T} - 2 \sqrt{\lceil T/3 \rceil}) \right) \\
 & \ge \exp\left( \left( \frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right) \\

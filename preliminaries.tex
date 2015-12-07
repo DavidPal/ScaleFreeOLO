@@ -118,8 +118,11 @@ in~\ref{section:definitions-proofs}. Property 7 trivially follows from property
 
 Our scale-free online learning algorithms are versions of the \textsc{Follow
 The Regularized Leader} (\textsc{FTRL}) algorithm with varying regularizers,
-presented as Algorithm~\ref{algorithm:ftrl-varying-regularizer}.  The following
-lemma bounds its regret.
+presented as Algorithm~\ref{algorithm:ftrl-varying-regularizer}. The algorithm is
+paramatrized by a sequence $\{R_t\}_{t=1}^\infty$ of convex functions $R_t:K
+\to \R$ called \emph{regularizers}.  Each regularizer $R_t$ can depend on
+the past loss vectors $\ell_1, \ell_2, \dots, \ell_{t-1}$ in an arbitrary way.
+The following lemma bounds its regret.
 
 \begin{lemma}[Regret of Follow The Regularized Leader]
 \label{lemma:generic-regret-bound}

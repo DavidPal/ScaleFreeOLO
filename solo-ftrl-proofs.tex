@@ -3,10 +3,10 @@
 
 \begin{proof}[Proof of Lemma~\ref{lemma:sum-of-square-roots-inverses}]
 We use the inequality $x/\sqrt{x+y} \le 2(\sqrt{x+y} - \sqrt{y})$ which holds
-for non-negative $x,y$ that are not both zero. Substituting $x = a_t$ and $y=\sum_{s=1}^{t-1} a_s$,
+for non-negative $x,y$ that are not both zero. Substituting $x = a_t$ and $y=\sum_{i=1}^{t-1} a_i$,
 we get that for any $t \ge 1$,
 $$
-\frac{a_t}{\sqrt{\sum_{s=1}^t a_s}} \le 2 \sqrt{\sum_{s=1}^t a_s} \ - \ 2 \sqrt{\sum_{s=1}^{t-1} a_s} \; .
+\frac{a_t}{\sqrt{\sum_{i=1}^t a_i}} \le 2 \sqrt{\sum_{i=1}^t a_i} \ - \ 2 \sqrt{\sum_{i=1}^{t-1} a_i} \; .
 $$
 Summing the above inequality over all $t=1,2,\dots,T$, the right side telescopes to
 $2 \sqrt{\sum_{t=1}^T a_t}$.
