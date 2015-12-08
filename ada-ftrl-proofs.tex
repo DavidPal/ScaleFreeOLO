@@ -15,10 +15,8 @@ minimum at $c=1/16$ and $g(\frac{1}{16}) = \sqrt{3}(1+\frac{1}{16})\sqrt{8} \le
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lemma:recurrence-solution}]
-Let $a_t = \|\ell_t\|_* \max\{D, 1/\sqrt{2\lambda}\}$. The statement of the
-lemma is equivalent to $\Delta_T \le \sqrt{3 \sum_{t=1}^T a_t^2}$ which we
-prove by induction on $T$.  The base case $T=0$ is trivial. For $T \ge 1$, we
-have
+We prove the lemma by induction on $T$.  The base case $T=0$ is trivial. For $T
+\ge 1$, we have
 $$
 \Delta_T
 \le \Delta_{T-1} + \min \left\{a_T, \ \frac{a_T^2}{\Delta_{T-1}} \right\}
@@ -39,5 +37,3 @@ $$
 which can be easily checked by considering separately the cases $z \in
 [0,\frac{1}{\sqrt{3}})$ and $z \in [\frac{1}{\sqrt{3}}, \infty)$.
 \end{proof}
-
-
