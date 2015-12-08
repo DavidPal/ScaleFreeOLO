@@ -70,19 +70,21 @@ w_{t+1} = w_t - \frac{1}{\sqrt{t}} \; .
 $$
 Unrolling the recurrence up to $w_{\lceil T/2 \rceil + 1}$ we get
 $$
-w_t = w_{\lceil T/2 \rceil + 1} - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}}
-= \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}} \qquad \text{(for $t \ge \lceil T/2 \rceil + 1$)} \; .
+w_t
+= w_{\lceil T/2 \rceil + 1} \ \ - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}}
+= \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ \ - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}}
+\qquad \text{(for $t \ge \lceil T/2 \rceil + 1$)} \; .
 $$
 We are ready to lower bound the regret.
 \begin{align*}
 \Regret_T(0)
 & = \sum_{t=1}^T \ell_t w_t \\
 & = - \sum_{t=1}^{\lceil T/2 \rceil} w_t + \sum_{t=\lceil T/2 \rceil + 1}^T w_t  \\
-& = - \sum_{t=1}^{\lceil T/2 \rceil} \sum_{i=1}^{t-1} \frac{1}{\sqrt{i}} + \sum_{t=\lceil T/2 \rceil + 1}^T \left( \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}} \right) \\
-& = - \sum_{i=1}^{\lceil T/2 \rceil} \frac{\lceil T/2 \rceil - i}{\sqrt{i}} + \lfloor T/2 \rfloor \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} - \sum_{i=\lceil T/2 \rceil + 1}^T \frac{T - i}{\sqrt{i}} \\
-& = - \sum_{i=1}^{\lceil T/2 \rceil} \frac{\lceil T/2 \rceil - \lfloor T/2 \rfloor}{\sqrt{i}} + \sum_{i=1}^{T} \sqrt{i} - T \sum_{i=\lceil T/2 \rceil + 1}^T \frac{1}{\sqrt{i}} \\
-& \ge - \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} + \sum_{i=1}^{T} \sqrt{i} - T \sum_{i=\lceil T/2 \rceil + 1}^T \frac{1}{\sqrt{i}} \\
-& \ge - 1 - \int_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{x}} dx + \int_{0}^T \!\!\! \sqrt{x} \, dx - T \int_{\lceil T/2 \rceil}^T \frac{1}{\sqrt{x}} dx \\
+& = - \sum_{t=1}^{\lceil T/2 \rceil} \sum_{i=1}^{t-1} \frac{1}{\sqrt{i}} \ \ + \sum_{t=\lceil T/2 \rceil + 1}^T \left( \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}} \right) \\
+& = - \sum_{i=1}^{\lceil T/2 \rceil} \frac{\lceil T/2 \rceil - i}{\sqrt{i}} \ + \ \lfloor T/2 \rfloor \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ \ - \sum_{i=\lceil T/2 \rceil + 1}^T \frac{T - i}{\sqrt{i}} \\
+& = - \sum_{i=1}^{\lceil T/2 \rceil} \frac{\lceil T/2 \rceil - \lfloor T/2 \rfloor}{\sqrt{i}} \ + \ \sum_{i=1}^{T} \sqrt{i} \ \ - \ T \!\!\!\! \sum_{i=\lceil T/2 \rceil + 1}^T \frac{1}{\sqrt{i}} \\
+& \ge - \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ \ + \ \sum_{i=1}^{T} \sqrt{i} \ \ - \ T \!\!\!\! \sum_{i=\lceil T/2 \rceil + 1}^T \frac{1}{\sqrt{i}} \\
+& \ge - 1 - \int_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{x}} dx \ + \ \int_{0}^T \!\!\! \sqrt{x} \, dx \ \ - \ T \int_{\lceil T/2 \rceil}^T \frac{1}{\sqrt{x}} dx \\
 & = - 1 - 2\left(\sqrt{\lceil T/2 \rceil} - 1 \right) + \frac{2}{3} T^{3/2} - 2 T \left(\sqrt{T} - \sqrt{\lceil T/2 \rceil} \right) \\
 & \ge 1 - 2 \sqrt{\lceil T/2 \rceil} + \left( \frac{2}{3} - 2 + \sqrt{2} \right) T^{3/2} \; .
 \end{align*}
@@ -103,8 +105,8 @@ First, for any $t \ge \lceil T/3 \rceil + 1$,
 & = \frac{\exp(-\sum_{i=1}^{t-1} \ell_{i,1}/\sqrt{i})}{\exp(-\sum_{i=1}^{t-1} \ell_{i,2}/\sqrt{i})} \\
 & = \frac{\exp(\sum_{i=1}^{\lceil T/3 \rceil} 1/\sqrt{i})}{\exp(\sum_{i=\lceil T/3 \rceil + 1}^t 1/\sqrt{i})} \\
 & \ge \frac{\exp(\sum_{i=1}^{\lceil T/3 \rceil} 1/\sqrt{i})}{\exp(\sum_{i=\lceil T/3 \rceil + 1}^T 1/\sqrt{i})} \\
-& = \exp\left(\sum_{i=1}^{\lceil T/3 \rceil} \frac{1}{\sqrt{i}} - \sum_{i=\lceil T/3 \rceil + 1}^T 1/\sqrt{i} \right) \\
-& \ge \exp\left( \int_{1}^{\lceil T/3 \rceil + 1} \frac{dx}{\sqrt{x}} - \int_{\lceil T/3 \rceil}^T \frac{dx}{\sqrt{x}} \right) \\
+& = \exp\left(\sum_{i=1}^{\lceil T/3 \rceil} \frac{1}{\sqrt{i}} \ \ - \ \sum_{i=\lceil T/3 \rceil + 1}^T 1/\sqrt{i} \right) \\
+& \ge \exp\left( \int_{1}^{\lceil T/3 \rceil + 1} \frac{dx}{\sqrt{x}} \ \ - \ \int_{\lceil T/3 \rceil}^T \frac{dx}{\sqrt{x}} \right) \\
 & = \exp\left( 2\sqrt{\lceil T/3 \rceil + 1} - 2 - (2\sqrt{T} - 2 \sqrt{\lceil T/3 \rceil}) \right) \\
 & \ge \exp\left( \left( \frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right) \\
 & \ge 4
@@ -121,7 +123,7 @@ Now, we lower bound the regret. Since $T \ge 120$,
 \Regret_T
 & \ge \Regret_T(e_2) \\
 & = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, e_2 \rangle \\
-& = - \sum_{t=1}^{\lceil T/3 \rceil} w_{t,1} - \sum_{t=\lceil T/3 \rceil + 1}^T w_{t,2}  +  \lfloor 2T/3 \rfloor \\
+& = - \sum_{t=1}^{\lceil T/3 \rceil} w_{t,1} \ \ - \ \sum_{t=\lceil T/3 \rceil + 1}^T w_{t,2}  +  \lfloor 2T/3 \rfloor \\
 & \ge - \lceil T/3 \rceil - \frac{1}{5} \lfloor 2T/3 \rfloor  +  \lfloor 2T/3 \rfloor \\
 & \ge - T/3 - 1 - 2T/15 + 2T/3 - 1 \\
 & = T/5 - 2 \\
