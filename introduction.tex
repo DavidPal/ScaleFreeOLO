@@ -105,29 +105,57 @@ property. Regret of scale-free algorithms is proportional to the scale of the
 losses, ensuring optimal linear dependency on the maximum norm of the loss
 vectors.
 
-The contribution of this paper is twofold. First, in
-Section~\ref{section:ada-ftrl} we show that the analysis and design of
-\textsc{AdaHedge} can be generalized to the OLO scenario and to any strongly
-convex regularizer, in an algorithm we call \textsc{AdaFTRL}, providing a new
-and rather interesting way to adapt the learning rates to have scale-free
-algorithms.  Second, in Section~\ref{section:solo-ftrl} we propose a new and
-simple algorithm, \textsc{SOLO FTRL}, that is scale-free and is the
-\textbf{first} scale-free online algorithm for unbounded sets with a
-non-vacuous regret bound.  Both algorithms are instances of \textsc{Follow The
-Regularized Leader} (\textsc{FTRL}) with an adaptive learning rate.  Moreover,
-our algorithms show that scale-free algorithms can be obtained in a ``native''
-and simple way, i.e.  without using ``doubling tricks'' that attempt to fix
-poorly designed algorithms rather than directly solving the problem.
+We design and analyze three scale-free algorithms. First two algorithms, which
+we call \textsc{AdaFTRL} and \textsc{SOLO FTRL}, are instances of
+\textsc{Follow The Regularized Leader} (\textsc{FTRL}) with adaptive learning
+rate.  \textsc{AdaFTRL} is a generalization of
+\textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} to arbitrary
+strongly convex regularizers.  \textsc{SOLO FTRL} can be viewed as the
+``correct'' scale-free version of \textsc{AdaGrad
+FTRL}~\cite{Duchi-Hazan-Singer-2011} generalized to arbitrary strongly convex
+regularizers.  The third algorithm, which we call \textsc{Scale-Free Mirror
+Descent}, is a variant of \textsc{Mirror Descent}. It is a generalization of
+\textsc{AdaGrad MD}~\cite{Duchi-Hazan-Singer-2011} to arbitrary strongly convex
+regularizers, similar to \textsc{Optimistic MD}~\cite{Rakhlin-Sridharan-2013}.
+The three algorithms are presented and analyzed in
+Sections~\ref{section:ada-ftrl}, \ref{section:solo-ftrl} and
+\ref{section:mirror-descent} respectively.
 
-For both algorithms, we prove that for bounded decision sets the regret after
-$T$ rounds is at most $O(\sqrt{\sum_{t=1}^T\|\ell_t\|_*^2})$.  We show that the
-$\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2}$ term is necessary by proving a $\Omega (D
-\sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} )$ lower bound on the regret of any algorithm
-for OLO for any decision set with diameter $D$ with respect to the primal norm
-$\|\cdot\|$. For the \textsc{SOLO FTRL} algorithm, we prove an
-$O(\max_{t=1,2,\dots,T} \|\ell_t\|_* \sqrt{T})$ regret bound for any unbounded
-decision set.
+For all three algorithms, we prove that for bounded decision sets the regret
+after $T$ rounds is at most $O \left(\sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} \right)$
+where the constant hidden in $O(\cdot)$ depends on the decision set and the
+regularizer.  In Section~\ref{section:lower-bound}, we show that the
+$\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2}$ term is necessary by proving $\Omega
+\left(D \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} \right)$ lower bound on the regret of
+any algorithm for OLO for any decision set with diameter $D$ with respect to
+the primal norm $\|\cdot\|$.
 
-Our algorithms are also \textbf{any-time}, i.e., do not need to know the
-number of rounds in advance and our regret bounds hold for all time steps
+For the \textsc{SOLO FTRL} algorithm, we prove an $O \left(\max_{t=1,2,\dots,T}
+\|\ell_t\|_* \sqrt{T} \right)$ regret bound for any unbounded decision set. The
+constant hidden in $O(\cdot)$ depends not only on the decision set and the
+regularizer, but also on the competitor $u \in K$.~\footnote{An upper bound
+that does not depend on $u$ is impossible. It would contradict the $\Omega
+\left( D \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} \right)$ lower bound.} This is the
+\textbf{first adaptive algorithm for unbounded decision sets} with a
+non-trivial upper bound.
+
+All three algorithms are \textbf{any-time}, i.e., they do not need to know the
+number of rounds in advance and the regret bounds hold for all time steps
 simultaneously.
+
+Our proofs of the regret upper bounds rely on homogeneous inequalities
+(Lemmas~\ref{lemma:recurrence-solution},
+\ref{lemma:sum-of-square-roots-inverses}, \ref{lemma:useful}).  Two of the
+inequalities are new. Previously, many proofs of regret bounds relied on ad-hoc
+non-homogeneous inequalities, or the existing algorithms used quantities (e.g.
+$\sum_{t=1}^T \|\ell_t\|_*^2$) that are not available until all loss vectors
+are processed.
+
+Finally, in Section~\ref{subsection:mirror-descent-lower-bound}, we show
+negative results for existing popular variants of \textsc{Mirror Descent}. We
+show that variants of \textsc{Mirror Descent} have $\Omega(T)$ regret if the
+Bregman divergence associated with the regularizer is unbounded on the decision
+set.  The setting includes the standard gradient descent with step size
+$1/\sqrt{t}$, \textsc{AdaGrad MD} and \textsc{Scale-Free Mirror Descent} on a
+unbounded decision set. This result suggests that \textsc{Follow The
+Regularized Leader} is superior to \textsc{Mirror Descent}.
