@@ -1,9 +1,9 @@
 \section{\textsc{SOLO FTRL}}
 \label{section:solo-ftrl}
 
-The closest algorithm to a scale-free one in the OLO literature is the \textsc{AdaGrad}
-algorithm~\cite{Duchi-Hazan-Singer-2011}.  It uses a regularizer on each
-coordinate of the form
+The closest algorithm to a scale-free one in the OLO literature is the
+\textsc{AdaGrad} algorithm~\cite{Duchi-Hazan-Singer-2011}.  It uses a
+regularizer on each coordinate of the form
 \begin{equation*}
 R_t(w) = R(w) \left(\delta + \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \right).
 \end{equation*}
@@ -12,10 +12,10 @@ $\delta=0$.  Unfortunately, the regret bound in~\cite{Duchi-Hazan-Singer-2011}
 becomes vacuous for such setting in the unbounded case. In fact, it requires
 $\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
 knowledge of the future (see Theorem~5 in~\cite{Duchi-Hazan-Singer-2011}). In
-other words, despite of its name, \textsc{AdaGrad} is not fully adaptive to the norm of
-the loss vectors. Identical considerations hold for the \textsc{FTRL-Proximal} in
-\cite{McMahan-Streeter-2010,McMahan-2014}: the scale-free setting of the
-learning rate is valid only in the bounded case.
+other words, despite of its name, \textsc{AdaGrad} is not fully adaptive to the
+norm of the loss vectors. Identical considerations hold for the
+\textsc{FTRL-Proximal} in \cite{McMahan-Streeter-2010,McMahan-2014}: the
+scale-free setting of the learning rate is valid only in the bounded case.
 
 One simple approach would be to use a doubling trick on $\delta$ in order to
 estimate on the fly the maximum norm of the losses. Note that a naive strategy
@@ -28,20 +28,28 @@ lack of space, we cannot include the regret bound for the doubling trick
 version. It would be exactly the same as in
 Theorem~\ref{theorem:regret-solo-ftrl}, following a similar analysis, but with
 the additional parameter of the doubling power.}, such strategy would give the
-feeling that \textsc{FTRL} needs to be ``fixed'' in order to obtain a scale-free
-algorithm.
+feeling that \textsc{FTRL} needs to be ``fixed'' in order to obtain a
+scale-free algorithm.
 
 In the following, we propose a much simpler and better approach.  We propose to
 use Algorithm~\ref{algorithm:ftrl-varying-regularizer} with the regularizer
 \begin{equation*}
+\label{equation:solo-ftrl-regularizer}
 R_t(w) = R(w) \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \; ,
 \end{equation*}
 where $R:K \to \R$ is any strongly convex function. Through a refined analysis,
 we show that the regularizer suffices to obtain an optimal regret bound for any
 decision set, bounded or unbounded.  We call such variant \textsc{Scale-free
 Online Linear Optimization FTRL} algorithm (\textsc{SOLO FTRL}).  Our main
-result is the following Theorem, which is proven in
+result is the Theorem~\ref{theorem:regret-solo-ftrl} below, which is proven in
 Section~\ref{section:solo-ftrl-regret-bound}.
+
+The regularizer~\eqref{equation:solo-ftrl-regularizer} does not uniquely define
+the \textsc{FTRL} minimizer $w_t = \argmin_{w \in K} R_t(w)$ when
+$\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}$ is zero. This happens if $\ell_1,
+\ell_2, \dots, \ell_{t-1}$ are all zero (and in particular for $t=1$).  In that
+case, we define the $w_t = \argmin_{w \in K} R(w)$ which is consistent with
+$w_t = \lim_{a \to 0^+}  \argmin_{w \in K} a R(w)$.
 
 \begin{theorem}[Regret of \textsc{SOLO FTRL}]
 \label{theorem:regret-solo-ftrl}
@@ -53,7 +61,7 @@ $\|\cdot\|$. The regret of \textsc{SOLO FTRL} satisfies
 \begin{align*}
 \Regret_T(u)
 & \le \left( R(u) + \frac{2.75}{\lambda}\right) \sqrt{\sum_{t=1}^{T} \norm{\ell_t}_*^2}
-+ 3.5 \min\left\{\frac{\sqrt{T-1}}{\lambda} , D\right\} \max_{t \le T} \|\ell_t\|_*.
++ 3.5 \min\left\{\frac{\sqrt{T-1}}{\lambda} , D\right\} \max_{t \le T} \|\ell_t\|_* \; .
 \end{align*}
 \end{theorem}
 
@@ -62,8 +70,8 @@ choose $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex function and
 optimize $\lambda$.  The result of the optimization is
 Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}; the proof is
 in~\ref{section:solo-ftrl-proofs}.  It is similar to
-Corollary~\ref{corollary:ada-ftrl-regret-bound} for \textsc{AdaFTRL}. The scaling
-however is different in the two corollaries.  In
+Corollary~\ref{corollary:ada-ftrl-regret-bound} for \textsc{AdaFTRL}. The
+scaling however is different in the two corollaries.  In
 Corollary~\ref{corollary:ada-ftrl-regret-bound}, $\lambda \sim 1/(\sup_{v \in
 K} f(v))$ while in Corollary~\ref{corollary:regret-solo-ftrl-bounded-set} we
 have $\lambda \sim 1/\sqrt{\sup_{v \in K} f(v)}$.
@@ -71,8 +79,9 @@ have $\lambda \sim 1/\sqrt{\sup_{v \in K} f(v)}$.
 \begin{corollary}[Regret Bound for Bounded Decision Sets]
 \label{corollary:regret-solo-ftrl-bounded-set}
 Suppose $K \subseteq V$ is a non-empty bounded closed convex subset.  Suppose
-that $f:K \to \R$ is a non-negative lower semi-continuous function that is $1$-strongly
-convex with respect to $\|\cdot\|$. \textsc{SOLO FTRL} with regularizer
+that $f:K \to \R$ is a non-negative lower semi-continuous function that is
+$1$-strongly convex with respect to $\|\cdot\|$. \textsc{SOLO FTRL} with
+regularizer
 $$
 R(w) = \frac{f(w)\sqrt{2.75}}{\sqrt{\sup_{v \in K} f(v)}}
 \quad \text{satisfies} \quad
@@ -92,7 +101,7 @@ well-known technical Lemma~\ref{lemma:sum-of-square-roots-inverses}.
 
 \begin{lemma}[Useful Inequality]
 \label{lemma:useful}
-Let $C, a_1, a_2, \dots, a_T\geq0$. Then,
+Let $C, a_1, a_2, \dots, a_T \ge 0$. Then,
 $$
 \sum_{t=1}^T \min \left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, \ C a_t \right\}
 \le 3.5 C \max_{t=1,2,\dots,T} a_t + 3.5 \sqrt{\sum_{t=1}^T a_t^2} \; .
@@ -130,7 +139,7 @@ On the other hand, if $a_t^2 > \alpha^2 \sum_{t=1}^{t-1} a_i^2$, we have
 where we have used that $a_t = M_t$ and $\sqrt{\sum_{i=1}^{t-1} a_i^2} \ge M_{t-1}$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[Simple Inequality]
 \label{lemma:sum-of-square-roots-inverses}
 Let $a_1, a_2, \dots, a_T$ be non-negative real numbers. If $a_1 > 0$ then,
 $$
@@ -138,17 +147,16 @@ $$
 $$
 \end{lemma}
 %
-Lemma~\ref{lemma:sum-of-square-roots-inverses} is from \cite[Lemma
-3.5]{Auer-Cesa-Bianchi-Gentile-2002}.  We give
-a proof in~\ref{section:solo-ftrl-proofs} for completeness.
+Lemma~\ref{lemma:sum-of-square-roots-inverses} is from
+\cite[Lemma~3.5]{Auer-Cesa-Bianchi-Gentile-2002}.  We give a proof
+in~\ref{section:solo-ftrl-proofs} for completeness.
 
 \begin{proof}[Proof of Theorem~\ref{theorem:regret-solo-ftrl}]
-Let $\eta_t=\tfrac{1}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}$, hence $R_t(w) = \tfrac{1}{\eta_t} R(w)$.
-We assume without loss of
-generality that $\|\ell_t\|_* > 0$ for all $t$, since otherwise we can remove
-all rounds $t$ where $\ell_t = 0$ without affecting regret and the
-predictions of the algorithm on the remaining rounds.
-By Lemma~\ref{lemma:generic-regret-bound},
+Let $\eta_t = \frac{1}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}$, hence $R_t(w)
+= \frac{1}{\eta_t} R(w)$.  We assume without loss of generality that
+$\|\ell_t\|_* > 0$ for all $t$, since otherwise we can remove all rounds $t$
+where $\ell_t = 0$ without affecting regret and the predictions of the
+algorithm on the remaining rounds.  By Lemma~\ref{lemma:generic-regret-bound},
 \begin{align*}
 \Regret_T(u)
 & \le \frac{1}{\eta_{T+1}} R(u) + \sum_{t=1}^T \left( \Breg_{R_t^*}(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t) \right) \; .
@@ -204,5 +212,3 @@ $$
 $$
 Putting everything together gives the stated bound.
 \end{proof}
-
-

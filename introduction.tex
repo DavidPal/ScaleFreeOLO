@@ -18,14 +18,16 @@ Freund-Schapire-1997, Cesa-Bianchi-Haussler-Helmbold-Schapire-Warmuth-1997},
 online combinatorial optimization~\cite{Kalai-Vempala-2005,
 Helmbold-Warmuth-2009, Koolen-Warmuth-Kivinen-2010}. Other problems can be
 reduced to OLO, e.g. online convex
-optimization~\cite[Chapter~2]{Shalev-Shwartz-2011}, online classification
+optimization~\cite{Abernethy-Bartlett-Rakhlin-Tewari-2008},
+\cite[Chapter~2]{Shalev-Shwartz-2011}, online classification
 ~\cite{Rosenblatt-1958,Freund-Schapire-1999} and
 regression~\cite{Kivinen-Warmuth-1997},
 ~\cite[Chapters~11~and~12]{Cesa-Bianchi-Lugosi-2006}, multi-armed
 problems~\cite[Chapter~6]{Cesa-Bianchi-Lugosi-2006},
-\cite{Bubeck-Cesa-Bianchi-2012}, and batch and stochastic optimization of
-convex functions~\cite{Nemirovski-Yudin-1983, Bubeck-2015}.  Hence, a result in
-OLO immediately implies other results in all these domains.
+\cite{Abernethy-Hazan-Rakhlin-2008, Bubeck-Cesa-Bianchi-2012}, and batch
+and stochastic optimization of convex functions~\cite{Nemirovski-Yudin-1983,
+Bubeck-2015}.  Hence, a result in OLO immediately implies other results in all
+these domains.
 
 The adversarial choice of the loss vectors received by the algorithm is what
 makes the OLO problem challenging. In particular, if an OLO algorithm commits
@@ -37,9 +39,9 @@ For this reason, most of the existing OLO algorithms receive as an input---or
 explicitly assume---an upper bound $B$ on the norm of the loss vectors.  The
 input $B$ is often disguised as the learning rate, the regularization
 parameter, or the parameter of strong convexity of the regularizer. Examples of
-such algorithms include the \textsc{Hedge} algorithm or online projected gradient
-descent with fixed learning rate.  However, these algorithms have two obvious
-drawbacks.
+such algorithms include the \textsc{Hedge} algorithm or online projected
+gradient descent with fixed learning rate.  However, these algorithms have two
+obvious drawbacks.
 
 First, they do not come with any regret guarantee for sequences of loss vectors
 with norms exceeding $B$. Second, on sequences where the norm of loss vectors
@@ -63,7 +65,7 @@ guarantee that depends on $b$ rather than on $B$.
 \textsc{AdaGrad FTRL} \cite{Duchi-Hazan-Singer-2011} & \textbf{Any} & $\frac{1}{2}\|w\|_2^2 + $ any convex func. & No \\ \hline
 \textsc{AdaHedge} \cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} & Probability Simplex & Negative Entropy & \textbf{Yes} \\ \hline
 \textsc{Optimistic MD} \cite{Rakhlin-Sridharan-2013} & $\sup_{u,v \in K} \Breg_f(u,v) < \infty$ & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
-\textsc{NAG} \cite{Ross-Mineiro-Langford-2013} & $\{u: \max_t \langle \ell_t, u\rangle \leq C\}$ & $\frac{1}{2}\|w\|_2^2 $& Partially\footnotemark \\ \hline
+\textsc{NAG} \cite{Ross-Mineiro-Langford-2013} & $\{u: \max_t \langle \ell_t, u\rangle \le C\}$ & $\frac{1}{2}\|w\|_2^2 $& Partially\footnotemark \\ \hline
 \textsc{Scale invariant algorithms} \cite{Orabona-Crammer-Cesa-Bianchi-2014} & \textbf{Any} & $\frac{1}{2}\|w\|_p^2 + $ any convex func. \newline $1 < p \le 2$ & Partially\textsuperscript{\ref{footnote-label}} \\ \hline
 \textsc{AdaFTRL} \textbf{[this paper]} & Any Bounded & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
 \textsc{SOLO FTRL} \textbf{[this paper]} & \textbf{Any} & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
@@ -89,33 +91,33 @@ general OLO setting this issue has been largely ignored.  In particular, the
 \textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} algorithm, for
 prediction with expert advice, is specifically designed to be scale-free.  A
 notable exception in the OLO literature is the discussion of the ``off-by-one''
-issue in~\cite{McMahan-2014}, where it is explained that even the popular \textsc{AdaGrad}
-algorithm~\cite{Duchi-Hazan-Singer-2011} is not completely adaptive; see also
-our discussion in Section~\ref{section:solo-ftrl}. In particular, existing
-scale-free algorithms cover only some norms/regularizers and \emph{only}
-bounded decision sets. The case of \textbf{unbounded decision sets},
-practically the most interesting one for machine learning applications, remains
-completely unsolved.
+issue in~\cite{McMahan-2014}, where it is explained that even the popular
+\textsc{AdaGrad} algorithm~\cite{Duchi-Hazan-Singer-2011} is not completely
+adaptive; see also our discussion in Section~\ref{section:solo-ftrl}. In
+particular, existing scale-free algorithms cover only some norms/regularizers
+and \emph{only} bounded decision sets. The case of \textbf{unbounded decision
+sets}, practically the most interesting one for machine learning applications,
+remains completely unsolved.
 
-Rather than trying to design strategies for a particular form of loss
-vectors and/or decision sets, in this paper we explicitly focus on the
-scale-free property. Regret of scale-free algorithms is proportional to the
-scale of the losses, ensuring optimal linear dependency on the maximum norm of
-the loss vectors.
+Rather than trying to design strategies for a particular form of loss vectors
+and/or decision sets, in this paper we explicitly focus on the scale-free
+property. Regret of scale-free algorithms is proportional to the scale of the
+losses, ensuring optimal linear dependency on the maximum norm of the loss
+vectors.
 
 The contribution of this paper is twofold. First, in
 Section~\ref{section:ada-ftrl} we show that the analysis and design of
-\textsc{AdaHedge} can be generalized to the OLO scenario and to any strongly convex
-regularizer, in an algorithm we call \textsc{AdaFTRL}, providing a new and
-rather interesting way to adapt the learning rates to have scale-free
+\textsc{AdaHedge} can be generalized to the OLO scenario and to any strongly
+convex regularizer, in an algorithm we call \textsc{AdaFTRL}, providing a new
+and rather interesting way to adapt the learning rates to have scale-free
 algorithms.  Second, in Section~\ref{section:solo-ftrl} we propose a new and
 simple algorithm, \textsc{SOLO FTRL}, that is scale-free and is the
 \textbf{first} scale-free online algorithm for unbounded sets with a
 non-vacuous regret bound.  Both algorithms are instances of \textsc{Follow The
-Regularized Leader} (\textsc{FTRL}) with an adaptive learning rate.  Moreover, our
-algorithms show that scale-free algorithms can be obtained in a ``native'' and
-simple way, i.e.  without using ``doubling tricks'' that attempt to fix poorly
-designed algorithms rather than directly solving the problem.
+Regularized Leader} (\textsc{FTRL}) with an adaptive learning rate.  Moreover,
+our algorithms show that scale-free algorithms can be obtained in a ``native''
+and simple way, i.e.  without using ``doubling tricks'' that attempt to fix
+poorly designed algorithms rather than directly solving the problem.
 
 For both algorithms, we prove that for bounded decision sets the regret after
 $T$ rounds is at most $O(\sqrt{\sum_{t=1}^T\|\ell_t\|_*^2})$.  We show that the

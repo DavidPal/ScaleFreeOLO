@@ -26,32 +26,34 @@ between the lower bound and the upper bounds.
 
 Our upper bounds are of the form $O(\sqrt{\sup_{v \in K} f(v) \sum_{t=1}^T
 \|\ell_t\|_*^2})$ where $f$ is any $1$-strongly convex function with respect to
-$\|\cdot\|$.  The same upper bound is also achieved by FTRL with a constant
-learning rate when the number of rounds $T$ and $\sum_{t=1}^T \|\ell_t\|_*^2$
-is known upfront \cite[Chapter 2]{Shalev-Shwartz-2011}.  The lower bound is
-$\Omega(D\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$.
+$\|\cdot\|$.  The same upper bound is also achieved by \textsc{FTRL} with a
+constant learning rate when the number of rounds $T$ and $\sum_{t=1}^T
+\|\ell_t\|_*^2$ is known upfront \cite[Chapter 2]{Shalev-Shwartz-2011}.  The
+lower bound is $\Omega(D\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$.
 
 The gap between $D$ and $\sqrt{\sup_{v \in K} f(v)}$ can be substantial.  For
 example, if $K$ is the probability simplex in $\R^d$ and $f(w) = \ln(d) +
 \sum_{j=1}^d w_j \ln w_j$ is the shifted negative entropy, the
 $\|\cdot\|_1$-diameter of $K$ is $2$, $f$ is non-negative and $1$-strongly
-convex w.r.t. $\|\cdot\|_1$, but $\sup_{v \in K} f(v) = \ln(d)$.  On the other
-hand, if the norm $\|\cdot\|_2 = \sqrt{\langle \cdot, \cdot \rangle}$ arises
-from an inner product $\langle \cdot, \cdot \rangle$, the lower bound matches
-the upper bounds within a constant factor.  The reason is that for any $K$ with
-$\|\cdot\|_2$-diameter $D$, the function $f(w) = \frac{1}{2} \|w - w_0\|_2^2$,
-where $w_0$ is an arbitrary point in $K$, is $1$-strongly convex w.r.t.
-$\|\cdot\|_2$ and satisfies that $\sqrt{\sup_{v \in K} f(v)} \le D$. This leads
-to the following open problem (posed also in~\cite{Kwon-Mertikopoulos-2014}):
+convex with respect to $\|\cdot\|_1$, but $\sup_{v \in K} f(v) = \ln(d)$.  On
+the other hand, if the norm $\|\cdot\|_2 = \sqrt{\langle \cdot, \cdot \rangle}$
+arises from an inner product $\langle \cdot, \cdot \rangle$, the lower bound
+matches the upper bounds within a constant factor.  The reason is that for any
+$K$ with $\|\cdot\|_2$-diameter $D$, the function $f(w) = \frac{1}{2} \|w -
+w_0\|_2^2$, where $w_0$ is an arbitrary point in $K$, is $1$-strongly convex
+with respect to $\|\cdot\|_2$ and satisfies that $\sqrt{\sup_{v \in K} f(v)}
+\le D$. This leads to the following open problem (posed also
+in~\cite{Kwon-Mertikopoulos-2014}):
 %
 \begin{quotation}
 \noindent
-\emph{Given a bounded convex set $K$ and a norm $\|\cdot\|$, construct a non-negative
-function $f:K \to \R$ that is $1$-strongly convex with respect to $\|\cdot\|$
-and minimizes $\sup_{v \in K} f(v)$.}
+\emph{Given a bounded convex set $K$ and a norm $\|\cdot\|$, construct a
+non-negative function $f:K \to \R$ that is $1$-strongly convex with respect to
+$\|\cdot\|$ and minimizes $\sup_{v \in K} f(v)$.}
 \end{quotation}
 %
-As shown in~\cite{Srebro-Sridharan-Tewari-2011}, the existence of $f$ with small
-$\sup_{v \in K} f(v)$ is equivalent to the existence of an algorithm for OLO with
-$\widetilde O(\sqrt{T \sup_{v \in K} f(v)})$ regret assuming $\|\ell_t\|_* \le 1$.
-The $\widetilde O$ notation hides a polylogarithmic factor in $T$.
+As shown in~\cite{Srebro-Sridharan-Tewari-2011}, the existence of $f$ with
+small $\sup_{v \in K} f(v)$ is equivalent to the existence of an algorithm for
+OLO with $\widetilde O(\sqrt{T \sup_{v \in K} f(v)})$ regret assuming
+$\|\ell_t\|_* \le 1$.  The $\widetilde O$ notation hides a polylogarithmic
+factor in $T$.

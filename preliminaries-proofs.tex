@@ -28,7 +28,7 @@ $\Breg_{f^*}(y,x)$.
 & \le \|x - y\|_* \cdot \| \grad f^*(x) - \grad f^*(y) \|
 \le D \|x - y\|_* \; ,
 \end{align*}
-where we have used H\"older's inequality and Part 7 of the Proposition.
+where we have used H\"older's inequality and property 7 of the Proposition.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lemma:generic-regret-bound}]
@@ -47,7 +47,7 @@ on the regret:
 & = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \\
 & \le R_{T+1}(u) + R_1^*(0) + \sum_{t=1}^T \left( R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, w_t \rangle \right) \; .
 \end{align*}
-By Proposition~\ref{proposition:conjugate-properties}, part 2, we have $w_t =
+By Proposition~\ref{proposition:conjugate-properties}, property 2, we have $w_t =
 \grad R_t^*(-L_{t-1})$ and therefore we can rewrite the sum in last expression as
 \begin{align*}
 & \sum_{t=1}^T R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, w_t \rangle \\
