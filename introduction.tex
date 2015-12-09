@@ -3,10 +3,10 @@
 
 Online Linear Optimization (OLO) is a problem where an algorithm repeatedly
 chooses a point $w_t$ from a convex decision set $K$, observes an arbitrary, or
-even adversarially chosen, loss vector $\ell_t$ and suffers loss $\langle
+even adversarially chosen, loss vector $\ell_t$ and suffers the loss $\langle
 \ell_t, w_t \rangle$.  The goal of the algorithm is to have a small cumulative
-loss. Performance of an algorithm is evaluated by the so-called regret, which
-is the difference of cumulative losses of the algorithm and of the
+loss. The performance of an algorithm is evaluated by the so-called regret, which
+is the difference of the cumulative losses of the algorithm and of the
 (hypothetical) strategy that would choose in every round the same best point in
 hindsight.
 
@@ -101,14 +101,14 @@ remains completely unsolved.
 
 Rather than trying to design strategies for a particular form of loss vectors
 and/or decision sets, in this paper we explicitly focus on the scale-free
-property. Regret of scale-free algorithms is proportional to the scale of the
+property. The regret of scale-free algorithms is proportional to the scale of the
 losses, ensuring optimal linear dependency on the maximum norm of the loss
 vectors.
 
 We design and analyze three scale-free algorithms. First two algorithms, which
 we call \textsc{AdaFTRL} and \textsc{SOLO FTRL}, are instances of
-\textsc{Follow The Regularized Leader} (\textsc{FTRL}) with adaptive learning
-rate.  \textsc{AdaFTRL} is a generalization of
+\textsc{Follow The Regularized Leader} (\textsc{FTRL}) with adaptive regularizers.
+\textsc{AdaFTRL} is a generalization of
 \textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} to arbitrary
 strongly convex regularizers.  \textsc{SOLO FTRL} can be viewed as the
 ``correct'' scale-free version of \textsc{AdaGrad

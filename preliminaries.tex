@@ -121,10 +121,11 @@ in~\ref{section:definitions-proofs}. Property 7 trivially follows from property
 
 Our scale-free online learning algorithms are versions of the \textsc{Follow
 The Regularized Leader}\footnote{The name \textsc{Follow The Regularized
-Leader} comes from~\cite{Abernethy-Hazan-Rakhlin-2008}. Independently, the
-algorithm was proposed by~\cite{Nestorov-2009} under the name \textsc{Dual
-Averaging} and was later anlyzed in~\cite{Xiao-2010}.} (\textsc{FTRL})
-algorithm with varying regularizers, presented as
+Leader} comes from~\cite{Abernethy-Hazan-Rakhlin-2008}. It dates back to the potential-based forecaster in \cite[Chapters~11]{Cesa-Bianchi-Lugosi-2006} and its theory was heavily developed by \cite{Shalev-Shwartz-2007}. 
+Independently, the same algorithm was proposed by~\cite{Nestorov-2009} for convex optimization under the name \textsc{Dual
+Averaging} and later rediscovered in~\cite{Xiao-2010} for online convex optimization. The version with time-varying regularizers was analyzed in \cite{Orabona-Crammer-Cesa-Bianchi-2014}.
+} (\textsc{FTRL})
+algorithm with \emph{varying regularizers}, presented as
 Algorithm~\ref{algorithm:ftrl-varying-regularizer}. The algorithm is
 paramatrized by a sequence $\{R_t\}_{t=1}^\infty$ of convex functions $R_t:K
 \to \R$ called \emph{regularizers}.  Each regularizer $R_t$ can depend on the
@@ -134,7 +135,7 @@ following lemma bounds its regret.
 \begin{lemma}[Regret of Follow The Regularized Leader]
 \label{lemma:generic-regret-bound}
 For any sequence $\{R_t\}_{t=1}^\infty$ of strongly convex lower
-semi-continuous regularizers, regret of
+semi-continuous regularizers, the regret of
 Algorithm~\ref{algorithm:ftrl-varying-regularizer} is upper
 bounded as
 $$
@@ -142,5 +143,5 @@ $$
 $$
 \end{lemma}
 
-Proof of the lemma can be found in~\cite{Orabona-Crammer-Cesa-Bianchi-2014}.
+The proof of the lemma can be found in~\cite{Orabona-Crammer-Cesa-Bianchi-2014}.
 For completeness, we include it in~\ref{section:definitions-proofs}.

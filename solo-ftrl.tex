@@ -13,7 +13,7 @@ becomes vacuous for such setting in the unbounded case. In fact, it requires
 $\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
 knowledge of the future (see Theorem~5 in~\cite{Duchi-Hazan-Singer-2011}). In
 other words, despite of its name, \textsc{AdaGrad} is not fully adaptive to the
-norm of the loss vectors. Identical considerations hold for the
+norm of the gradient vectors. Identical considerations hold for the
 \textsc{FTRL-Proximal} in \cite{McMahan-Streeter-2010,McMahan-2014}: the
 scale-free setting of the learning rate is valid only in the bounded case.
 
@@ -23,11 +23,13 @@ would still fail because the initial value of $\delta$ should be data-dependent
 in order to have a scale-free algorithm. Moreover, we would have to upper bound
 the regret in all the rounds where the norm of the current loss is bigger than
 the estimate. Finally, the algorithm would depend on an additional parameter,
-the ``doubling'' power. Hence, even guaranteeing a regret bound\footnote{For
-lack of space, we cannot include the regret bound for the doubling trick
-version. It would be exactly the same as in
-Theorem~\ref{theorem:regret-solo-ftrl}, following a similar analysis, but with
-the additional parameter of the doubling power.}, such strategy would give the
+the ``doubling'' power. Hence, even in the case one would prove a regret bound,
+%\footnote{For
+%lack of space, we cannot include the regret bound for the doubling trick
+%version. It would be exactly the same as in
+%Theorem~\ref{theorem:regret-solo-ftrl}, following a similar analysis, but with
+%the additional parameter of the doubling power.},
+such strategy would give the
 feeling that \textsc{FTRL} needs to be ``fixed'' in order to obtain a
 scale-free algorithm.
 

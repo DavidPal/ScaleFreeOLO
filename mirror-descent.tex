@@ -19,7 +19,7 @@
 
 
 \textsc{Mirror Descent}\footnote{The algorithm was originally proposed in
-\cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003}.}
+\cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003} for convex optimization. In the online literature it makes the first appeareance, under a different name, in \cite{Kivinen-Warmuth-1997}.}
 is a generic algorithm similar to \textsc{Follow The Regularized Leader} but
 quite different in details. The algorithm is stated as
 Algorithm~\ref{algorithm:mirror-descent-varying-regularizer}. The algorithm is
@@ -30,7 +30,7 @@ not differentiable\footnote{Note that this can happen even when $R_t$ is a
 restriction of a differentiable function defined on a superset of $K$.  If $K$
 is bounded and closed, $R_t$ fails to be differentiable at the boundary of $K$.
 If $K$ is a subset of an affine subspace of a dimension smaller than the
-dimension of $V$, then $R_t$ fails to be differentiable everywhere.}, Bregman
+dimension of $V$, then $R_t$ fails to be differentiable everywhere.}, the Bregman
 divergence, $\Breg_{R_t}(u,v) = R(u) - R(v) - \langle \grad R(v), u - v
 \rangle$ needs to be defined. This is done by choosing a subgradient map $\grad
 R_t:K \to V$, i.e. a function such that $\grad R_t(w)$ is a subgradient of
@@ -109,10 +109,7 @@ zero (and in particular for $t=0$). In this case, we define
 $w_{t+1} = \argmin_{w \in K} R(w)$ which agrees with
 $w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
 
-Generalizing existing regret bound for
-\textsc{AdaGrad}~\cite{Duchi-Hazan-Singer-2011} (see
-also~\cite{Duchi-Shalev-Shwartz-Singer-Tewari-2010,Rakhlin-Sridharan-2013}) we
-can upper bound regret of \textsc{Scale-Free Mirror Descent}.  Proof is
+We can upper bound regret of \textsc{Scale-Free Mirror Descent} (see also \cite{Duchi-Hazan-Singer-2011,Duchi-Shalev-Shwartz-Singer-Tewari-2010,Rakhlin-Sridharan-2013}).  Proof is
 in~\ref{section:mirror-descent-proofs}.
 
 \begin{theorem}[Regret of Scale-Free Mirror Descent]
@@ -128,7 +125,7 @@ $$
 $$
 \end{theorem}
 
-We choose regularizer $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex
+We choose the regularizer $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex
 function and optimize $\lambda$. The result is the following Corollary. Its
 proof is trivial.
 
@@ -149,9 +146,9 @@ Corollary~\ref{corollary:regret-scale-free-mirror-descent} depends on
 $\sup_{u,v \in K} \Breg_f(u,v)$. In contrast, the regret bounds for
 \textsc{AdaFTRL} and \textsc{SOLO FTRL} in
 Corollaries~\ref{corollary:ada-ftrl-regret-bound}~and~\ref{corollary:regret-solo-ftrl-bounded-set}
-depend on $\sup_{u \in K} f(u)$.  Similarly, regret bound in
+depend on $\sup_{u \in K} f(u)$.  Similarly, the regret bound in
 Theorem~\ref{theorem:regret-scale-free-mirror-descent} for \textsc{Scale-Free
-Mirror Descent} depends on $\sup_{v \in K} \Breg_R(u,v)$ and regret bounds in
+Mirror Descent} depends on $\sup_{v \in K} \Breg_R(u,v)$ and the regret bounds in
 Theorems~\ref{theorem:ada-ftrl-regret-bound}~and~\ref{theorem:regret-solo-ftrl}
 for \textsc{AdaFTRL} and \textsc{SOLO FTRL} depend on $R(u)$. It is not hard to
 show that
@@ -174,7 +171,7 @@ $R$ have the same minimizer $v^*$, and $R'(v^*)$ and $\grad R'(v^*)$ are both
 zero.
 
 Thus, \eqref{equation:regularizer-vs-divergence} implies that ignoring constant
-factors, regret bound for \textsc{Scale-Free Mirror Descent} is \emph{not}
+factors, the regret bound for \textsc{Scale-Free Mirror Descent} is \emph{not}
 better and possibly worse than the regret bounds for \textsc{AdaFTRL} and
 \textsc{SOLO FTRL}.  In fact, it is not hard to come up with examples where
 $R(u)$ is finite whereas $\sup_{v \in K} \Breg_R(u,v)$ is infinite. We mention
@@ -206,7 +203,7 @@ The first counter-example is stated as
 Theorem~\ref{theorem:first-counter-example} below. The decision set is the
 whole space $K=V$ and the regularizer is $R(w) = \frac{1}{2}\|w\|_2^2$. Note
 that $R(w)$ is $1$-strongly convex with respect to $\|\cdot\|_2$ and the dual
-norm of $\|\cdot\|_2$ is $\|\cdot\|_2$. Corresponding Bregman divergence is
+norm of $\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
 $\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs
 sequence of unit-norm loss vectors in the one-dimensional subspace spanned by
 the first vector of the standard unit basis.  On such sequence, Zinkevich's

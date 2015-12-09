@@ -1,10 +1,8 @@
-\section{Per-Coordinate Learning}
+\subsection{Per-Coordinate Learning}
 
 An interesting class of algorithms proposed in~\cite{McMahan-Streeter-2010} and
 \cite{Duchi-Hazan-Singer-2011} are based on the so-called per-coordinate
-learning rates.  As shown in \cite{Streeter-McMahan-2010}, our algorithms, or
-in fact any algorithm for OLO, can be used with per-coordinate learning rates
-as well.
+learning rates.  As shown in \cite{Streeter-McMahan-2010}, any algorithm for OLO can be used with per-coordinate learning rates as well.
 
 Abstractly, we assume that the decision set is a Cartesian product $K=K_1
 \times K_2 \times \dots \times K_d$ of a finite number of convex sets.  On each
@@ -15,8 +13,11 @@ written as
 $$
 \Regret_T(u) = \sum_{j=1}^d \Regret_T^{(j)}(u_j) \; .
 $$
+
 If the algorithm for each factor is scale-free, the overall algorithm is
-clearly scale-free as well.  Using \textsc{AdaFTRL} or \textsc{SOLO FTRL} for
-each factor $K_j$, we generalize and improve existing regret bounds
-\cite{McMahan-Streeter-2010,Duchi-Hazan-Singer-2011} for algorithms with
-per-coordinate learning rates.
+clearly scale-free as well. Hence, even if not explicitly mentioned in the text, any algorithm we present can be trivially transformed in a per-coordinate version.
+
+%Using \textsc{AdaFTRL} or \textsc{SOLO FTRL} for
+%each factor $K_j$, we generalize and improve existing regret bounds
+%\cite{McMahan-Streeter-2010,Duchi-Hazan-Singer-2011} for algorithms with
+%per-coordinate learning rates.
