@@ -143,9 +143,10 @@ discussion in Section~\ref{section:solo-ftrl}.
 For unbounded decision sets no scale-free algorithm with a non-trivial regret
 bound was known. Unbounded decision sets are practically important, since
 learning large-scale linear models (e.g. logistic regression) can be reduced to
-OLO with $\R^d$ as the decision set. One of our contributions is an
-\textsc{FTRL}-based scale-free algorithm with a non-trivial regret bound for
-any regularizer and any decision set, bounded or unbounded.
+OLO with $\R^d$ as the decision set.
+% One of our contributions is an
+% \textsc{FTRL}-based scale-free algorithm with a non-trivial regret bound for
+% any regularizer and any decision set, bounded or unbounded.
 
 % While the scale-free property has been looked at in the expert setting, in
 % the general OLO setting this issue has been largely ignored.  In particular,
@@ -202,14 +203,15 @@ All three algorithms are \textbf{any-time}, i.e., they do not need to know the
 number of rounds in advance and the regret bounds hold for all time steps
 simultaneously.
 
-Our proofs of the regret upper bounds rely on homogeneous inequalities
+Our proof tecnique are also new because they rely on new homogeneous inequalities
 (Lemmas~\ref{lemma:recurrence-solution}, \ref{lemma:useful},
-\ref{lemma:sum-of-square-roots-inverses}).  Previously, many proofs of regret
-bounds relied on ad-hoc non-homogeneous inequalities, or the existing
-algorithms used quantities (e.g.  $\sum_{t=1}^T \|\ell_t\|_*^2$) that are not
-available until all loss vectors are processed. Two of the inequalities
-(Lemmas~\ref{lemma:recurrence-solution} and \ref{lemma:useful}) are new and
-interesting in their own right.
+\ref{lemma:sum-of-square-roots-inverses}).
+% Previously, many proofs of regret
+% bounds relied on ad-hoc non-homogeneous inequalities, or the existing
+% algorithms used quantities (e.g.  $\sum_{t=1}^T \|\ell_t\|_*^2$) that are not
+% available until all loss vectors are processed. Two of the inequalities
+% (Lemmas~\ref{lemma:recurrence-solution} and \ref{lemma:useful}) are new and
+% interesting in their own right.
 
 Finally, in Section~\ref{subsection:mirror-descent-lower-bound}, we show
 negative results for existing popular variants of \textsc{MD}. We
