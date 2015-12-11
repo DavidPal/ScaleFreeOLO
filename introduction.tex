@@ -5,8 +5,8 @@ Online Linear Optimization (OLO) is a problem where an algorithm repeatedly
 chooses a point $w_t$ from a convex decision set $K$, observes an arbitrary, or
 even adversarially chosen, loss vector $\ell_t$ and suffers the loss $\langle
 \ell_t, w_t \rangle$.  The goal of the algorithm is to have a small cumulative
-loss. The performance of an algorithm is evaluated by the so-called regret, which
-is the difference of the cumulative losses of the algorithm and of the
+loss. The performance of an algorithm is evaluated by the so-called regret,
+which is the difference of the cumulative losses of the algorithm and of the
 (hypothetical) strategy that would choose in every round the same best point in
 hindsight.
 
@@ -85,58 +85,117 @@ achieve this type of adaptivity is by insisting to have a \textbf{scale-free}
 algorithm.  That is, the sequence of decisions of the algorithm does not change
 if the sequence of loss vectors is multiplied by a positive constant.
 
-A summary of algorithms for OLO is presented in Table~\ref{table:results}.
-While the scale-free property has been looked at in the expert setting, in the
-general OLO setting this issue has been largely ignored.  In particular, the
-\textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} algorithm, for
-prediction with expert advice, is specifically designed to be scale-free.  A
-notable exception in the OLO literature is the discussion of the ``off-by-one''
-issue in~\cite{McMahan-2014}, where it is explained that even the popular
-\textsc{AdaGrad} algorithm~\cite{Duchi-Hazan-Singer-2011} is not completely
-adaptive; see also our discussion in Section~\ref{section:solo-ftrl}. In
-particular, existing scale-free algorithms cover only some norms/regularizers
-and \emph{only} bounded decision sets. The case of \textbf{unbounded decision
-sets}, practically the most interesting one for machine learning applications,
-remains completely unsolved.
+% \begin{definition}[Scale-Free Algorithm]
+% \label{definition:scale-free-algorithm}
+% An algorithm for OLO is \emph{scale-free} if for any sequence of loss vectors
+% $\{\ell_t\}_{t=1}^\infty$ and any real number $c > 0$, on the sequences of
+% $\{\ell_t\}_{t=1}^\infty$ and $\{c \cdot \ell_t\}_{t=1}^\infty$, the algorithm
+% chooses the same sequence of points $\{w_t\}_{t=1}^\infty$.
+% \end{definition}
 
-Rather than trying to design strategies for a particular form of loss vectors
-and/or decision sets, in this paper we explicitly focus on the scale-free
-property. The regret of scale-free algorithms is proportional to the scale of the
-losses, ensuring optimal linear dependency on the maximum norm of the loss
-vectors.
+The most important property of scale-free algorithms is that both their loss
+and their regret is scales linearly with the maximum norm of the loss vector
+appearing in the sequence.
 
-We design and analyze three scale-free algorithms. First two algorithms, which
-we call \textsc{AdaFTRL} and \textsc{SOLO FTRL}, are instances of
-\textsc{Follow The Regularized Leader} (\textsc{FTRL}) with adaptive regularizers.
-\textsc{AdaFTRL} is a generalization of
+\subsection{Previous results}
+
+Majority of existing algorithms for OLO are based on two generic algorithms:
+\textsc{Follow The Regularizer Leader} (\textsc{FTRL}) and \textsc{Mirror
+Descent} (\textsc{MD}). \textsc{FTRL} dates back to the potential-based
+forecaster in \cite[Chapters~11]{Cesa-Bianchi-Lugosi-2006} and its theory was
+developed by \cite{Shalev-Shwartz-2007}.  The name \textsc{Follow The
+Regularized Leader} comes from~\cite{Abernethy-Hazan-Rakhlin-2008}.
+Independently, the same algorithm was proposed by~\cite{Nestorov-2009} for
+convex optimization under the name \textsc{Dual Averaging} and later
+rediscovered in~\cite{Xiao-2010} for online convex optimization. The general
+version with time-varying regularizers was analyzed in
+\cite{Orabona-Crammer-Cesa-Bianchi-2014}. \textsc{MD} was originally proposed
+in \cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003}
+for convex optimization. In the online literature it makes the first
+appearance, under a different name, in \cite{Kivinen-Warmuth-1997}. Good
+description of \textsc{MD} is given in~\cite{Rakhlin-Sridharan-2009}.
+
+Both \textsc{FTRL} and \textsc{MD} are parametrized by a function called a
+\emph{regularizer}. The function is assumed to be strongly convex with respect
+to a given norm $\|\cdot\|$. Based on different regularizers different
+algorithms with different properties can be instantiated. A summary of
+algorithms for OLO is presented in Table~\ref{table:results}.  All of them,
+except for \textsc{Hedge}, are instances of \textsc{FTRL} or \textsc{MD}.
+
+Scale-free versions of \textsc{MD} include \textsc{AdaGrad
+MD}~\cite{Duchi-Hazan-Singer-2011} and~\textsc{Optimistic
+MD}~\cite{Rakhlin-Sridharan-2013}. However, these algorithms have non-trivial
+regret bounds only when the Bregman divergence associated with the regularizer
+is bounded, which happens only when the decision is bounded as well. As we show
+in Section~\ref{subsection:mirror-descent-lower-bound}, this is unavoidable,
+since \textsc{AdaGrad MD} and similar algorithms based on \textsc{MD} can have
+$\Omega(T)$ regret if Bregman divergence is not bounded.
+
+Only one scale-free algorithm based on \textsc{FTRL} was known. It is the
+\textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} algorithm for
+learning with expert advice, where the decision set is bounded.
+Algorithms based on \textsc{FTRL} that are ``almost'' scale-free include
+\textsc{FTRL-Proximal}~\cite{McMahan-Streeter-2010,McMahan-2014} and
+\textsc{AdaGrad FTRL}~\cite{Duchi-Hazan-Singer-2011}.  These algorithms fail to
+be scale-free due to ``off-by-one'' issue; see~\cite{McMahan-2014} and also our
+discussion in Section~\ref{section:solo-ftrl}.
+
+For unbounded decision sets no scale-free algorithm with a non-trivial regret
+bound was known. Unbounded decision sets are practically important, since
+learning large-scale linear models (e.g. logistic regression) can be reduced to
+OLO with $\R^d$ as the decision set. One of our contributions is an
+\textsc{FTRL}-based scale-free algorithm with a non-trivial regret bound for
+any regularizer and any decision set, bounded or unbounded.
+
+% While the scale-free property has been looked at in the expert setting, in
+% the general OLO setting this issue has been largely ignored.  In particular,
+% the \textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014}
+% algorithm, for prediction with expert advice, is specifically designed to be
+% scale-free.  A notable exception in the OLO literature is the discussion of
+% the ``off-by-one'' issue in~\cite{McMahan-2014}, where it is explained that
+% even the popular \textsc{AdaGrad} algorithm~\cite{Duchi-Hazan-Singer-2011} is
+% not completely adaptive; see also our discussion in
+% Section~\ref{section:solo-ftrl}. In particular, existing scale-free
+% algorithms cover only some norms/regularizers and \emph{only} bounded
+% decision sets. The case of \textbf{unbounded decision sets}, practically the
+% most interesting one for machine learning applications, remains completely
+% unsolved.
+
+\subsection{Overview of the Results}
+
+We design and analyze three scale-free algorithms: \textsc{AdaFTRL},
+\textsc{SOLO FTRL} and \textsc{Scale-Free MD}.  \textsc{AdaFTRL} and
+\textsc{SOLO FTRL} are based on \textsc{FTRL}.  \textsc{AdaFTRL} is a
+generalization of
 \textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} to arbitrary
 strongly convex regularizers.  \textsc{SOLO FTRL} can be viewed as the
 ``correct'' scale-free version of \textsc{AdaGrad
 FTRL}~\cite{Duchi-Hazan-Singer-2011} generalized to arbitrary strongly convex
-regularizers.  The third algorithm, which we call \textsc{Scale-Free Mirror
-Descent}, is a variant of \textsc{Mirror Descent}. It is a generalization of
-\textsc{AdaGrad MD}~\cite{Duchi-Hazan-Singer-2011} to arbitrary strongly convex
-regularizers, similar to \textsc{Optimistic MD}~\cite{Rakhlin-Sridharan-2013}.
-The three algorithms are presented and analyzed in
-Sections~\ref{section:ada-ftrl}, \ref{section:solo-ftrl} and
+regularizers.  \textsc{Scale-Free MD} is based on \textsc{MD}. It is a
+generalization of \textsc{AdaGrad MD}~\cite{Duchi-Hazan-Singer-2011} to
+arbitrary strongly convex regularizers, similar to \textsc{Optimistic
+MD}~\cite{Rakhlin-Sridharan-2013}.  The three algorithms are presented and
+analyzed in Sections~\ref{section:ada-ftrl}, \ref{section:solo-ftrl} and
 \ref{section:mirror-descent} respectively.
 
-For all three algorithms, we prove that for bounded decision sets the regret
-after $T$ rounds is at most $O \left(\sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} \right)$
-where the constant hidden in $O(\cdot)$ depends on the decision set and the
-regularizer.  In Section~\ref{section:lower-bound}, we show that the
-$\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2}$ term is necessary by proving $\Omega
-\left(D \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} \right)$ lower bound on the regret of
-any algorithm for OLO for any decision set with diameter $D$ with respect to
-the primal norm $\|\cdot\|$.
+We prove that the regret of \textsc{AdaFTRL} and \textsc{SOLO FTRL} after $T$
+rounds is bounded by $O \left(\sqrt{\sup_{v \in K} f(v)
+\sum_{t=1}^T\|\ell_t\|_*^2} \right)$ where $f$ is a non-negative regularizer that is
+$1$-strongly convex with respect to a norm $\|\cdot\|$ and $\|\cdot\|_*$ is its
+dual norm. For \textsc{Scale-Free MD}, we prove $O \left(\sqrt{\sup_{u,v \in K}
+B_f(u,v) \sum_{t=1}^T\|\ell_t\|_*^2} \right)$ where $B_f$ is the Bregman
+divergence associated with a $1$-strongly convex regularizer $f$. In
+Section~\ref{section:lower-bound}, we show that the $\sqrt{\sum_{t=1}^T
+\|\ell_t\|_*^2}$ term in the bounds term is necessary by proving
+$\frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2}$ lower bound on the
+regret of any algorithm for OLO for any decision set with diameter $D$ with
+respect to the primal norm $\|\cdot\|$.
 
-For the \textsc{SOLO FTRL} algorithm, we prove an $O \left(\max_{t=1,2,\dots,T}
-\|\ell_t\|_* \sqrt{T} \right)$ regret bound for any unbounded decision set. The
-constant hidden in $O(\cdot)$ depends not only on the decision set and the
-regularizer, but also on the competitor $u \in K$.~\footnote{An upper bound
-that does not depend on $u$ is impossible. It would contradict the $\Omega
-\left( D \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} \right)$ lower bound.} This is the
-\textbf{first adaptive algorithm for unbounded decision sets} with a
+For \textsc{SOLO FTRL}, we prove that regret against a competitor $u \in K$ is
+at most $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
+\|\ell_t\|_* \sqrt{T} \right)$.  Same as before, $f$ is a non-negative
+$1$-strongly convex regularizer. The decision can be bounded or unbounded. This
+is the \textbf{first adaptive algorithm for unbounded decision sets} with a
 non-trivial upper bound.
 
 All three algorithms are \textbf{any-time}, i.e., they do not need to know the
@@ -144,18 +203,19 @@ number of rounds in advance and the regret bounds hold for all time steps
 simultaneously.
 
 Our proofs of the regret upper bounds rely on homogeneous inequalities
-(Lemmas~\ref{lemma:recurrence-solution},
-\ref{lemma:sum-of-square-roots-inverses}, \ref{lemma:useful}).  Two of the
-inequalities are new. Previously, many proofs of regret bounds relied on ad-hoc
-non-homogeneous inequalities, or the existing algorithms used quantities (e.g.
-$\sum_{t=1}^T \|\ell_t\|_*^2$) that are not available until all loss vectors
-are processed.
+(Lemmas~\ref{lemma:recurrence-solution}, \ref{lemma:useful},
+\ref{lemma:sum-of-square-roots-inverses}).  Previously, many proofs of regret
+bounds relied on ad-hoc non-homogeneous inequalities, or the existing
+algorithms used quantities (e.g.  $\sum_{t=1}^T \|\ell_t\|_*^2$) that are not
+available until all loss vectors are processed. Two of the inequalities
+(Lemmas~\ref{lemma:recurrence-solution} and \ref{lemma:useful}) are new and
+interesting in their own right.
 
 Finally, in Section~\ref{subsection:mirror-descent-lower-bound}, we show
-negative results for existing popular variants of \textsc{Mirror Descent}. We
-show that variants of \textsc{Mirror Descent} have $\Omega(T)$ regret if the
-Bregman divergence associated with the regularizer is unbounded on the decision
-set.  The setting includes the standard gradient descent with step size
-$1/\sqrt{t}$, \textsc{AdaGrad MD} and \textsc{Scale-Free Mirror Descent} on a
-unbounded decision set. This result suggests that \textsc{Follow The
-Regularized Leader} is superior to \textsc{Mirror Descent}.
+negative results for existing popular variants of \textsc{MD}. We
+show that variants of \textsc{MD} have $\Omega(T)$ regret if the
+Bregman divergence associated with the regularizer is unbounded.
+The setting includes the standard gradient descent with step size
+$1/\sqrt{t}$, \textsc{AdaGrad MD} and \textsc{Scale-Free MD} on a
+unbounded decision set. This result suggests that \textsc{FTRL}
+is superior to \textsc{MD}.
