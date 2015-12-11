@@ -49,7 +49,7 @@ convex} with respect to a norm $\|\cdot\|$ if and only if, for all $x,y \in K$,
 $$
 f(y) \ge f(x) + \langle \grad f(x), y - x \rangle + \frac{\lambda}{2}\|x - y\|^2 \; ,
 $$
-where $\grad f(x)$ is any subgradient of $f$ at point $x$.
+where $\grad f(x)$ is any subgradient of $f$ at the point $x$.
 
 The following proposition relates the range of values of a strongly convex
 function to the diameter of its domain. The proof can be found
@@ -75,7 +75,7 @@ lower semi-continuous function that is $\lambda$-strongly convex with respect
 to $\|\cdot\|$.  The Fenchel conjugate of $f$ satisfies:
 \begin{enumerate}
 
-\item $f^*$ is finite everywhere and differentiable.
+\item $f^*$ is finite everywhere and differentiable everywhere.
 
 \item For any $\ell \in V^*$, $\grad f^*(\ell) = \argmin_{w \in K} \left( f(w) - \langle \ell, w \rangle \right)$
 
@@ -119,13 +119,13 @@ in~\ref{section:definitions-proofs}. Property 7 trivially follows from property
 \subsection{Generic FTRL with Varying Regularizer}
 \label{section:generic-ftrl}
 
-Our scale-free online learning algorithms are versions of the \textsc{Follow
-The Regularized Leader} (\textsc{FTRL}) algorithm with \emph{varying
-regularizers}, presented as Algorithm~\ref{algorithm:ftrl-varying-regularizer}.
-The algorithm is paramatrized by a sequence $\{R_t\}_{t=1}^\infty$ of convex
-functions $R_t:K \to \R$ called \emph{regularizers}.  Each regularizer $R_t$
-can depend on the past loss vectors $\ell_1, \ell_2, \dots, \ell_{t-1}$ in an
-arbitrary way.  The following lemma bounds its regret.
+Our scale-free online learning algorithms are instances of \textsc{FTRL} with
+\emph{varying regularizers}, presented as
+Algorithm~\ref{algorithm:ftrl-varying-regularizer}.  The algorithm is
+paramatrized by a sequence $\{R_t\}_{t=1}^\infty$ of convex functions $R_t:K
+\to \R$ called \emph{regularizers}.  Each regularizer $R_t$ can depend on the
+past loss vectors $\ell_1, \ell_2, \dots, \ell_{t-1}$ in an arbitrary way.  The
+following lemma bounds its regret.
 
 \begin{lemma}[Regret of Follow The Regularized Leader]
 \label{lemma:generic-regret-bound}

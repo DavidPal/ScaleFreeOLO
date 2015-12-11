@@ -1,4 +1,4 @@
-\section{Mirror Descent}
+\section{Scale-Free Mirror Descent}
 \label{section:mirror-descent}
 
 \begin{algorithm}[t]
@@ -18,8 +18,8 @@
 \end{algorithm}
 
 
-\textsc{Mirror Descent} is a generic algorithm similar to \textsc{Follow The Regularized Leader} but
-quite different in details. The algorithm is stated as
+\textsc{Mirror Descent} (MD) is a generic algorithm similar to \textsc{Follow The
+Regularized Leader} but quite different in details. The algorithm is stated as
 Algorithm~\ref{algorithm:mirror-descent-varying-regularizer}. The algorithm is
 parametrized by a sequence $\{R_t\}_{t=0}^\infty$ of convex functions $R_t:K
 \to \R$ called \emph{regularizers}. Each regularizer $R_t$ can depend on past
@@ -28,13 +28,13 @@ not differentiable\footnote{Note that this can happen even when $R_t$ is a
 restriction of a differentiable function defined on a superset of $K$.  If $K$
 is bounded and closed, $R_t$ fails to be differentiable at the boundary of $K$.
 If $K$ is a subset of an affine subspace of a dimension smaller than the
-dimension of $V$, then $R_t$ fails to be differentiable everywhere.}, the Bregman
-divergence, $\Breg_{R_t}(u,v) = R(u) - R(v) - \langle \grad R(v), u - v
-\rangle$ needs to be defined. This is done by choosing a subgradient map $\grad
-R_t:K \to V$, i.e. a function such that $\grad R_t(w)$ is a subgradient of
-$R_t$ at a point $w$. If $R_t$ is a restriction of a differentiable function
+dimension of $V$, then $R_t$ fails to be differentiable everywhere.}, the
+Bregman divergence, $\Breg_{R_t}(u,v) = R_t(u) - R_t(v) - \langle \grad R_t(v),
+u - v \rangle$ needs to be defined. This is done by choosing a subgradient map
+$\grad R_t:K \to V$, i.e. a function such that $\grad R_t(w)$ is a subgradient
+of $R_t$ at a point $w$. If $R_t$ is a restriction of a differentiable function
 $R'_t$, it is convenient to define $\grad R_t(w) = \grad R'_t(w)$ for all $w
-\in K$. The following lemma bounds regret of \textsc{Mirror Descent}.  Proof
+\in K$. The following lemma bounds regret of \textsc{MD}.  Proof
 can be found
 in~\cite{Rakhlin-Sridharan-2009,Duchi-Shalev-Shwartz-Singer-Tewari-2010}.  For
 completeness we give a proof in~\ref{section:mirror-descent-proofs}.
@@ -50,43 +50,46 @@ $$
 $$
 \end{lemma}
 
-Several existing algorithms are special cases of \textsc{Mirror Descent}. Most
-prominent example is \textsc{Projected Gradient Descent} defined by the recurrence
+Several existing algorithms are special cases of \textsc{MD}.
+For example, \textsc{Exponentially-Weighted Average
+Forecaster}~\cite[Chapter~2]{Cesa-Bianchi-Lugosi-2006} with a constant learning
+rate $\eta$ for learning with expert advice is an instance of
+\textsc{MD} for the probability simplex $K = \{ w \in \R^d ~:~ w_j
+\ge 0, \sum_{j=1}^d w_j = 1 \}$ with negative entropy regularizer $R_t(w) =
+\frac{1}{\eta} \sum_{j=1}^d w_j \ln w_j$ where $R_t:K \to \R$. Note that this
+algorithm is \emph{not} scale-free.
+
+The most prominent instance of \textsc{MD} is \textsc{Projected Gradient
+Descent} defined by the recurrence
 $$
 w_{t+1} = \Pi_K(w_t - \eta_t \ell_t)
 $$
 where $\Pi_K(x) = \argmin_{y \in K} \|x-y\|_2$ is the Euclidean projection to
 $K$ and $\eta_t > 0$ is the step size.  \textsc{Projected Gradient Descent} is
-an instance of \textsc{Mirror Descent} with regularizer $R_t(w) =
+an instance of \textsc{MD} with regularizer $R_t(w) =
 \frac{1}{2\eta_t}\|w\|_2^2$.  A special case of projected gradient descent with
 step size $\eta_t = \frac{1}{\sqrt{t}}$ is Zinkevich's \textsc{Generalized
 Infinitesimal Gradient Ascent} (GIGA) algorithm~\cite{Zinkevich-2003}.
-Full-matrix and diagonal versions of \textsc{AdaGrad with Composite Mirror
-Descent Update}~\cite{Duchi-Hazan-Singer-2011} are an instances of
-\textsc{Mirror Descent} for any bounded $K$ with regularizers
+Full-matrix and diagonal versions of \textsc{AdaGrad with Composite MD
+Update}~\cite{Duchi-Hazan-Singer-2011} are an instances of
+\textsc{MD} for any bounded $K$ with regularizers
 $$
 R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} \!\!\!\! w
 \qquad \text{and} \qquad
 R_t(w) = \frac{1}{2} \sum_{j=1}^d w_j^2 \sqrt{ \sum_{i=1}^t \ell_{i,j}^2}
 $$
-respectively. When $d=1$, both algorithms are equivalent to
+respectively. The diagonal version is simply the per-coordinate construction
+applied to the one-dimensional version. When $d=1$, both algorithms are
+equivalent to
 \begin{equation}
 \label{equation:ada-grad-regularizer}
 R_t(w) = \frac{\|w\|_2^2}{2} \sqrt{\sum_{i=1}^t \|\ell_i\|_2^2 } \; .
 \end{equation}
 All three sequences of regularizers give a scale-free algorithm. Regularizer
 \eqref{equation:ada-grad-regularizer} can be viewed as a scale-free
-generalization of Zinkevich's GIGA algorithm. In particular, when $\|\ell_i\|_2
-= 1$ for all $i$, \textsc{Mirror Descent} with regularizer
+generalization of Zinkevich's GIGA algorithm. That is, when $\|\ell_i\|_2
+= 1$ for all $i$, \textsc{MD} with regularizer
 \eqref{equation:ada-grad-regularizer} coincides with GIGA.
-
-\textsc{Exponentially-Weighted Average
-Forecaster}~\cite[Chapter~2]{Cesa-Bianchi-Lugosi-2006} with constant learning
-rate $\eta$ for the problem of prediction with expert advice is an instance of
-\textsc{Mirror Descent} for the probability simplex $K = \{ w \in \R^d ~:~ w_j
-\ge 0, \sum_{j=1}^d w_j = 1 \}$ with negative entropy regularizer $R_t(w) =
-\frac{1}{\eta} \sum_{j=1}^d w_j \ln w_j$ where $R_t:K \to \R$. Note that this
-algorithm is \emph{not} scale-free.
 
 Replacing $\frac{1}{2}\|w\|_2^2$ in equation
 \eqref{equation:ada-grad-regularizer} with an arbitrary convex function $R:K
@@ -95,11 +98,10 @@ Replacing $\frac{1}{2}\|w\|_2^2$ in equation
 \label{equation:scale-free-mirror-descent}
 R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2} \; .
 \end{equation}
-We call the resulting algorithm \textsc{Scale-Free Mirror Descent} with
+We call the resulting algorithm \textsc{Scale-Free MD} with
 regularizer $R$. Similar to \textsc{SOLO FTRL}, the regularizer
 \eqref{equation:scale-free-mirror-descent} does not uniquely define
-the \textsc{Mirror Descent}
-minimizer
+the \textsc{MD} minimizer
 $w_{t+1} = \argmin_{w \in K} \left(\langle \ell_t, w \rangle + \Breg_{R_t}(w,
 w_t) \right)$ when $\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}$ is zero.
 This happens when the loss vectors $\ell_1, \ell_2, \dots, \ell_t$ are all
@@ -107,8 +109,10 @@ zero (and in particular for $t=0$). In this case, we define
 $w_{t+1} = \argmin_{w \in K} R(w)$ which agrees with
 $w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
 
-We can upper bound regret of \textsc{Scale-Free Mirror Descent} (see also \cite{Duchi-Hazan-Singer-2011,Duchi-Shalev-Shwartz-Singer-Tewari-2010,Rakhlin-Sridharan-2013}).  Proof is
-in~\ref{section:mirror-descent-proofs}.
+The theorem below upper bounds the regret of \textsc{Scale-Free Mirror Descent}
+(see also
+\cite{Duchi-Hazan-Singer-2011,Duchi-Shalev-Shwartz-Singer-Tewari-2010,Rakhlin-Sridharan-2013}).
+Proof is in~\ref{section:mirror-descent-proofs}.
 
 \begin{theorem}[Regret of Scale-Free Mirror Descent]
 \label{theorem:regret-scale-free-mirror-descent}
