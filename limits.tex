@@ -26,14 +26,14 @@ $R(w) = \|w\|_2^2$. Let $L = (1,0)$. The minimizers are
 $$
 \argmin_{w \in K} \langle L, w \rangle = \{ (-1,y) ~:~ y \in [-1,1] \} \; .
 $$
-The minimizer with smallest value of $R(w)$ is $(-1,0)$. Hence the lemma implies
-that
+The minimizer with the smallest value of $R(w)$ is $(-1,0)$. Hence the lemma
+implies that
 $$
 \lim_{\eta \to +\infty} \argmin_{w \in K}
 \left( \langle L, w \rangle + \frac{1}{\eta} \|w\|_2^2 \right) = (-1, 0) \; .
 $$
 
-\begin{proof}
+\begin{proof}[Proof of Lemma~\ref{lemma:prediction-limit-existence}]
 Without loss of generality, we can assume that $R(w)$ is non-negative for any
 $w \in K$.  For otherwise, we can replace $R(w)$ with $R'(w) = R(w) - \inf_{v
 \in K} R(v)$.

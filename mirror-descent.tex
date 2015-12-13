@@ -18,8 +18,8 @@
 \end{algorithm}
 
 
-\textsc{Mirror Descent} (MD) is a generic algorithm similar to \textsc{Follow The
-Regularized Leader} but quite different in details. The algorithm is stated as
+\textsc{Mirror Descent} (MD) is a generic algorithm similar to \textsc{FTRL}
+but quite different in details. The algorithm is stated as
 Algorithm~\ref{algorithm:mirror-descent-varying-regularizer}. The algorithm is
 parametrized by a sequence $\{R_t\}_{t=0}^\infty$ of convex functions $R_t:K
 \to \R$ called \emph{regularizers}. Each regularizer $R_t$ can depend on past
@@ -34,8 +34,7 @@ u - v \rangle$ needs to be defined. This is done by choosing a subgradient map
 $\grad R_t:K \to V$, i.e. a function such that $\grad R_t(w)$ is a subgradient
 of $R_t$ at a point $w$. If $R_t$ is a restriction of a differentiable function
 $R'_t$, it is convenient to define $\grad R_t(w) = \grad R'_t(w)$ for all $w
-\in K$. The following lemma bounds regret of \textsc{MD}.  Proof
-can be found
+\in K$. The following lemma bounds regret of \textsc{MD}.  Proof can be found
 in~\cite{Rakhlin-Sridharan-2009,Duchi-Shalev-Shwartz-Singer-Tewari-2010}.  For
 completeness we give a proof in~\ref{section:mirror-descent-proofs}.
 
@@ -67,12 +66,12 @@ $$
 where $\Pi_K(x) = \argmin_{y \in K} \|x-y\|_2$ is the Euclidean projection to
 $K$ and $\eta_t > 0$ is the step size.  \textsc{Projected Gradient Descent} is
 an instance of \textsc{MD} with regularizer $R_t(w) =
-\frac{1}{2\eta_t}\|w\|_2^2$.  A special case of projected gradient descent with
-step size $\eta_t = \frac{1}{\sqrt{t}}$ is Zinkevich's \textsc{Generalized
-Infinitesimal Gradient Ascent} (GIGA) algorithm~\cite{Zinkevich-2003}.
-Full-matrix and diagonal versions of \textsc{AdaGrad with Composite MD
-Update}~\cite{Duchi-Hazan-Singer-2011} are an instances of
-\textsc{MD} for any bounded $K$ with regularizers
+\frac{1}{2\eta_t}\|w\|_2^2$.  A special case of \textsc{Projected Gradient
+Descent} with step size $\eta_t = \frac{1}{\sqrt{t}}$ is \textsc{Generalized
+Infinitesimal Gradient Ascent} (GIGA)~\cite{Zinkevich-2003}.  Full-matrix and
+diagonal versions of \textsc{AdaGrad with Composite MD
+Update}~\cite{Duchi-Hazan-Singer-2011} are an instances of \textsc{MD} for any
+bounded $K$ with regularizers
 $$
 R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} \!\!\!\! w
 \qquad \text{and} \qquad
@@ -87,7 +86,7 @@ R_t(w) = \frac{\|w\|_2^2}{2} \sqrt{\sum_{i=1}^t \|\ell_i\|_2^2 } \; .
 \end{equation}
 All three sequences of regularizers give a scale-free algorithm. Regularizer
 \eqref{equation:ada-grad-regularizer} can be viewed as a scale-free
-generalization of Zinkevich's GIGA algorithm. That is, when $\|\ell_i\|_2
+generalization of GIGA. That is, when $\|\ell_i\|_2
 = 1$ for all $i$, \textsc{MD} with regularizer
 \eqref{equation:ada-grad-regularizer} coincides with GIGA.
 
@@ -105,12 +104,12 @@ the \textsc{MD} minimizer
 $w_{t+1} = \argmin_{w \in K} \left(\langle \ell_t, w \rangle + \Breg_{R_t}(w,
 w_t) \right)$ when $\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}$ is zero.
 This happens when the loss vectors $\ell_1, \ell_2, \dots, \ell_t$ are all
-zero (and in particular for $t=0$). In this case, we define
+zero. In this case, we define
 $w_{t+1} = \argmin_{w \in K} R(w)$ which agrees with
 $w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
+Similarly, $w_1 = \argmin_{w \in K} R(w)$.
 
-The theorem below upper bounds the regret of \textsc{Scale-Free Mirror Descent}
-(see also
+The theorem below upper bounds the regret of \textsc{Scale-Free MD} (see also
 \cite{Duchi-Hazan-Singer-2011,Duchi-Shalev-Shwartz-Singer-Tewari-2010,Rakhlin-Sridharan-2013}).
 Proof is in~\ref{section:mirror-descent-proofs}.
 
@@ -118,7 +117,7 @@ Proof is in~\ref{section:mirror-descent-proofs}.
 \label{theorem:regret-scale-free-mirror-descent}
 Suppose $K \subseteq V$ is a non-empty closed convex subset. Suppose that $R:K
 \to \R$ is a $\lambda$-strongly convex function with respect to a norm
-$\|\cdot\|$.  \textsc{Scale-Free Mirror Descent} with regularizer $R$ satisfies
+$\|\cdot\|$.  \textsc{Scale-Free MD} with regularizer $R$ satisfies
 for any $u \in K$,
 $$
 \Regret_T(u)
@@ -135,7 +134,7 @@ proof is trivial.
 \label{corollary:regret-scale-free-mirror-descent}
 Suppose $K \subseteq V$ is a non-empty bounded closed convex subset.  Suppose
 that $f:K \to \R$ is a $1$-strongly convex function with respect to a norm
-$\|\cdot\|$.  \textsc{Scale-Free Mirror Descent} with regularizer
+$\|\cdot\|$.  \textsc{Scale-Free MD} with regularizer
 $$
 R(w) = \frac{f(w)}{\displaystyle \sqrt{\sup_{u,v \in K} \Breg_f(u,v)}}
 \quad \text{satisfies} \quad %
@@ -150,7 +149,7 @@ $\sup_{u,v \in K} \Breg_f(u,v)$. In contrast, the regret bounds for
 Corollaries~\ref{corollary:ada-ftrl-regret-bound}~and~\ref{corollary:regret-solo-ftrl-bounded-set}
 depend on $\sup_{u \in K} f(u)$.  Similarly, the regret bound in
 Theorem~\ref{theorem:regret-scale-free-mirror-descent} for \textsc{Scale-Free
-Mirror Descent} depends on $\sup_{v \in K} \Breg_R(u,v)$ and the regret bounds in
+MD} depends on $\sup_{v \in K} \Breg_R(u,v)$ and the regret bounds in
 Theorems~\ref{theorem:ada-ftrl-regret-bound}~and~\ref{theorem:regret-solo-ftrl}
 for \textsc{AdaFTRL} and \textsc{SOLO FTRL} depend on $R(u)$. It is not hard to
 show that
@@ -173,19 +172,19 @@ $R$ have the same minimizer $v^*$, and $R'(v^*)$ and $\grad R'(v^*)$ are both
 zero.
 
 Thus, \eqref{equation:regularizer-vs-divergence} implies that ignoring constant
-factors, the regret bound for \textsc{Scale-Free Mirror Descent} is \emph{not}
-better and possibly worse than the regret bounds for \textsc{AdaFTRL} and
-\textsc{SOLO FTRL}.  In fact, it is not hard to come up with examples where
-$R(u)$ is finite whereas $\sup_{v \in K} \Breg_R(u,v)$ is infinite. We mention
-two such examples. The first example is $R(w) = \frac{1}{2}\|w\|_2^2$ defined
-on the whole space $V$, where for any $u \in V$, $R(u)$ is a finite value but
-$\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in V} \frac{1}{2}\|u-v\|_2^2 =
-+\infty$. The second example is the negative entropy regularizer $R(w) = \ln d
-+ \sum_{j=1}^d w_j \ln w_j$ defined on the $d$-dimensional probability simplex
-$K = \{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}$, where for any $u
-\in K$, $R(u)$ is finite and in fact lies in the interval $[-\ln d, 0]$ but
-$\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in K} \sum_{j=1}^d u_j \ln(u_j/v_j) = +
-\infty$. We return to these examples in the following subsection.
+factors, the regret bound for \textsc{Scale-Free MD} is inferior to the regret
+bounds for \textsc{AdaFTRL} and \textsc{SOLO FTRL}.  In fact, it is not hard to
+come up with examples where $R(u)$ is finite whereas $\sup_{v \in K}
+\Breg_R(u,v)$ is infinite. We mention two such examples. The first example is
+$R(w) = \frac{1}{2}\|w\|_2^2$ defined on the whole space $V$, where for any $u
+\in V$, $R(u)$ is a finite value but $\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in
+V} \frac{1}{2}\|u-v\|_2^2 = +\infty$. The second example is the negative
+entropy regularizer $R(w) = \ln d + \sum_{j=1}^d w_j \ln w_j$ defined on the
+$d$-dimensional probability simplex $K = \{ w \in \R^d ~:~ w_j \ge 0,
+\sum_{j=1}^d w_j = 1 \}$, where for any $u \in K$, $R(u)$ is finite and in fact
+lies in the interval $[-\ln d, 0]$ but $\sup_{v \in K} \Breg_R(u,v) = \sup_{v
+\in K} \sum_{j=1}^d u_j \ln(u_j/v_j) = + \infty$. We return to these examples
+in the following subsection.
 
 \subsection{Lower Bounds for Mirror Descent}
 \label{subsection:mirror-descent-lower-bound}
@@ -193,13 +192,13 @@ $\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in K} \sum_{j=1}^d u_j \ln(u_j/v_j) = +
 The bounds in Theorem~\ref{theorem:regret-scale-free-mirror-descent} and
 Corollary~\ref{corollary:regret-scale-free-mirror-descent} are vacuous when
 $\Breg_R(u,v)$ is not bounded. One might wonder if the assumption that
-$\Breg_R(u,v)$ is bounded is necessary in order for \textsc{Scale-Free Mirror
-Descent} to have a ``small'' regret. We show necessity of this assumption on
-two counter-examples.  In these counter-examples, we consider strongly convex
+$\Breg_R(u,v)$ is bounded is necessary in order for \textsc{Scale-Free MD} to
+have a ``small'' regret. We show necessity of this assumption on two
+counter-examples.  In these counter-examples, we consider strongly convex
 regularizers $R$ such that $\Breg_R(u,v)$ is not bounded and we construct
 sequences of loss vectors $\ell_1, \ell_2, \dots, \ell_T$ such that
 $\|\ell_1\|_* = \|\ell_2\|_* = \dots = \|\ell_T\|_* = 1$ and \textsc{Scale-Free
-Mirror Descent} has regret $\Omega(T)$ or worse.
+MD} has regret $\Omega(T)$ or worse.
 
 The first counter-example is stated as
 Theorem~\ref{theorem:first-counter-example} below. The decision set is the
@@ -209,18 +208,17 @@ norm of $\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
 $\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs
 sequence of unit-norm loss vectors in the one-dimensional subspace spanned by
 the first vector of the standard unit basis.  On such sequence, Zinkevich's
-\textsc{GIGA} and both versions of \textsc{AdaGrad with Composite Mirror
-Update} have predictions identical to \textsc{Scale-Free Mirror Descent}. Hence
-the lower bound applies to all four algorithms.
+\textsc{GIGA} and both versions of \textsc{AdaGrad MD} have predictions
+identical to \textsc{Scale-Free MD}. Hence the lower bound applies to all four
+algorithms.
 
 \begin{theorem}[First Counter-Example]
 \label{theorem:first-counter-example}
 Suppose $K = V$. For any $T \ge 42$, there exists a sequence of loss vectors
 $\ell_1, \ell_2, \dots, \ell_T \in V^*$ such that $\|\ell_1\|_2 = \|\ell_2\|_2
-= \dots = \|\ell_T\|_2 = 1$ and \textsc{Scale-Free Mirror Descent} with
-regularizer $R(w) = \frac{1}{2}\|w\|_2^2$, Zinkevich's \textsc{GIGA} algorithm,
-and both versions of \textsc{AdaGrad with Composite Mirror Descent Update}
-satisfy
+= \dots = \|\ell_T\|_2 = 1$ and \textsc{Scale-Free MD} with
+regularizer $R(w) = \frac{1}{2}\|w\|_2^2$, \textsc{GIGA},
+and both versions of \textsc{AdaGrad MD} satisfy
 $$
 \Regret_T(0) \ge \frac{T^{3/2}}{20} \; .
 $$

@@ -21,8 +21,8 @@ Adding $\langle \ell_t, w_{t+1} - w_t \rangle$ to both sides and rearranging, we
 & \le \langle \grad R_t(w_{t+1}) - \grad R_t(w_t), u - w_{t+1} \rangle  + \langle \ell_t, w_t - w_{t+1} \rangle \\
 & = \langle \ell_t, w_t - w_{t+1} \rangle - \Breg_{R_t}(w_{t+1}, w_t) + \Breg_{R_t}(u,w_t) - \Breg_{R_t}(u, w_{t+1}) \; .
 \end{align*}
-The last equivality is follows by from definition of Bregman divergence.
-Summing over all $t=1,2,\dots,T$ we get the final regret bound.
+The last equality follows by from definition of Bregman divergence.  Summing
+over all $t=1,2,\dots,T$ we get the final regret bound.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{theorem:regret-scale-free-mirror-descent}]
