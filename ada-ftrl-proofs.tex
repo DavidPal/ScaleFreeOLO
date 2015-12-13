@@ -30,8 +30,9 @@ $$
 \sqrt{3 \sum_{t=1}^{T-1} a_t^2} + \min \left\{ a_T, \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
 \le  \sqrt{3 \sum_{t=1}^T a_t^2} \; .
 $$
-If $a_T = 0$, the inequality clearly holds. Dividing through by $a_T$ and
-making substitution $z=\frac{\sqrt{\sum_{t=1}^{T-1} a_t^2}}{a_T}$, leads to
+If $a_T = 0$, the inequality clearly holds. Otherwise, $a_T$ is positive and we
+divide through by it and make substitution $z=\frac{\sqrt{\sum_{t=1}^{T-1}
+a_t^2}}{a_T}$, which leads to
 $$
 z\sqrt{3} + \min\left\{1,\frac{1}{z\sqrt{3}}\right\} \le \sqrt{3 + 3z^2}
 $$
