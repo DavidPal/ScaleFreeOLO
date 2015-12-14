@@ -4,18 +4,14 @@
 We have investigated scale-free algorithms for online linear optimization and
 we have shown that scale-free property leads to algorithms which have optimal
 regret and do not need to know or assume \textbf{anything} about the sequence
-of loss vectors, i.e. without any assumption on the norms of the loss vectors
-and the number of rounds. We have designed two scale-free algorithms for online
-linear optimization with regret bound $O \left(\sqrt{\sup_{v \in K} f(v)
+of loss vectors. In particular, the algorithms do not assume any upper or lower
+bounds on the norms of the loss vectors or the number of rounds.
+
+We have designed two scale-free algorithms based on \textsc{Follow The
+Regularizer Leader}.  Their regret is $O \left(\sqrt{\sup_{v \in K} f(v)
 \sum_{t=1}^T \|\ell\|_*^2} \right)$ where $f$ is any non-negative $1$-strongly
 convex function with respect to a norm $\|\cdot\|$ defined on the decision set
-and where $\|\cdot\|_*$ is the dual norm to $\|\cdot\|$.  These algorithms are
-based on \textsc{Follow The Regularizer Leader}.  We have shown that one of the
-algorithms has regret $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} +
-\max_{t=1,2,\dots,T} \|\ell_t\|_* \sqrt{T} \right)$ with respect to any
-competitor $u \in K$, where $f$ is any non-negative $1$-strongly convex
-function defined on the decision set.  The latter result makes sense even when
-the decision set $K$ is unbounded.
+and where $\|\cdot\|_*$ is the dual norm to $\|\cdot\|$.
 
 Similar, but weaker result holds for a scale-free algorithm based on
 \textsc{Mirror Descent}. However, we have also shown this algorithm is strictly
@@ -25,3 +21,22 @@ we gave examples of regularizers for which the scale-free version of
 
 We have shown an $\frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T \|\ell\|_*^2}$
 lower bound on regret of any algorithm for decision set with diameter $D$.
+
+We have shown that one of the scale-free \textsc{FTRL}-based the algorithms has
+regret $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
+\|\ell_t\|_* \sqrt{T} \right)$ with respect to any competitor $u \in K$, where
+$f$ is any non-negative $1$-strongly convex function defined on the decision
+set.  The latter result makes sense even when the decision set $K$ is
+unbounded. Notice that with regularizer $f(w) = \frac{1}{2}\|w\|_2^2$ the
+regret depends on norm of the competitor $\|u\|_2$ is quadratically. There
+exist non-scale-free algorithms \cite{ McMahan-Streeter-2012,
+McMahan-Abernethy-2013, Orabona-2013, McMahan-Orabona-2014, Orabona-2014} that
+have only $O(\|u\|_2 \sqrt{\log \|u_2\|_2})$ or $O(\|u\|_2 \log \|u\|_2)$
+dependency.  These algorithms, however, assume an a priori bound on the norm of
+the loss vectors.  This leads to another open problem:
+%
+\begin{quotation}
+\noindent
+\emph{Design a scale-free algorithm that has $O(\|u\|_2 \sqrt{\log \|u\|_2})$
+dependency on the norm $\|u\|_2$ of the competitor.}
+\end{quotation}
