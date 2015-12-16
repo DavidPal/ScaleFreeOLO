@@ -1,4 +1,4 @@
-\section{Proofs for Mirror Descent}
+\section{Proofs for Scale-Free Mirror Descent}
 \label{section:mirror-descent-proofs}
 
 \begin{proof}[Proof of Lemma~\ref{lemma:mirror-descent-regret}]
@@ -15,7 +15,8 @@ w_{t+1} \rangle \ge 0$ for all $u \in K$. Written explicitly,
 $$
 \langle \ell_t + \grad R_t(w_{t+1}) - \grad R_t(w_t), u - w_{t+1} \rangle \ge 0 \; .
 $$
-Adding $\langle \ell_t, w_{t+1} - w_t \rangle$ to both sides and rearranging, we have
+Adding $\langle \ell_t, w_{t+1} - w_t \rangle$ to both sides and rearranging,
+we have
 \begin{align*}
 \langle \ell_t, w_t - u \rangle
 & \le \langle \grad R_t(w_{t+1}) - \grad R_t(w_t), u - w_{t+1} \rangle  + \langle \ell_t, w_t - w_{t+1} \rangle \\
@@ -114,7 +115,8 @@ First, for any $t \ge \lceil T/3 \rceil + 1$,
 where the last inequality follows from that $\exp\left( \left(
 \frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right)$ is an increasing function
 of $T$ and the inequality can be easily verified for $T=120$. Since $w_{t,1} +
-w_{t,1} \le 1$ and $w_{t,1} \ge 0$ and $w_{t,2} \ge 0$, the inequality $w_{t,1}/w_{t,2} \ge 4$ implies that
+w_{t,1} \le 1$ and $w_{t,1} \ge 0$ and $w_{t,2} \ge 0$, the inequality
+$w_{t,1}/w_{t,2} \ge 4$ implies that
 $$
 w_{t,2} \le \frac{1}{5} \qquad \qquad \text{(for any $t \ge \lceil T/3 \rceil + 1$)}.
 $$

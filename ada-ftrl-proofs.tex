@@ -22,8 +22,7 @@ $$
 \le \Delta_{T-1} + \min \left\{a_T, \ \frac{a_T^2}{\Delta_{T-1}} \right\}
 \le \sqrt{3 \sum_{t=1}^{T-1} a_t^2} + \min \left\{ a_T, \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
 $$
-where the first inequality follows from Lemma~\ref{lemma:gap-recurrence}, and
-the second inequality from the induction hypothesis and the fact that the
+where the second inequality from the induction hypothesis and the fact that the
 function $f(x) = x + \min\{a_T, a_T^2/x\}$ is increasing on $[0,\infty)$.  It
 remains to prove that
 $$

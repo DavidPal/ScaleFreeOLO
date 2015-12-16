@@ -110,8 +110,8 @@ $w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
 Similarly, $w_1 = \argmin_{w \in K} R(w)$.
 
 The theorem below upper bounds the regret of \textsc{Scale-Free MD} (see also
-\cite{Duchi-Hazan-Singer-2011,Duchi-Shalev-Shwartz-Singer-Tewari-2010,Rakhlin-Sridharan-2013}).
-Proof is in~\ref{section:mirror-descent-proofs}.
+\cite{Duchi-Hazan-Singer-2011, Duchi-Shalev-Shwartz-Singer-Tewari-2010,
+Rakhlin-Sridharan-2013}).  Proof is in~\ref{section:mirror-descent-proofs}.
 
 \begin{theorem}[Regret of Scale-Free Mirror Descent]
 \label{theorem:regret-scale-free-mirror-descent}
@@ -186,7 +186,7 @@ lies in the interval $[-\ln d, 0]$ but $\sup_{v \in K} \Breg_R(u,v) = \sup_{v
 \in K} \sum_{j=1}^d u_j \ln(u_j/v_j) = + \infty$. We return to these examples
 in the following subsection.
 
-\subsection{Lower Bounds for Mirror Descent}
+\subsection{Lower Bounds for Scale-Free Mirror Descent}
 \label{subsection:mirror-descent-lower-bound}
 
 The bounds in Theorem~\ref{theorem:regret-scale-free-mirror-descent} and
@@ -201,10 +201,11 @@ $\|\ell_1\|_* = \|\ell_2\|_* = \dots = \|\ell_T\|_* = 1$ and \textsc{Scale-Free
 MD} has regret $\Omega(T)$ or worse.
 
 The first counter-example is stated as
-Theorem~\ref{theorem:first-counter-example} below. The decision set is the
-whole space $K=V$ and the regularizer is $R(w) = \frac{1}{2}\|w\|_2^2$. Note
-that $R(w)$ is $1$-strongly convex with respect to $\|\cdot\|_2$ and the dual
-norm of $\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
+Theorem~\ref{theorem:first-counter-example} below; proof is
+in~\ref{section:mirror-descent-proofs}. The decision set is the whole space
+$K=V$ and the regularizer is $R(w) = \frac{1}{2}\|w\|_2^2$. Note that $R(w)$ is
+$1$-strongly convex with respect to $\|\cdot\|_2$ and the dual norm of
+$\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
 $\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs
 sequence of unit-norm loss vectors in the one-dimensional subspace spanned by
 the first vector of the standard unit basis.  On such sequence, Zinkevich's
@@ -225,7 +226,8 @@ $$
 \end{theorem}
 
 The second counter-example is stated as
-Theorem~\ref{theorem:second-counter-example} below.  The decision set is the
+Theorem~\ref{theorem:second-counter-example} below; proof is
+in~\ref{section:mirror-descent-proofs}.  The decision set is the
 $d$-dimensional probability simplex $K = \{ w \in \R^d ~:~ w_j \ge 0,
 \sum_{j=1}^d w_j = 1 \}$ and the regularizer is the negative entropy $R(w) =
 \sum_{j=1}^d w_j \ln w_j$.  Negative entropy is $1$-strongly convex with
