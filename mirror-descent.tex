@@ -61,7 +61,7 @@ algorithm is \emph{not} scale-free.
 The most prominent instance of \textsc{MD} is \textsc{Projected Gradient
 Descent} defined by the recurrence
 $$
-w_{t+1} = \Pi_K(w_t - \eta_t \ell_t)
+w_{t+1} = \Pi_K \left( w_t - \eta_t \ell_t \right)
 $$
 where $\Pi_K(x) = \argmin_{y \in K} \|x-y\|_2$ is the Euclidean projection to
 $K$ and $\eta_t > 0$ is the step size.  \textsc{Projected Gradient Descent} is
@@ -115,7 +115,7 @@ Rakhlin-Sridharan-2013}).  Proof is in~\ref{section:mirror-descent-proofs}.
 
 \begin{theorem}[Regret of Scale-Free Mirror Descent]
 \label{theorem:regret-scale-free-mirror-descent}
-Suppose $K \subseteq V$ is a non-empty closed convex subset. Suppose that $R:K
+Suppose $K \subseteq V$ is a non-empty closed convex set. Suppose that $R:K
 \to \R$ is a $\lambda$-strongly convex function with respect to a norm
 $\|\cdot\|$.  \textsc{Scale-Free MD} with regularizer $R$ satisfies
 for any $u \in K$,
@@ -132,7 +132,7 @@ proof is trivial.
 
 \begin{corollary}[Regret of Scale-Free Mirror Descent]
 \label{corollary:regret-scale-free-mirror-descent}
-Suppose $K \subseteq V$ is a non-empty bounded closed convex subset.  Suppose
+Suppose $K \subseteq V$ is a non-empty bounded closed convex set.  Suppose
 that $f:K \to \R$ is a $1$-strongly convex function with respect to a norm
 $\|\cdot\|$.  \textsc{Scale-Free MD} with regularizer
 $$
@@ -208,10 +208,10 @@ $1$-strongly convex with respect to $\|\cdot\|_2$ and the dual norm of
 $\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
 $\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs
 sequence of unit-norm loss vectors in the one-dimensional subspace spanned by
-the first vector of the standard unit basis.  On such sequence, Zinkevich's
-\textsc{GIGA} and both versions of \textsc{AdaGrad MD} have predictions
-identical to \textsc{Scale-Free MD}. Hence the lower bound applies to all four
-algorithms.
+the first vector of the standard orthnormal basis.  On such sequence,
+Zinkevich's \textsc{GIGA} and both versions of \textsc{AdaGrad MD} have
+predictions identical to \textsc{Scale-Free MD}. Hence the lower bound applies
+to all four algorithms.
 
 \begin{theorem}[First Counter-Example]
 \label{theorem:first-counter-example}

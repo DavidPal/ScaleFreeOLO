@@ -7,7 +7,7 @@ showing that it retains its scale-free property. The analysis is very general
 and based on general properties of strongly convex functions, rather than
 specific properties of the entropic regularizer like in \textsc{AdaHedge}.
 
-Assume that $K$ is bounded and that $R(w)$ is a strongly convex lower
+Assume that $K$ is bounded and that $R:K \to \R$ is a strongly convex lower
 semi-continuous function bounded from above.  We instantiate
 Algorithm~\ref{algorithm:ftrl-varying-regularizer} with the sequence of
 regularizers
@@ -40,11 +40,12 @@ Section~\ref{section:ada-ftrl-regret-bound}.
 
 \begin{theorem}[Regret Bound]
 \label{theorem:ada-ftrl-regret-bound}
-Suppose $K \subseteq V$ is a non-empty bounded closed convex subset. Let $D =
+Suppose $K \subseteq V$ is a non-empty bounded closed convex set. Let $D =
 \sup_{x,y \in K} \|x - y\|$ be its diameter with respect to a norm $\|\cdot\|$.
 Suppose that the regularizer $R:K \to \R$ is a non-negative lower
 semi-continuous function that is $\lambda$-strongly convex with respect to
-$\|\cdot\|$ and is bounded from above.  The regret of \textsc{AdaFTRL} satisfies
+$\|\cdot\|$ and is bounded from above.  The regret of \textsc{AdaFTRL}
+satisfies
 $$
 \Regret_T(u)
 \le \sqrt{3} \max\left\{D, \frac{1}{\sqrt{2\lambda}} \right\}
@@ -60,10 +61,10 @@ in~\ref{section:ada-ftrl-proofs}.
 
 \begin{corollary}[Regret Bound]
 \label{corollary:ada-ftrl-regret-bound}
-Suppose $K \subseteq V$ is a non-empty bounded closed convex subset. Suppose
-$f:K \to \R$ is a non-negative lower semi-continuous function that is
-$1$-strongly convex with respect to $\|\cdot\|$ and is bounded from above.  The
-regret of \textsc{AdaFTRL} with regularizer
+Suppose $K \subseteq V$ is a non-empty bounded closed convex set. Suppose $f:K
+\to \R$ is a non-negative lower semi-continuous function that is $1$-strongly
+convex with respect to $\|\cdot\|$ and is bounded from above.  The regret of
+\textsc{AdaFTRL} with regularizer
 $$
 R(w) = \frac{f(w)}{16 \cdot \sup_{v \in K} f(v)}
 \qquad \text{satisfies} \qquad

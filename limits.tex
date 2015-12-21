@@ -142,10 +142,11 @@ Property 2 of Proposition~\ref{proposition:conjugate-properties} implies that
 u = \lim_{a \to 0^+} \grad R^*(x/a) & = \lim_{a \to 0^+} \argmin_{w \in K} \left( a R(w) - \langle x, w \rangle \right) \; , \\
 v = \lim_{a \to 0^+} \grad R^*(y/a) & = \lim_{a \to 0^+} \argmin_{w \in K} \left( a R(w) - \langle y, w \rangle \right) \; .
 \end{align*}
-The limits on the right exist because of compactness of $K$. They are simply
-the minimizers $u= \argmin_{w \in K} - \langle x, w \rangle$ and $v= \argmin_{w
-\in K} - \langle y, w \rangle$ where ties in $\argmin$ are broken according to
-smaller value of $R(w)$.
+The limits on the right exist according to
+Lemma~\ref{lemma:prediction-limit-existence}.  They are simply the minimizers
+$u = \argmin_{w \in K} - \langle x, w \rangle$ and $v= \argmin_{w \in K} -
+\langle y, w \rangle$ where ties in $\argmin$ are broken according to smaller
+value of $R(w)$.
 
 By assumption $R(w)$ is upper bounded. It is also lower bounded, since it is
 defined on a compact set and it is lower semi-continuous. Thus,

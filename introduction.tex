@@ -83,11 +83,10 @@ There is a clear practical need to design algorithms that adapt automatically
 to norms of the loss vectors.  A natural, yet overlooked, design method to
 achieve this type of adaptivity is by insisting to have a \textbf{scale-free}
 algorithm.  That is, the sequence of decisions of the algorithm does not change
-if the sequence of loss vectors is multiplied by a positive constant.
-
-The most important property of scale-free algorithms is that both their loss
-and their regret is scales linearly with the maximum norm of the loss vector
-appearing in the sequence.
+if the sequence of loss vectors is multiplied by a positive constant.  The most
+important property of scale-free algorithms is that both their loss and their
+regret scale linearly with the maximum norm of the loss vector appearing in the
+sequence.
 
 \subsection{Previous results}
 
@@ -104,7 +103,7 @@ version with time-varying regularizers was analyzed in
 \cite{Orabona-Crammer-Cesa-Bianchi-2014}. \textsc{MD} was originally proposed
 in \cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003}
 for convex optimization. In the online learning literature it makes the first
-appearance, under a different name, in \cite{Kivinen-Warmuth-1997}. Good
+appearance, under a different name, in \cite{Kivinen-Warmuth-1997}. A good
 description of \textsc{MD} is given in~\cite{Rakhlin-Sridharan-2009}.
 
 Both \textsc{FTRL} and \textsc{MD} are parametrized by a function called a

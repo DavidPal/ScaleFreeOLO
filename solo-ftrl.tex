@@ -24,14 +24,8 @@ in order to have a scale-free algorithm. Moreover, we would have to upper bound
 the regret in all the rounds where the norm of the current loss is bigger than
 the estimate. Finally, the algorithm would depend on an additional parameter,
 the ``doubling'' power. Hence, even in the case one would prove a regret bound,
-%\footnote{For
-%lack of space, we cannot include the regret bound for the doubling trick
-%version. It would be exactly the same as in
-%Theorem~\ref{theorem:regret-solo-ftrl}, following a similar analysis, but with
-%the additional parameter of the doubling power.},
-such strategy would give the
-feeling that \textsc{FTRL} needs to be ``fixed'' in order to obtain a
-scale-free algorithm.
+such strategy would give the feeling that \textsc{FTRL} needs to be ``fixed''
+in order to obtain a scale-free algorithm.
 
 In the following, we propose a much simpler and better approach.  We propose to
 use Algorithm~\ref{algorithm:ftrl-varying-regularizer} with the regularizer
@@ -55,11 +49,11 @@ $w_t = \lim_{a \to 0^+}  \argmin_{w \in K} a R(w)$.
 
 \begin{theorem}[Regret of \textsc{SOLO FTRL}]
 \label{theorem:regret-solo-ftrl}
-Suppose $K \subseteq V$ is a non-empty closed convex subset.  Let $D =
-\sup_{u,v \in K} \|u - v\|$ be its diameter with respect to a norm $\|\cdot\|$.
-Suppose that the regularizer $R:K \to \R$ is a non-negative lower
-semi-continuous function that is $\lambda$-strongly convex with respect to
-$\|\cdot\|$. The regret of \textsc{SOLO FTRL} satisfies
+Suppose $K \subseteq V$ is a non-empty closed convex set.  Let $D = \sup_{u,v
+\in K} \|u - v\|$ be its diameter with respect to a norm $\|\cdot\|$.  Suppose
+that the regularizer $R:K \to \R$ is a non-negative lower semi-continuous
+function that is $\lambda$-strongly convex with respect to $\|\cdot\|$. The
+regret of \textsc{SOLO FTRL} satisfies
 \begin{align*}
 \Regret_T(u)
 & \le \left( R(u) + \frac{2.75}{\lambda}\right) \sqrt{\sum_{t=1}^{T} \norm{\ell_t}_*^2}
@@ -80,8 +74,8 @@ have $\lambda \sim 1/\sqrt{\sup_{v \in K} f(v)}$.
 
 \begin{corollary}[Regret Bound for Bounded Decision Sets]
 \label{corollary:regret-solo-ftrl-bounded-set}
-Suppose $K \subseteq V$ is a non-empty bounded closed convex subset.  Suppose
-that $f:K \to \R$ is a non-negative lower semi-continuous function that is
+Suppose $K \subseteq V$ is a non-empty bounded closed convex set.  Suppose that
+$f:K \to \R$ is a non-negative lower semi-continuous function that is
 $1$-strongly convex with respect to $\|\cdot\|$. \textsc{SOLO FTRL} with
 regularizer
 $$
@@ -95,8 +89,8 @@ $$
 \label{section:solo-ftrl-regret-bound}
 
 The proof of Theorem~\ref{theorem:regret-solo-ftrl} relies on an inequality
-(Lemma~\ref{lemma:useful}).  Related and weaker inequalities were proved by
-~\cite{Auer-Cesa-Bianchi-Gentile-2002} and ~\cite{Jaksch-Ortner-Auer-2010}.
+(Lemma~\ref{lemma:useful}).  Related and weaker inequalities were proved
+in~\cite{Auer-Cesa-Bianchi-Gentile-2002} and~\cite{Jaksch-Ortner-Auer-2010}.
 The main property of this inequality is that on the right-hand side $C$ does
 \emph{not} multiply the $\sqrt{\sum_{t=1}^T a_t^2}$ term.  We will also use the
 well-known technical Lemma~\ref{lemma:sum-of-square-roots-inverses}.
@@ -106,7 +100,7 @@ well-known technical Lemma~\ref{lemma:sum-of-square-roots-inverses}.
 Let $C, a_1, a_2, \dots, a_T \ge 0$. Then,
 $$
 \sum_{t=1}^T \min \left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, \ C a_t \right\}
-\le 3.5 C \max_{t=1,2,\dots,T} a_t + 3.5 \sqrt{\sum_{t=1}^T a_t^2} \; .
+\le 3.5 \, C \max_{t=1,2,\dots,T} a_t \ + \ 3.5 \sqrt{\sum_{t=1}^T a_t^2} \; .
 $$
 \end{lemma}
 \begin{proof}
@@ -130,7 +124,7 @@ The inequality follows by case analysis. If $a_t^2 \le \alpha^2 \sum_{i=1}^{t-1}
 where we have used $x^2/\sqrt{x^2+y^2} \le 2(\sqrt{x^2+y^2} - \sqrt{y^2})$ in the last step.
 On the other hand, if $a_t^2 > \alpha^2 \sum_{t=1}^{t-1} a_i^2$, we have
 \begin{multline*}
-\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, C a_t \right\}
+\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, \ C a_t \right\}
 \le C a_t
 = C \frac{\alpha a_t  - a_t}{\alpha - 1}
 \le \frac{C}{\alpha - 1} \left( \alpha a_t  - \alpha \sqrt{\sum_{i=1}^{t-1} a_i^2} \right) \\
