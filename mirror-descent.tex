@@ -49,14 +49,12 @@ $$
 $$
 \end{lemma}
 
-Several existing algorithms are special cases of \textsc{MD}.
-For example, \textsc{Exponentially-Weighted Average
-Forecaster}~\cite[Chapter~2]{Cesa-Bianchi-Lugosi-2006} with a constant learning
-rate $\eta$ for learning with expert advice is an instance of
-\textsc{MD} for the probability simplex $K = \{ w \in \R^d ~:~ w_j
-\ge 0, \sum_{j=1}^d w_j = 1 \}$ with negative entropy regularizer $R_t(w) =
-\frac{1}{\eta} \sum_{j=1}^d w_j \ln w_j$ where $R_t:K \to \R$. Note that this
-algorithm is \emph{not} scale-free.
+Several existing algorithms are special cases of \textsc{MD}.  For example,
+\textsc{Hedge} is an instance of \textsc{MD} for the probability simplex $K =
+\{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}$ with negative entropy
+regularizer $R_t(w) = \frac{1}{\eta} \sum_{j=1}^d w_j \ln w_j$ where $\eta > 0$
+is a (constant) learning rate. Note that this algorithm is \emph{not}
+scale-free.
 
 The most prominent instance of \textsc{MD} is \textsc{Projected Gradient
 Descent} defined by the recurrence
