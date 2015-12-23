@@ -39,14 +39,14 @@ For this reason, most of the existing OLO algorithms receive as an input---or
 explicitly assume---an upper bound $B$ on the norm of the loss vectors.  The
 input $B$ is often disguised as the learning rate, the regularization
 parameter, or the parameter of strong convexity of the regularizer. Examples of
-such algorithms include the \textsc{Hedge}~\cite{Freund-Schapire-1997} or
-online projected gradient descent with fixed learning rate.  However, these
-algorithms have two obvious drawbacks.
+such algorithms include \textsc{Hedge}~\cite{Freund-Schapire-1997} or online
+projected gradient descent with fixed learning rate.  However, these algorithms
+have two obvious drawbacks.
 
 First, they do not come with any regret guarantee for sequences of loss vectors
-with norms exceeding $B$. Second, on sequences where the norm of loss vectors
-is bounded by $b \ll B$, these algorithms fail to have an optimal regret
-guarantee that depends on $b$ rather than on $B$.
+with norms exceeding $B$. Second, on sequences of loss vectors with norms
+bounded by $b \ll B$, these algorithms fail to have an optimal regret guarantee
+that depends on $b$ rather than on $B$.
 
 % Change spacing between rows.
 \renewcommand{\arraystretch}{1.8}
@@ -80,7 +80,7 @@ invariant sequence of predictions $\langle w_t, \ell_t \rangle$, rather than a
 sequence of invariant $w_t$.}
 
 There is a clear practical need to design algorithms that adapt automatically
-to norms of the loss vectors.  A natural, yet overlooked, design method to
+to the norms of the loss vectors.  A natural, yet overlooked, design method to
 achieve this type of adaptivity is by insisting to have a \textbf{scale-free}
 algorithm.  That is, the sequence of decisions of the algorithm does not change
 if the sequence of loss vectors is multiplied by a positive constant.  The most
@@ -117,10 +117,11 @@ Scale-free versions of \textsc{MD} include \textsc{AdaGrad
 MD}~\cite{Duchi-Hazan-Singer-2011} and~\textsc{Optimistic
 MD}~\cite{Rakhlin-Sridharan-2013}. However, these algorithms have non-trivial
 regret bounds only when the Bregman divergence associated with the regularizer
-is bounded, which happens only when the decision set is bounded as well. As we
-show in Section~\ref{subsection:mirror-descent-lower-bound}, this is
-unavoidable, since \textsc{AdaGrad MD} and similar algorithms based on
-\textsc{MD} can have $\Omega(T)$ regret if Bregman divergence is not bounded.
+is bounded. In particular, since a bound on the Bregman divergence implies that
+decision set is bounded, the regret bounds are vacuous for unbounded sets.  In
+fact, as we show in Section~\ref{subsection:mirror-descent-lower-bound}
+\textsc{AdaGrad MD} and similar algorithms based on \textsc{MD} have
+$\Omega(T)$ regret if the Bregman divergence is not bounded.
 
 Only one scale-free algorithm based on \textsc{FTRL} was known. It is the
 \textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} algorithm for

@@ -27,17 +27,16 @@ regret $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
 \|\ell_t\|_* \sqrt{T} \right)$ with respect to any competitor $u \in K$, where
 $f$ is any non-negative $1$-strongly convex function defined on the decision
 set.  The latter result makes sense even when the decision set $K$ is
-unbounded. Notice that with regularizer $f(w) = \frac{1}{2}\|w\|_2^2$ the
+unbounded. Notice that with regularizer $f(u) = \frac{1}{2}\|u\|_2^2$ the
 regret depends on norm of the competitor $\|u\|_2$ is quadratically. There
-exist non-scale-free algorithms \cite{ McMahan-Streeter-2012,
+exist non-scale-free algorithms \cite{McMahan-Streeter-2012,
 McMahan-Abernethy-2013, Orabona-2013, McMahan-Orabona-2014, Orabona-2014} that
 have only $O(\|u\|_2 \sqrt{\log \|u_2\|_2})$ or $O(\|u\|_2 \log \|u\|_2)$
-dependency.  These algorithms, however, assume an a priori bound on the norm of
-the loss vectors.  This leads to another open problem:
+dependency.  These algorithms assume an a priori bound on the norm of the loss
+vectors.  This leads to another open problem:
 %
 \begin{quotation}
 \noindent
-\emph{Is there a scale-free algorithm
-for decision set $\R^d$ that has $O(\|u\|_2 \sqrt{\log \|u\|_2})$
-dependency on the norm $\|u\|_2$ of the competitor?}
+\emph{Is there a scale-free algorithm for the decision set $\R^d$, regret of
+which has $O(\|u\|_2 \sqrt{\log \|u\|_2})$ dependency on the competitor $u$?}
 \end{quotation}
