@@ -17,7 +17,6 @@
 \end{algorithmic}
 \end{algorithm}
 
-
 \textsc{Mirror Descent} (MD) is a generic algorithm similar to \textsc{FTRL}
 but quite different in details. The algorithm is stated as
 Algorithm~\ref{algorithm:mirror-descent-varying-regularizer}. The algorithm is
@@ -31,7 +30,7 @@ If $K$ is a subset of an affine subspace of a dimension smaller than the
 dimension of $V$, then $R_t$ fails to be differentiable everywhere.}, the
 Bregman divergence, $\Breg_{R_t}(u,v) = R_t(u) - R_t(v) - \langle \grad R_t(v),
 u - v \rangle$ needs to be defined. This is done by choosing a subgradient map
-$\grad R_t:K \to V$, i.e. a function such that $\grad R_t(w)$ is a subgradient
+$\grad R_t:K \to V$, i.e., a function such that $\grad R_t(w)$ is a subgradient
 of $R_t$ at a point $w$. If $R_t$ is a restriction of a differentiable function
 $R'_t$, it is convenient to define $\grad R_t(w) = \grad R'_t(w)$ for all $w
 \in K$. The following lemma bounds regret of \textsc{MD}.  Proof can be found

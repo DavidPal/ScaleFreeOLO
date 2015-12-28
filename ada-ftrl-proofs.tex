@@ -15,25 +15,27 @@ minimum at $c=1/16$ and $g(\frac{1}{16}) = \sqrt{3}(1+\frac{1}{16})\sqrt{8} \le
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lemma:recurrence-solution}]
-We prove the lemma by induction on $T$.  The base case $T=0$ is trivial. For $T
-\ge 1$, we have
-$$
+We prove the lemma by induction on $T$.  The base case $T=0$ is trivial.
+For $T \ge 1$, let $f(x) = x + \min\{a_T, a_T^2/x\}$. We have
+\begin{align*}
 \Delta_T
-\le \Delta_{T-1} + \min \left\{a_T, \ \frac{a_T^2}{\Delta_{T-1}} \right\}
-\le \sqrt{3 \sum_{t=1}^{T-1} a_t^2} + \min \left\{ a_T, \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
+& \le \Delta_{T-1} + \min \left\{a_T, \ \frac{a_T^2}{\Delta_{T-1}} \right\} \\
+& = f \left( \Delta_{T-1} \right) \\
+& \le f \left( \sqrt{3 \sum_{t=1}^{T-1} a_t^2} \right) \\
+& = \sqrt{3 \sum_{t=1}^{T-1} a_t^2} \ + \ \min \left\{ a_T, \ \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}  \; ,
+\end{align*}
+where the second inequality follows from the inductive hypothesis $\Delta_{T-1} \le
+\sqrt{3 \sum_{t=1}^{T-1} a_t^2}$ and that $f(x)$ is non-positive on $[-\infty,
+0)$ and non-negative increasing on $[0,\infty)$. It remains to prove that
 $$
-where the second inequality from the induction hypothesis and the fact that the
-function $f(x) = x + \min\{a_T, a_T^2/x\}$ is increasing on $[0,\infty)$.  It
-remains to prove that
-$$
-\sqrt{3 \sum_{t=1}^{T-1} a_t^2} + \min \left\{ a_T, \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
+\sqrt{3 \sum_{t=1}^{T-1} a_t^2} \ + \ \min \left\{ a_T, \ \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
 \le  \sqrt{3 \sum_{t=1}^T a_t^2} \; .
 $$
 If $a_T = 0$, the inequality clearly holds. Otherwise, $a_T$ is positive and we
 divide through by it and make substitution $z=\frac{\sqrt{\sum_{t=1}^{T-1}
 a_t^2}}{a_T}$, which leads to
 $$
-z\sqrt{3} + \min\left\{1,\frac{1}{z\sqrt{3}}\right\} \le \sqrt{3 + 3z^2}
+z\sqrt{3} + \min\left\{1, \frac{1}{z\sqrt{3}}\right\} \le \sqrt{3 + 3z^2}
 $$
 which can be easily checked by considering separately the cases $z \in
 [0,\frac{1}{\sqrt{3}})$ and $z \in [\frac{1}{\sqrt{3}}, \infty)$.

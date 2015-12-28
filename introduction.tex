@@ -118,10 +118,11 @@ MD}~\cite{Duchi-Hazan-Singer-2011} and~\textsc{Optimistic
 MD}~\cite{Rakhlin-Sridharan-2013}. However, these algorithms have non-trivial
 regret bounds only when the Bregman divergence associated with the regularizer
 is bounded. In particular, since a bound on the Bregman divergence implies that
-decision set is bounded, the regret bounds are vacuous for unbounded sets.  In
-fact, as we show in Section~\ref{subsection:mirror-descent-lower-bound}
-\textsc{AdaGrad MD} and similar algorithms based on \textsc{MD} have
-$\Omega(T)$ regret if the Bregman divergence is not bounded.
+the decision set is bounded, the regret bounds for \textsc{AdaGrad MD} and
+\textsc{Optimistic MD} are vacuous for unbounded sets. In fact, as we show in
+Section~\ref{subsection:mirror-descent-lower-bound}, \textsc{AdaGrad MD} and
+similar algorithms based on \textsc{MD} have $\Omega(T)$ regret if the Bregman
+divergence is not bounded.
 
 Only one scale-free algorithm based on \textsc{FTRL} was known. It is the
 \textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} algorithm for
@@ -133,9 +134,10 @@ be scale-free due to ``off-by-one'' issue; see~\cite{McMahan-2014} and also our
 discussion in Section~\ref{section:solo-ftrl}.
 
 For unbounded decision sets no scale-free algorithm with a non-trivial regret
-bound was known. Unbounded decision sets are practically important, since
-learning of large-scale linear models (e.g. logistic regression) is done by
-gradient methods that can be reduced to OLO with decision set $\R^d$.
+bound was known. Unbounded decision sets are practically important (see e.g.
+\cite{Mcmahan-Holt-Sculley-2013}), since learning of large-scale linear models
+(e.g. logistic regression) is done by gradient methods that can be reduced to
+OLO with decision set $\R^d$.
 
 \subsection{Overview of the Results}
 
@@ -165,10 +167,10 @@ regularizer $f$.  As we discuss, in Section~\ref{section:mirror-descent}, the
 upper bound for \textsc{Scale-Free MD} is never better than the bound for bound
 for \textsc{AdaFTRL} and \textsc{SOLO FTRL}.  In
 Section~\ref{section:lower-bound}, we show that the $\sqrt{\sum_{t=1}^T
-\|\ell_t\|_*^2}$ term in the bounds term is necessary by proving
-$\frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2}$ lower bound on the
-regret of any algorithm for OLO for any decision set with diameter $D$ with
-respect to the primal norm $\|\cdot\|$.
+\|\ell_t\|_*^2}$ term in the bounds is necessary by proving $\frac{D}{\sqrt{8}}
+\sqrt{\sum_{t=1}^T\|\ell_t\|_*^2}$ lower bound on the regret of any algorithm
+for OLO for any decision set with diameter $D$ with respect to the primal norm
+$\|\cdot\|$.
 
 For \textsc{SOLO FTRL}, we prove that regret against a competitor $u \in K$ is
 at most $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
@@ -179,7 +181,7 @@ set, bounded or unbounded.  The result makes \textsc{SOLO FTRL} the
 non-trivial regret bound.
 
 All three algorithms are \textbf{any-time}, i.e., they do not need to know the
-number of rounds in advance and the regret bounds hold for all time steps
+number of rounds, $T$, in advance and the regret bounds hold for all $T$
 simultaneously.
 
 Our proof techniques rely on new homogeneous
