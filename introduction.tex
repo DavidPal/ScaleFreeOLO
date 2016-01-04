@@ -38,10 +38,11 @@ with norms that exceed the upper bound.
 For this reason, most of the existing OLO algorithms receive as an input---or
 explicitly assume---an upper bound $B$ on the norm of the loss vectors.  The
 input $B$ is often disguised as the learning rate, the regularization
-parameter, or the parameter of strong convexity of the regularizer. Examples of
-such algorithms include \textsc{Hedge}~\cite{Freund-Schapire-1997} or online
-projected gradient descent with fixed learning rate.  However, these algorithms
-have two obvious drawbacks.
+parameter, or the parameter of strong convexity of the regularizer.
+%Examples of
+%such algorithms include \textsc{Hedge}~\cite{Freund-Schapire-1997} or online
+%projected gradient descent with fixed learning rate.
+However, these algorithms have two obvious drawbacks.
 
 First, they do not come with any regret guarantee for sequences of loss vectors
 with norms exceeding $B$. Second, on sequences of loss vectors with norms
@@ -90,23 +91,23 @@ sequence.
 
 \subsection{Previous results}
 
-Majority of existing algorithms for OLO are based on two generic algorithms:
+The majority of the existing algorithms for OLO are based on two generic algorithms:
 \textsc{Follow The Regularizer Leader} (\textsc{FTRL}) and \textsc{Mirror
 Descent} (\textsc{MD}). \textsc{FTRL} dates back to the potential-based
 forecaster in \cite[Chapter~11]{Cesa-Bianchi-Lugosi-2006} and its theory was
 developed in \cite{Shalev-Shwartz-2007}.  The name \textsc{Follow The
 Regularized Leader} comes from~\cite{Abernethy-Hazan-Rakhlin-2008}.
 Independently, the same algorithm was proposed in~\cite{Nestorov-2009} for
-convex optimization under the name \textsc{Dual Averaging} and later
-rediscovered in~\cite{Xiao-2010} for online convex optimization. The general
+convex optimization under the name \textsc{Dual Averaging} and rediscovered
+in~\cite{Xiao-2010} for online convex optimization. The general
 version with time-varying regularizers was analyzed in
 \cite{Orabona-Crammer-Cesa-Bianchi-2014}. \textsc{MD} was originally proposed
 in \cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003}
-for convex optimization. In the online learning literature it makes the first
-appearance, under a different name, in \cite{Kivinen-Warmuth-1997}. A good
-description of \textsc{MD} is given in~\cite{Rakhlin-Sridharan-2009}.
+for convex optimization. In the online learning literature it makes his first
+appearance, with a different name, in~\cite{Kivinen-Warmuth-1997}.
+%A good description of \textsc{MD} is given in~\cite{Rakhlin-Sridharan-2009}.
 
-Both \textsc{FTRL} and \textsc{MD} are parametrized by a function called a
+Both \textsc{FTRL} and \textsc{MD} are parametrized by a function called 
 \emph{regularizer}. The function is assumed to be strongly convex with respect
 to a given norm. Based on different regularizers different algorithms with
 different properties can be instantiated. A summary of algorithms for OLO is
@@ -130,7 +131,7 @@ learning with expert advice, where the decision set is bounded.
 Algorithms based on \textsc{FTRL} that are ``almost'' scale-free include
 \textsc{FTRL-Proximal}~\cite{McMahan-Streeter-2010,McMahan-2014} and
 \textsc{AdaGrad FTRL}~\cite{Duchi-Hazan-Singer-2011}.  These algorithms fail to
-be scale-free due to ``off-by-one'' issue; see~\cite{McMahan-2014} and also our
+be scale-free due to ``off-by-one'' issue; see~\cite{McMahan-2014} and the
 discussion in Section~\ref{section:solo-ftrl}.
 
 For unbounded decision sets no scale-free algorithm with a non-trivial regret
@@ -152,16 +153,16 @@ FTRL}~\cite{Duchi-Hazan-Singer-2011} generalized to arbitrary strongly convex
 regularizers.  \textsc{Scale-Free MD} is based on \textsc{MD}. It is a
 generalization of \textsc{AdaGrad MD}~\cite{Duchi-Hazan-Singer-2011} to
 arbitrary strongly convex regularizers, similar to \textsc{Optimistic
-MD}~\cite{Rakhlin-Sridharan-2013}.  The three algorithms are presented and
-analyzed in Sections~\ref{section:ada-ftrl}, \ref{section:solo-ftrl} and
+MD}~\cite{Rakhlin-Sridharan-2013}.  The three algorithms are presented in
+Sections~\ref{section:ada-ftrl}, \ref{section:solo-ftrl} and
 \ref{section:mirror-descent} respectively.
 
 We prove that the regret of \textsc{AdaFTRL} and \textsc{SOLO FTRL} after $T$
-rounds is bounded by $O \left(\sqrt{\sup_{v \in K} f(v)
-\sum_{t=1}^T\|\ell_t\|_*^2} \right)$ where $f$ is a non-negative regularizer
+rounds is bounded by $O (\sqrt{\sup_{v \in K} f(v)
+\sum_{t=1}^T\|\ell_t\|_*^2} )$ where $f$ is a non-negative regularizer
 that is $1$-strongly convex with respect to a norm $\|\cdot\|$ and
 $\|\cdot\|_*$ is its dual norm. For \textsc{Scale-Free MD}, we prove $O
-\left(\sqrt{\sup_{u,v \in K} B_f(u,v) \sum_{t=1}^T\|\ell_t\|_*^2} \right)$
+(\sqrt{\sup_{u,v \in K} B_f(u,v) \sum_{t=1}^T\|\ell_t\|_*^2} )$
 where $B_f$ is the Bregman divergence associated with a $1$-strongly convex
 regularizer $f$.  As we discuss, in Section~\ref{section:mirror-descent}, the
 upper bound for \textsc{Scale-Free MD} is never better than the bound for bound
@@ -173,8 +174,8 @@ for OLO for any decision set with diameter $D$ with respect to the primal norm
 $\|\cdot\|$.
 
 For \textsc{SOLO FTRL}, we prove that regret against a competitor $u \in K$ is
-at most $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
-\|\ell_t\|_* \sqrt{T} \right)$.  Same as before, $f$ is a non-negative
+at most $O (f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
+\|\ell_t\|_* \sqrt{T} )$.  Same as before, $f$ is a non-negative
 $1$-strongly convex regularizer. This bound is non-trivial for any decision
 set, bounded or unbounded.  The result makes \textsc{SOLO FTRL} the
 \textbf{first adaptive algorithm for unbounded decision sets} with a
@@ -192,10 +193,11 @@ Finally, in Section~\ref{subsection:mirror-descent-lower-bound}, we show
 negative results for existing popular variants of \textsc{MD}. We show two
 examples that demonstrate that variants of \textsc{MD} can have $\Omega(T)$
 regret (on sequences of loss vectors of unit norm) if the Bregman divergence
-associated with the regularizer is unbounded.  First example demonstrates
-$\Omega(T^{3/2})$ regret of the standard gradient descent with step size
-$1/\sqrt{t}$, \textsc{AdaGrad MD} and \textsc{Scale-Free MD} on a unbounded
-decision set.  Second example demonstrates $\Omega(T)$ regret for
-\textsc{Scale-Free MD} for learning with expert advice with negative entropy
-regularizer.  Both results indicate that \textsc{FTRL} is superior to
-\textsc{MD}.
+associated with the regularizer is unbounded.
+%First example demonstrates
+%$\Omega(T^{3/2})$ regret of the standard gradient descent with step size
+%$1/\sqrt{t}$, \textsc{AdaGrad MD} and \textsc{Scale-Free MD} on a unbounded
+%decision set.  Second example demonstrates $\Omega(T)$ regret for
+%\textsc{Scale-Free MD} for learning with expert advice with negative entropy
+%regularizer.
+These results indicate that \textsc{FTRL} is superior to \textsc{MD}.

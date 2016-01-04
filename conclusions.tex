@@ -2,7 +2,7 @@
 \label{section:conclusions}
 
 We have investigated scale-free algorithms for online linear optimization and
-we have shown that scale-free property leads to algorithms which have optimal
+we have shown that the scale-free property leads to algorithms which have optimal
 regret and do not need to know or assume \textbf{anything} about the sequence
 of loss vectors. In particular, the algorithms do not assume any upper or lower
 bounds on the norms of the loss vectors or the number of rounds.
@@ -27,8 +27,8 @@ regret $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
 \|\ell_t\|_* \sqrt{T} \right)$ with respect to any competitor $u \in K$, where
 $f$ is any non-negative $1$-strongly convex function defined on the decision
 set.  The latter result makes sense even when the decision set $K$ is
-unbounded. Notice that with regularizer $f(u) = \frac{1}{2}\|u\|_2^2$ the
-regret depends on norm of the competitor $\|u\|_2$ is quadratically. There
+unbounded. Notice that with the regularizer $f(u) = \frac{1}{2}\|u\|_2^2$ the
+regret depends quadratically on norm of the competitor $\|u\|_2$. There
 exist non-scale-free algorithms \cite{McMahan-Streeter-2012,
 McMahan-Abernethy-2013, Orabona-2013, McMahan-Orabona-2014, Orabona-2014} that
 have only $O(\|u\|_2 \sqrt{\log \|u_2\|_2})$ or $O(\|u\|_2 \log \|u\|_2)$

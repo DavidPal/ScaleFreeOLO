@@ -37,7 +37,7 @@ $R'_t$, it is convenient to define $\grad R_t(w) = \grad R'_t(w)$ for all $w
 in~\cite{Rakhlin-Sridharan-2009,Duchi-Shalev-Shwartz-Singer-Tewari-2010}.  For
 completeness we give a proof in~\ref{section:mirror-descent-proofs}.
 
-\begin{lemma}[Regret of Mirror Descent]
+\begin{lemma}[Regret of \textsc{MD}]
 \label{lemma:mirror-descent-regret}
 Algorithm~\ref{algorithm:mirror-descent-varying-regularizer} satisfies, for any
 $u \in K$,
@@ -58,7 +58,7 @@ scale-free.
 The most prominent instance of \textsc{MD} is \textsc{Projected Gradient
 Descent} defined by the recurrence
 $$
-w_{t+1} = \Pi_K \left( w_t - \eta_t \ell_t \right)
+w_{t+1} = \Pi_K \left( w_t - \eta_t \ell_t \right),
 $$
 where $\Pi_K(x) = \argmin_{y \in K} \|x-y\|_2$ is the Euclidean projection to
 $K$ and $\eta_t > 0$ is the step size.  \textsc{Projected Gradient Descent} is
@@ -152,7 +152,7 @@ for \textsc{AdaFTRL} and \textsc{SOLO FTRL} depend on $R(u)$. It is not hard to
 show that
 \begin{equation}
 \label{equation:regularizer-vs-divergence}
-\forall u \in K \qquad R(u) \le \sup_{v \in K} \Breg_R(u,v)
+\forall u \in K \qquad R(u) \le \sup_{v \in K} \Breg_R(u,v),
 \end{equation}
 provided that at the minimizer $v^* = \argmin_{v \in K} R(v)$ both $R(v^*)$ and
 $\grad R(v^*)$ are zero. Indeed, in that case, $R(u) = \Breg_R(u,v^*) \le
