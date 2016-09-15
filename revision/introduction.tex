@@ -17,12 +17,12 @@ e.g., learning with expert advice~\cite{Littlestone-Warmuth-1994, Vovk-1998,
 Freund-Schapire-1997, Cesa-Bianchi-Haussler-Helmbold-Schapire-Warmuth-1997},
 online combinatorial optimization~\cite{Kalai-Vempala-2005,
 Helmbold-Warmuth-2009, Koolen-Warmuth-Kivinen-2010}. Other problems can be
-reduced to OLO, e.g. online convex
+reduced to OLO, e.g., online convex
 optimization~\cite{Abernethy-Bartlett-Rakhlin-Tewari-2008},
 \cite[Chapter~2]{Shalev-Shwartz-2011}, online classification
 ~\cite{Rosenblatt-1958, Freund-Schapire-1999} and
 regression~\cite{Kivinen-Warmuth-1997},
-~\cite[Chapters~11~and~12]{Cesa-Bianchi-Lugosi-2006}, multi-armed
+~\cite[Chapters~11~and~12]{Cesa-Bianchi-Lugosi-2006}, multi-armed bandits
 problems~\cite[Chapter~6]{Cesa-Bianchi-Lugosi-2006},
 \cite{Abernethy-Hazan-Rakhlin-2008, Bubeck-Cesa-Bianchi-2012}, and batch and
 stochastic optimization of convex functions~\cite{Nemirovski-Yudin-1983,
@@ -36,7 +36,7 @@ arbitrarily large through an adversarial strategy that produces loss vectors
 with norms that exceed the upper bound.
 
 For this reason, most of the existing OLO algorithms receive as an input---or
-explicitly assume---an upper bound $B$ on the norm of the loss vectors.  The
+implicitly assume---an upper bound $B$ on the norm of the loss vectors.  The
 input $B$ is often disguised as the learning rate, the regularization
 parameter, or the parameter of strong convexity of the regularizer.
 %Examples of
@@ -124,7 +124,7 @@ is bounded. In particular, since a bound on the Bregman divergence implies that
 the decision set is bounded, the regret bound for \textsc{AdaGrad MD} and
 is vacuous for unbounded sets. In fact, as we show in
 Section~\ref{subsection:mirror-descent-lower-bound}, \textsc{AdaGrad MD} and
-similar algorithms based on \textsc{MD} have $\Omega(T)$ regret if the Bregman
+similar algorithms based on \textsc{MD} might incur $\Omega(T)$ regret if the Bregman
 divergence is not bounded.
 
 Only one scale-free algorithm based on \textsc{FTRL} was known. It is the
@@ -136,9 +136,9 @@ be scale-free due to ``off-by-one'' issue; see~\cite{McMahan-2014} and the
 discussion in Section~\ref{section:solo-ftrl}. Instead, \textsc{FTRL-Proximal}~\cite{McMahan-Streeter-2010,McMahan-2014} solves the off-by-one issues, but it requires proximal regularizers, that in general do not have a simple form and even in the simple 2-norm case requires bounded domains.
 
 For unbounded decision sets no scale-free algorithm with a non-trivial regret
-bound was known. Unbounded decision sets are practically important (see e.g.
+bound was known. Unbounded decision sets are practically important (see, e.g.,
 \cite{Mcmahan-Holt-Sculley-2013}), since learning of large-scale linear models
-(e.g. logistic regression) is done by gradient methods that can be reduced to
+(e.g., logistic regression) is done by gradient methods that can be reduced to
 OLO with decision set $\R^d$.
 
 \subsection{Overview of the Results}

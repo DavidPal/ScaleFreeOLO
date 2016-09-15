@@ -31,12 +31,12 @@ unbounded. Notice that with the regularizer $f(u) = \frac{1}{2}\|u\|_2^2$ the
 regret depends quadratically on norm of the competitor $\|u\|_2$. There
 exist non-scale-free algorithms \cite{McMahan-Streeter-2012,
 McMahan-Abernethy-2013, Orabona-2013, McMahan-Orabona-2014, Orabona-2014} that
-have only $O(\|u\|_2 \sqrt{\log \|u_2\|_2})$ or $O(\|u\|_2 \log \|u\|_2)$
+have only $O(\|u\|_2 \sqrt{\log \|u\|_2})$ or $O(\|u\|_2 \log \|u\|_2)$
 dependency.  These algorithms assume an a priori bound on the norm of the loss
 vectors.  This leads to another open problem:
 %
 \begin{quotation}
 \noindent
-\emph{Is there a scale-free algorithm for the decision set $\R^d$, regret of
+\emph{Is there a scale-free algorithm for the decision set $\R^d$, the regret of
 which has $O(\|u\|_2 \sqrt{\log \|u\|_2})$ dependency on the competitor $u$?}
 \end{quotation}

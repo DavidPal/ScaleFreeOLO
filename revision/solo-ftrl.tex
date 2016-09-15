@@ -31,15 +31,15 @@ in order to obtain a scale-free algorithm.
 
 In the following, we propose a much simpler and better approach.  We propose to
 use Algorithm~\ref{algorithm:ftrl-varying-regularizer} with the regularizer
-\begin{equation*}
+\begin{equation}
 \label{equation:solo-ftrl-regularizer}
 R_t(w) = R(w) \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \; ,
-\end{equation*}
+\end{equation}
 where $R:K \to \R$ is any strongly convex function. Through a refined analysis,
 we show that the regularizer suffices to obtain an optimal regret bound for any
 decision set, bounded or unbounded.  We call such variant \textsc{Scale-free
 Online Linear Optimization FTRL} algorithm (\textsc{SOLO FTRL}).  Our main
-result is the Theorem~\ref{theorem:regret-solo-ftrl} below, which is proven in
+result is Theorem~\ref{theorem:regret-solo-ftrl} below, which is proven in
 Section~\ref{section:solo-ftrl-regret-bound}.
 
 The regularizer~\eqref{equation:solo-ftrl-regularizer} does not uniquely define
