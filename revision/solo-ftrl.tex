@@ -1,0 +1,206 @@
+\section{\textsc{SOLO FTRL}}
+\label{section:solo-ftrl}
+
+The closest algorithm to a scale-free \textsc{FTRL} in the existing literature
+is the \textsc{AdaGrad FTRL} algorithm~\cite{Duchi-Hazan-Singer-2011}. It uses a
+regularizer on each coordinate of the form
+\begin{equation*}
+R_t(w) = R(w) \left(\delta + \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \right).
+\end{equation*}
+This kind of regularizer would yield a scale-free algorithm \emph{only} for
+$\delta=0$.  Unfortunately, the regret bound in~\cite{Duchi-Hazan-Singer-2011}
+becomes vacuous for such setting in the unbounded case. In fact, it requires
+$\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
+knowledge of the future (see Theorem~5 in~\cite{Duchi-Hazan-Singer-2011}). In
+other words, despite of its name, \textsc{AdaGrad} is not fully adaptive to the
+norm of the gradient vectors. Identical considerations hold for the
+\textsc{FTRL-Proximal} in \cite{McMahan-Streeter-2010,McMahan-2014}: the
+scale-free setting of the learning rate is valid only in the bounded case.
+
+One simple approach would be to use a doubling trick on $\delta$ in order to
+estimate on the fly the maximum norm of the losses. Note that a naive strategy
+would still fail because the initial value of $\delta$ should be data-dependent
+in order to have a scale-free algorithm. Moreover, we would have to upper bound
+the regret in all the rounds where the norm of the current loss is bigger than
+the estimate. Finally, the algorithm would depend on an additional parameter,
+the ``doubling'' power. Hence, even in the case one would prove a regret bound,
+such strategy would give the feeling that \textsc{FTRL} needs to be ``fixed''
+in order to obtain a scale-free algorithm.
+
+In the following, we propose a much simpler and better approach.  We propose to
+use Algorithm~\ref{algorithm:ftrl-varying-regularizer} with the regularizer
+\begin{equation*}
+\label{equation:solo-ftrl-regularizer}
+R_t(w) = R(w) \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \; ,
+\end{equation*}
+where $R:K \to \R$ is any strongly convex function. Through a refined analysis,
+we show that the regularizer suffices to obtain an optimal regret bound for any
+decision set, bounded or unbounded.  We call such variant \textsc{Scale-free
+Online Linear Optimization FTRL} algorithm (\textsc{SOLO FTRL}).  Our main
+result is the Theorem~\ref{theorem:regret-solo-ftrl} below, which is proven in
+Section~\ref{section:solo-ftrl-regret-bound}.
+
+The regularizer~\eqref{equation:solo-ftrl-regularizer} does not uniquely define
+the \textsc{FTRL} minimizer $w_t = \argmin_{w \in K} R_t(w)$ when
+$\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}$ is zero. This happens if $\ell_1,
+\ell_2, \dots, \ell_{t-1}$ are all zero (and in particular for $t=1$).  In that
+case, we define the $w_t = \argmin_{w \in K} R(w)$ which is consistent with
+$w_t = \lim_{a \to 0^+}  \argmin_{w \in K} a R(w)$.
+
+\begin{theorem}[Regret of \textsc{SOLO FTRL}]
+\label{theorem:regret-solo-ftrl}
+Suppose $K \subseteq V$ is a non-empty closed convex set.  Let $D = \sup_{u,v
+\in K} \|u - v\|$ be its diameter with respect to a norm $\|\cdot\|$.  Suppose
+that the regularizer $R:K \to \R$ is a non-negative lower semi-continuous
+function that is $\lambda$-strongly convex with respect to $\|\cdot\|$. The
+regret of \textsc{SOLO FTRL} satisfies
+\begin{align*}
+\Regret_T(u)
+& \le \left( R(u) + \frac{2.75}{\lambda}\right) \sqrt{\sum_{t=1}^{T} \norm{\ell_t}_*^2}
++ 3.5 \min\left\{\frac{\sqrt{T-1}}{\lambda} , D\right\} \max_{t \le T} \|\ell_t\|_* \; .
+\end{align*}
+\end{theorem}
+
+When $K$ is bounded, we can choose the optimal multiple of the regularizer.  We
+choose $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex function and
+optimize $\lambda$.  The result of the optimization is
+Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}; the proof is
+in~\ref{section:solo-ftrl-proofs}.
+%It is similar to Corollary~\ref{corollary:ada-ftrl-regret-bound} for \textsc{AdaFTRL}. The scaling however is different in the two corollaries.  In Corollary~\ref{corollary:ada-ftrl-regret-bound}, $\lambda \sim 1/(\sup_{v \in K} f(v))$ while in Corollary~\ref{corollary:regret-solo-ftrl-bounded-set} we have $\lambda \sim 1/\sqrt{\sup_{v \in K} f(v)}$.
+
+\begin{corollary}[Regret Bound for Bounded Decision Sets]
+\label{corollary:regret-solo-ftrl-bounded-set}
+Suppose $K \subseteq V$ is a non-empty bounded closed convex set.  Suppose that
+$f:K \to \R$ is a non-negative lower semi-continuous function that is
+$1$-strongly convex with respect to $\|\cdot\|$. \textsc{SOLO FTRL} with
+regularizer
+$$
+R(w) = \frac{f(w)\sqrt{2.75}}{\sqrt{\sup_{v \in K} f(v)}}
+\quad \text{satisfies} \quad
+\Regret_T \le 13.3 \sqrt{\sup_{v \in K} f(v) \sum_{t=1}^{T} \norm{\ell_t}_*^2} \; .
+$$
+\end{corollary}
+
+\subsection{Proof of Regret Bound for \textsc{SOLO FTRL}}
+\label{section:solo-ftrl-regret-bound}
+
+The proof of Theorem~\ref{theorem:regret-solo-ftrl} relies on an inequality
+(Lemma~\ref{lemma:useful}).  Related and weaker inequalities were proved
+in~\cite{Auer-Cesa-Bianchi-Gentile-2002} and~\cite{Jaksch-Ortner-Auer-2010}.
+The main property of this inequality is that on the right-hand side $C$ does
+\emph{not} multiply the $\sqrt{\sum_{t=1}^T a_t^2}$ term.  We will also use the
+well-known technical Lemma~\ref{lemma:sum-of-square-roots-inverses}.
+
+\begin{lemma}[Useful Inequality]
+\label{lemma:useful}
+Let $C, a_1, a_2, \dots, a_T \ge 0$. Then,
+$$
+\sum_{t=1}^T \min \left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, \ C a_t \right\}
+\le 3.5 \, C \max_{t=1,2,\dots,T} a_t \ + \ 3.5 \sqrt{\sum_{t=1}^T a_t^2} \; .
+$$
+\end{lemma}
+\begin{proof}
+Without loss of generality, we can assume that $a_t > 0$ for all $t$. Since otherwise we
+can remove all $a_t = 0$ without affecting either side of the inequality. Let $M_t = \max\{a_1, a_2, \dots, a_t\}$ and $M_0 = 0$.
+We prove that for any $\alpha > 1$
+$$
+\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, C a_t \right\}
+\le 2 \sqrt{1+\alpha^2} \left( \sqrt{\sum_{i=1}^t a_i^2} - \sqrt{\sum_{i=1}^{t-1} a_i^2} \right) + \frac{C\alpha( M_t  - M_{t-1})}{\alpha - 1}
+$$
+from which the inequality follows by summing over $t=1,2,\dots,T$ and choosing $\alpha = \sqrt{2}$.
+The inequality follows by case analysis. If $a_t^2 \le \alpha^2 \sum_{i=1}^{t-1} a_i^2$, we have
+\begin{multline*}
+\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, C a_t \right\}
+\le \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}
+= \frac{a_t^2}{\sqrt{\frac{1}{1+\alpha^2} \left( \alpha^2 \sum_{i=1}^{t-1} a_i^2 + \sum_{i=1}^{t-1} a_i^2 \right)}} \\
+\le \frac{a_t^2\sqrt{1+\alpha^2}}{\sqrt{ a_t^2 + \sum_{i=1}^{t-1} a_i^2 }}
+= \frac{a_t^2\sqrt{1+\alpha^2}}{\sqrt{\sum_{i=1}^t a_i^2}}
+\le 2\sqrt{1+\alpha^2} \left( \sqrt{\sum_{i=1}^t a_i^2} - \sqrt{\sum_{i=1}^{t-1} a_i^2} \right)
+\end{multline*}
+where we have used $x^2/\sqrt{x^2+y^2} \le 2(\sqrt{x^2+y^2} - \sqrt{y^2})$ in the last step.
+On the other hand, if $a_t^2 > \alpha^2 \sum_{t=1}^{t-1} a_i^2$, we have
+\begin{multline*}
+\min\left\{ \frac{a_t^2}{\sqrt{\sum_{i=1}^{t-1} a_i^2}}, \ C a_t \right\}
+\le C a_t
+= C \frac{\alpha a_t  - a_t}{\alpha - 1}
+\le \frac{C}{\alpha - 1} \left( \alpha a_t  - \alpha \sqrt{\sum_{i=1}^{t-1} a_i^2} \right) \\
+= \frac{C\alpha}{\alpha - 1} \left( a_t  - \sqrt{\sum_{i=1}^{t-1} a_i^2} \right)
+\le \frac{C\alpha}{\alpha - 1} \left( a_t  - M_{t-1} \right)
+= \frac{C\alpha}{\alpha - 1} \left( M_t  - M_{t-1} \right)
+\end{multline*}
+where we have used that $a_t = M_t$ and $\sqrt{\sum_{i=1}^{t-1} a_i^2} \ge M_{t-1}$.
+\end{proof}
+
+\begin{lemma}[Simple Inequality]
+\label{lemma:sum-of-square-roots-inverses}
+Let $a_1, a_2, \dots, a_T$ be non-negative real numbers. If $a_1 > 0$ then,
+$$
+\sum_{t=1}^T \frac{a_t}{\sqrt{\sum_{i=1}^t a_i}} \le 2 \sqrt{\sum_{t=1}^T a_t} \; .
+$$
+\end{lemma}
+%
+Lemma~\ref{lemma:sum-of-square-roots-inverses} is from
+\cite[Lemma~3.5]{Auer-Cesa-Bianchi-Gentile-2002}.  We give a proof
+in~\ref{section:solo-ftrl-proofs} for completeness.
+
+\begin{proof}[Proof of Theorem~\ref{theorem:regret-solo-ftrl}]
+Let $\eta_t = \frac{1}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}$, hence $R_t(w)
+= \frac{1}{\eta_t} R(w)$.  We assume without loss of generality that
+$\|\ell_t\|_* > 0$ for all $t$, since otherwise we can remove all rounds $t$
+where $\ell_t = 0$ without affecting regret and the predictions of the
+algorithm on the remaining rounds.  By Lemma~\ref{lemma:generic-regret-bound},
+\begin{align*}
+\Regret_T(u)
+& \le \frac{1}{\eta_{T+1}} R(u) + \sum_{t=1}^T \left( \Breg_{R_t^*}(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t) \right) \; .
+\end{align*}
+We upper bound the terms of the sum in two different ways.
+First, by Proposition~\ref{proposition:conjugate-properties}, we have
+$$
+\Breg_{R_t^*}(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t)
+\le \Breg_{R_t^*}(-L_t, -L_{t-1})
+\le \frac{\eta_t \|\ell_t\|_*^2}{2\lambda} \; .
+$$
+Second, we have
+\begin{align*}
+\Breg_{R_t^*}&(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t) \\
+& = \Breg_{R_{t+1}^*}(-L_t, -L_{t-1}) + R^*_{t+1}(-L_{t-1}) - R_t^*(-L_{t-1}) \\
+& \qquad + \langle \nabla R_t^*(-L_{t-1})-\nabla R_{t+1}^*(-L_{t-1}), \ell_t \rangle  \\
+& \le \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda} + \| \nabla R_t^*(-L_{t-1})-\nabla R_{t+1}^*(-L_{t-1})\| \cdot \|\ell_t\|_* \\
+& = \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda} + \| \nabla R^*(- \eta_{t} L_{t-1})-\nabla R^*(- \eta_{t+1} L_{t-1})\| \cdot \|\ell_t\|_* \\
+& \le \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda} + \min\left\{\frac{1}{\lambda} \|L_{t-1}\|_* \left(\eta_{t} - \eta_{t+1} \right), D\right\} \|\ell_t\|_* \; ,
+\end{align*}
+where in the first inequality we have used the fact that $R^*_{t+1}(-L_{t-1})
+\le R_t^*(-L_{t-1})$, H\"older's inequality, and
+Proposition~\ref{proposition:conjugate-properties}.  In the second inequality
+we have used properties 5 and 7 of
+Proposition~\ref{proposition:conjugate-properties}. Using the definition of
+$\eta_{t+1}$ we have
+\begin{align*}
+\frac{\|L_{t-1}\|_* (\eta_{t} -\eta_{t+1})}{\lambda}
+\le \frac{ \|L_{t-1}\|_*}{\lambda \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}
+\le \frac{ \sum_{i=1}^{t-1} \|\ell_i\|_*}{\lambda \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}
+\le \frac{\sqrt{t-1}}{\lambda}
+\le \frac{\sqrt{T-1}}{\lambda}.
+\end{align*}
+Denoting by $H=\min\left\{\frac{\sqrt{T-1}}{\lambda},D\right\}$ we have
+\begin{align*}
+& \Regret_T(u)
+\le \frac{1}{\eta_{T+1}} R(u) + \sum_{t=1}^T \min\left\{ \frac{\eta_t \|\ell_t\|_*^2}{2\lambda}, \ H \|\ell_t\|_* + \frac{\eta_{t+1} \|\ell_t\|_*^2}{2\lambda}  \right\} \\
+& \le \frac{1}{\eta_{T+1}} R(u) + \frac{1}{2\lambda} \sum_{t=1}^T  \eta_{t+1} \|\ell_t\|_*^2 + \frac{1}{2\lambda} \sum_{t=1}^T \min\left\{ \eta_t \|\ell_t\|_*^2, \ 2 \lambda H \|\ell_t\|_* \right\} \\
+& = \frac{1}{\eta_{T+1}} R(u) + \frac{1}{2\lambda} \sum_{t=1}^T  \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}} + \frac{1}{2 \lambda} \sum_{t=1}^T \min\left\{ \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}, \ 2 \lambda H \|\ell_t\|_* \right\} \; .
+\end{align*}
+We bound each of the three terms separately. By definition of $\eta_{T+1}$, the
+first term is $\frac{1}{\eta_{T+1}} R(u) = R(u) \sqrt{\sum_{t=1}^T
+\|\ell_t\|_*^2}$.  We upper bound the second term using
+Lemma~\ref{lemma:sum-of-square-roots-inverses} as
+$$
+\frac{1}{2\lambda} \sum_{t=1}^T  \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}}
+\le \frac{1}{\lambda} \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} \; .
+$$
+Finally, by Lemma~\ref{lemma:useful} we upper bound the third term as
+$$
+\frac{1}{2 \lambda} \sum_{t=1}^T \min\left\{ \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}, \ 2 \lambda \|\ell_t\|_* H \right\}
+\le 3.5 H \max_{t \le T} \|\ell_t\|_* + \frac{1.75}{\lambda} \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} \; .
+$$
+Putting everything together gives the stated bound.
+\end{proof}

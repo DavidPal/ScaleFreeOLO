@@ -1,0 +1,73 @@
+\documentclass{elsarticle}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true}
+
+\usepackage{amssymb,amsmath}
+
+% For algorithms
+\usepackage{algorithm,algorithmic}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newdefinition{definition}{Definition}
+\newproof{proof}{Proof}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\grad}{\nabla}
+\newcommand{\norm}[1]{{\left\|{#1}\right\|}}
+\newcommand{\Breg}{\mathcal{B}}
+
+\DeclareMathOperator{\Regret}{Regret}
+\DeclareMathOperator*{\Exp}{\mathbf{E}}
+\DeclareMathOperator*{\argmin}{argmin}
+
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Scale-Free Online Learning\tnoteref{t1}}
+
+\tnotetext[t1]{A preliminary version of this paper~\cite{Orabona-Pal-2015} was
+               presented at ALT 2015.}
+
+\author{Francesco Orabona}
+\ead{francesco@orabona.com}
+
+\author{D\'avid P\'al\corref{cor1}}
+\ead{dpal@yahoo-inc.com}
+\cortext[cor1]{Corresponding author}
+
+\address{Yahoo Labs, 11th Floor, 229 West 43rd Street, New York, NY 10036, USA}
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\end{frontmatter}
+
+\input{introduction}
+\input{preliminaries}
+\input{per-coordinate}
+\input{solo-ftrl}
+\input{mirror-descent}
+\input{lower-bound}
+\input{conclusions}
+
+\vspace{1cm}
+
+\bibliographystyle{elsarticle-num-names}
+\bibliography{biblio}
+
+\appendix
+\input{preliminaries-proofs}
+\input{ada-ftrl}
+\input{limits}
+\input{solo-ftrl-proofs}
+\input{mirror-descent-proofs}
+\input{lower-bound-proof}
+
+\end{document}

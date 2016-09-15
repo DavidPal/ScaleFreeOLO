@@ -1,0 +1,60 @@
+\section{Lower Bound}
+\label{section:lower-bound}
+
+We show a lower bound on the worst-case regret of any algorithm for OLO. The
+proof, presented in~\ref{section:lower-bound-proof}, is a standard
+probabilistic argument.
+
+\begin{theorem}[Lower Bound]
+\label{theorem:simple-lower-bound}
+Let $K \subseteq V$ be any non-empty bounded closed convex subset. Let $D =
+\sup_{u,v \in K} \|u - v\|$ be the diameter of $K$. Let $A$ be any (possibly
+randomized) algorithm for OLO on $K$. Let $T$ be any non-negative integer and
+let $a_1, a_2, \dots, a_T$ be any non-negative real numbers.  There exists a
+sequence of vectors $\ell_1, \ell_2, \dots, \ell_T$ in the dual vector space
+$V^*$ such that $\|\ell_1\|_* = a_1, \|\ell_2\|_* = a_2, \dots, \|\ell_T\|_* =
+a_T$ and the regret of algorithm $A$ satisfies
+\begin{equation}
+\label{equation:simple-lower-bound}
+\Regret_T \ge \frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2} \; .
+\end{equation}
+\end{theorem}
+
+The upper bounds on the regret, which we have proved for our algorithms, have
+the same dependency on the norms of loss vectors.  However, a gap remains
+between the lower bound and the upper bounds.
+
+The upper bound on regret of \textsc{SOLO FTRL} is of
+the form $O(\sqrt{\sup_{v \in K} f(v) \sum_{t=1}^T \|\ell_t\|_*^2})$ where $f$
+is any $1$-strongly convex function with respect to $\|\cdot\|$.  The same
+upper bound is also achieved by \textsc{FTRL} with a constant learning rate
+when the number of rounds $T$ and $\sum_{t=1}^T \|\ell_t\|_*^2$ is known
+upfront \cite[Chapter 2]{Shalev-Shwartz-2011}.  The lower bound is
+$\Omega(D\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$.
+
+The gap between $D$ and $\sqrt{\sup_{v \in K} f(v)}$ can be substantial.  For
+example, if $K$ is the probability simplex in $\R^d$ and $f(w) = \ln(d) +
+\sum_{j=1}^d w_j \ln w_j$ is the shifted negative entropy, the
+$\|\cdot\|_1$-diameter of $K$ is $2$, $f$ is non-negative and $1$-strongly
+convex with respect to $\|\cdot\|_1$, but $\sup_{v \in K} f(v) = \ln(d)$.  On
+the other hand, if the norm $\|\cdot\|_2 = \sqrt{\langle \cdot, \cdot \rangle}$
+arises from an inner product $\langle \cdot, \cdot \rangle$, the lower bound
+matches the upper bounds within a constant factor.  The reason is that for any
+$K$ with $\|\cdot\|_2$-diameter $D$, the function $f(w) = \frac{1}{2} \|w -
+w_0\|_2^2$, where $w_0$ is an arbitrary point in $K$, is $1$-strongly convex
+with respect to $\|\cdot\|_2$ and satisfies that $\sqrt{\sup_{v \in K} f(v)}
+\le D$. This leads to the following open problem (posed also
+in~\cite{Kwon-Mertikopoulos-2014}):
+%
+\begin{quotation}
+\noindent
+\emph{Given a bounded convex set $K$ and a norm $\|\cdot\|$, construct a
+non-negative function $f:K \to \R$ that is $1$-strongly convex with respect to
+$\|\cdot\|$ and minimizes $\sup_{v \in K} f(v)$.}
+\end{quotation}
+%
+As shown in~\cite{Srebro-Sridharan-Tewari-2011}, the existence of $f$ with
+small $\sup_{v \in K} f(v)$ is equivalent to the existence of an algorithm for
+OLO with $\widetilde O(\sqrt{T \sup_{v \in K} f(v)})$ regret assuming
+$\|\ell_t\|_* \le 1$.  The $\widetilde O$ notation hides a polylogarithmic
+factor in $T$.

@@ -1,0 +1,64 @@
+The paper considers scale-free algorithms for online learning, namely, online algorithms that do not change their decisions (and thus their guarantees) if the sequence of loss vectors is multiplied by a positive factor.  Such algorithms are naturally adaptive to the magnitude of the observed loss vectors, which is often a desirable property.  The authors give three scale-free algorithms, one of which is capable of dealing with unbounded decision sets.  The authors also show that known scale-free algorithms based on Mirror Descent are not capable of dealing with unbounded domains, and even fail to obtain meaningful guarantees over the simplex (with entropy regularization). 
+
+While adaptiveness to the observed data can be accomplished in various different ways (e.g., via doubling tricks), the "scale-free" approach put forth by the authors is quite natural and elegant, and relies on what seems like a desirable feature for an online algorithm.  Overall, the bounds achieved by the proposed algorithms seem novel, and to the best of my knowledge, were not derived explicitly in previous work on adaptive algorithms.  The proofs mostly follow from standard arguments and appear to be correct.
+
+The authors make a nice observation on adaptive online algorithms: while the Mirror Descent (MD) meta-algorithm is more appropriate for deriving scale-free algorithms since it doesn't suffer from the "off-by-one" issue, it fails to give meaningful regret bounds when the Bregman divergences are unbounded (e.g., unbounded decision set, relative entropy on the simplex, etc).  In the latter case, one has to opt for the Follow-the-Regularized-Leader (FTRL) meta-algorithm instead and deal with the "off-by-one" issue---this is exactly what the authors' SOLO-FTRL algorithm is designed for.  To my impression, the main contribution of the paper is this nice and quite surprising distinction between MD and FTRL, showing that FTRL should be favored over MD for scale-free bounds, despite the apparent advantage of MD.
+
+However, this nice contribution is being obscured by a couple of other results, that are either inferior to SOLO-FTRL (the AdaFTRL algorithm) or not new to this paper (the Scale Free MD algorithm).  First and foremost, the entire discussion of AdaFTRL---as early as in Section 3---seemed to me like a complete distraction from the main meat of the paper, which is the SOLO-FTRL algorithm and how it is superior over MD.  AdaFTRL is quite unintuitive, its guarantees are inferior to those of SOLO-FTRL, and it is also much harder to implement.
+
+Furthermore, the Scale Free MD algorithm is not really new (it is simply online MD with adaptive step-size) and steals the focus from SOLO-FTRL.  I believe the authors wished to discuss this algorithm only for appraising the superiority of SOLO-FTRL, but this is not made clear enough in their current presentation, and in fact, only adds to the confusion.
+
+Overall, I think the paper has some nice ideas and should be accepted after the authors have made effort to crystallize their contribution.
+
+
+Additional comments/questions:
+==============================
+
+* Related results (and Table 1): You argue that Proximal-FTRL is "almost scale-free" due to the "off-by-one" issue.  However, the proximal version of FTRL does not suffer from this issue; see, e.g., Theorem 2 in "A Survey of Algorithms and Analysis for Adaptive Online Learning" by McMahan.  Is the Proximal-FTRL algorithm actually scale-free?  Also, why do you claim (in Table 1) that Proximal-FTRL is applicable only w.r.t. the 2-norm, while Theorem 2 in McMahan's survey applies to any strongly convex regularization w.r.t. any norm?  Finally, why is the Optimistic MD algorithm scale-free, and with what predictions?
+
+* Section 1.2, 1st par, "SOLO FTRL can be viewed as the "correct" scale-free version of AdaGrad FTRL generalized to arbitrary strongly convex regularizers": I disagree with this claim; SOLO FTRL is very different from AdaGrad---while the latter maintains a "matrix learning rate" (diagonal/non-diagonal), SOLO FTRL maintains a scalar learning rate being adaptive to the scale of the losses.  Also, how is SOLO FTRL similar to Optimistic MD? Is there anything "predictive" in the former algorithm?
+
+* When discussing related results, I think you should also mention standard doubling tricks (that are commonly used to make algorithms adaptive) and why one should prefer your algorithms.
+
+* Section 5 is quite messy: part of it belongs to the preliminaries (the description of MD, its regret bound, the discussion on AdaGrad/GIGA), and the other part feels like it's there in order to motivate the SOLO-FTRL algorithm (after the latter was presented in Section 4).  I think the authors have to rearrange the material and make the purpose of this section more clear.
+
+
+Minor comments:
+===============
+
+* On first reading, the last sentence of the abstract did not make any sense to me. Consider rephrasing/removing it.
+
+* When defining "scale-free" algorithms (bottom of page 2), it is important to remark that the same decisions are produced when the same algorithm *with the same set of parameters* is used on scaled loss sequences. (I assume you do not intend to allow one to magically tune the step-size so as to match the scale of the losses.)
+
+* Page 3, 1st par, "the general version with time-varying regularizers was analyzed in [28]": RDA with time-varying regularization was analyzed already in the AdaGrad paper (and even before that).
+
+* Section 1.2, last par, "These results indicate that FTRL is superior to MD": in what sense? Please make a softer statement and give more details.
+
+* Please mention explicitly why the SOLO FTRL and ScaleFree-MD algorithms are indeed scale free.
+
+* Is there any intuition into the AdaFTRL algorithm, that can be given in the text?
+
+* I think that some discussion on how to implement AdaFTRL (specifically, how to compute the Delta_t) is warranted.  Consider spelling out the algorithm and some of the implementation details in an algorithmic box.
+
+* Section 4 is missing an exposition and dives right into a technical discussion.
+
+* In the short discussion after Theorem 2, please state explicitly what happens when K is unbounded (currently you only discuss the case where K is bounded).  This might be obvious, but it's one of the paper's main results.
+
+* I think the proof of Corollary 2 should be included in the body of the paper.
+
+* Lemma 6: please add the citation ([34, Lemma 3.5]) to the lemma's definition, instead of giving it after the lemma. 
+
+
+Few typos I spotted:
+====================
+
+* page 1, 2nd par: put comma after "e.g.", "multi-armed problems" => "multi-armed bandit problems"
+* page 2, 2nd par: did you mean "implicitly assume"?
+* page 3, 3rd par: "have Omega(T) regret" => "might have..." or "might incur..."
+* page 3, 5th par: put comma after "e.g." (two occurrences)
+* page 10, 1st par: "the Theorem 2" => "Theorem 2"
+* page 10, 2nd par: there is a forward reference to Eq (4) in page 14
+* Section 5, 1st par: references to footnotes (3) should come after commas
+* page 16, 1st par; page 18, 3rd par: "Omega(T) regret or worse" - how can the regret be worse than linear?
+* page 18, last par: remove subscript from u_2 (inside the logarithm); "regret of which" => "the regret of which"
+

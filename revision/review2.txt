@@ -1,0 +1,118 @@
+SIALT2016
+Scale-Free Online Learning
+Orabona and Pál
+
+Summary:
+
+This paper studies online linear optimization, a core online learning problem. It starts with the observation that many online learning methods depend on a-priori knowledge of the scale of the losses. This paper develops new methods for online learning that are scale-free, in the sense that their predictions are unaffected by rescaling of the losses. Taking inspiration from AdaHedge, three scale-free methods are developed for online linear optimization with general strongly convex regularizers. A regret bound is provided for each method, showing that the methods have different dependencies on the parameter domain. A matching lower bound rounds out the picture. It is also argued by means of two lower bounds that for two common cases the Mirror Descent version of the algorithm has worse dependence on T than the Follow the Regularized Leader version.
+
+This paper extends the ALT submission with a new section on Mirror Descent. The presented algorithm, analysis, counterexamples and comparison make an interesting and worthwhile addition and present sufficient new material for a journal version.
+
+The paper is well-structured and easy to follow. It makes a fair assessment of the contribution (i.e. comparison to doubling trick) and provides sufficient context. Although presented as a theoretical paper, I believe it may even have practical impact as it improves adaptive algorithms like AdaGrad which are used.
+
+I have checked the proofs in detail.
+
+I believe this is a solid paper that presents an interesting perspective and elegant results on a core learning problem. I therefore recommend acceptance.
+
+It would be good if the following minor polishing suggestions could be incorporated for the camera ready version:
+
+page 1:
+variant of online mirror -> variant of the online mirror
+multi-armed problems -> multi-armed bandit problems
+
+page 2:
+... that exceed the upper bound. How to see this?
+"scale linearly .. maximum norm ...". This sentence suggests the regret is a linear function of the maximum norm. But this is not quite the case, it only holds if the losses on all rounds are scaled simultaneously.
+
+page 3:
+his first appearance -> its
+"off-by-one" issue -> issues
+
+page 4:
+bound for bound for
+for AdaFTRL .. SOLO FTRL. -> At this point it is not clear why you would develop it. Add a sentence as to why developing it is interesting. (sheds new light on relative merits of approaches, ...)
+is necessary by proving -> proving a
+We prove that regret -> the regret
+Same as before -> As before
+
+page 5:
+around strong convexity, it might be nice to also equivalently phrase it as $B_f(y,x) \ge \lambda/2 \norm{x-y}^2$
+
+page 6:
+on the so-called -> on so-called
+
+page 7:
+before hand -> beforehand
+
+page 8:
+Proof of lemma 2, the first "Let ..." should be "Recall from (1) that .."
+Taking minimum -> Taking the minimum
+
+page 9:
+Here is a more direct proof of Lemma 4:
+\[
+\Delta_T^2
+=
+\sum_{t=1}^T (\Delta_t - \Delta_{t-1})(\Delta_t - \Delta_{t-1} + 2\Delta_{t-1})
+\]
+The left term of the minimum inequality gives
+$(\Delta_t - \Delta_{t-1})^2 \le a_t^2$
+and the right term gives
+$2 (\Delta_t - \Delta_{t-1}) \Delta_{t-1} \le a_t^2$
+so we conclude
+\[
+\Delta_T^2
+\le
+3 \sum_{t=1}^T a_t^2
+\]
+
+page 10:
+show that the regularizer -> show that this regularizer
+We call such variant -> We call this variant the
+case, we define the -> case, we define
+
+page 11:
+without affecting regret -> without affecting the regret
+
+page 13:
+different in details -> different in the details
+at a point $w$ -> at any point $w$
+bounds regret of -> bounds the regret of
+Proof can be -> A proof can be
+
+page 14:
+are an instances -> are instances
+is simply the per-coordinate <- refer back to section 2.3. Also, this remark only applies if K is a Cartesian product.
+Proof is in -> The proof is in
+
+page 16:
+below; proof is in -> below; our proof is in
+constructs sequence -> constructs a sequence
+On such sequence -> On such a sequence
+below; proof is in -> below; the proof is in
+
+page 17:
+norms of loss vectors -> norms of the loss vectors
+is known upfront -> are known upfront
+
+page 18:
+Similar, but weaker -> A similar, but weaker
+this algorithm is strictly -> this algorithm to be strictly
+bound on regret -> bound on the regret
+for decision set -> for any decision set
+FTRL-based the algorithms -> FTRL-based algorithms
+on norm of -> on the norm of
+that have only $O(... -> that have only an $O(...
+
+page 22:
+By triangle inequality -> By the triangle inequality
+Optimality condition -> The optimality condition
+By Fenchel-Young inequality -> By the Fenchel-Young inequality
+
+page 28:
+the second from +1 -> the second of +1
+
+page 30:
+follows from that -> follows from the fact that
+
+

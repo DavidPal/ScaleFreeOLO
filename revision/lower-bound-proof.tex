@@ -1,0 +1,32 @@
+\section{Lower Bound Proof}
+\label{section:lower-bound-proof}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:simple-lower-bound}]
+Pick $x,y \in K$ such that $\|x - y\| = D$. This is possible since $K$ is compact.
+Since $\|x - y\| = \sup \{\langle \ell, x - y \rangle ~:~ \ell \in V^*, \|\ell\|_* = 1\}$
+and the set $\{ \ell \in V^* ~:~ \|\ell\|_* = 1 \}$ is compact, there exists $\ell \in V^*$
+such that
+$$
+\|\ell\|_* = 1 \qquad \text{and} \qquad \langle \ell, x - y \rangle = \|x - y\| = D \; .
+$$
+Let $Z_1, Z_2, \dots, Z_T$ be i.i.d. Rademacher variables, that is,
+$\Pr[Z_t = +1] = \Pr[Z_t = -1] = 1/2$. Let $\ell_t = Z_t a_t \ell$.
+Clearly, $\|\ell_t\|_* = a_t$. The lemma will be proved if we show that
+(\ref{equation:simple-lower-bound}) holds with positive probability.
+We show a stronger statement that the inequality holds in expectation, i.e.,
+$\Exp[\Regret_T] \ge \frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T a_t^2}$. Indeed,
+\begin{align*}
+\Exp\left[ \Regret_T \right]
+& \ge \Exp\left[ \sum_{t=1}^T \langle \ell_t, w_t \rangle \right] - \Exp\left[\min_{u \in \{x,y\}} \sum_{t=1}^T \langle \ell_t, u \rangle \right] \\
+& = \Exp\left[ \sum_{t=1}^T Z_t a_t \langle \ell, w_t \rangle \right] + \Exp \left[\max_{u \in \{x,y\}} \sum_{t=1}^T -Z_t a_t \langle \ell, u \rangle \right]  \\
+& = \Exp\left[ \max_{u \in \{x,y\}} \sum_{t=1}^T -Z_t a_t \langle \ell, u \rangle \right] \\
+& = \Exp\left[ \max_{u \in \{x,y\}} \sum_{t=1}^T Z_t a_t \langle \ell, u \rangle \right]  \\
+& = \frac{1}{2} \Exp\left[ \sum_{t=1}^T Z_t a_t \langle \ell, x + y \rangle \right]  + \frac{1}{2}\Exp\left[ \left|\sum_{t=1}^T Z_t a_t \langle \ell, x - y \rangle \right| \right] \\
+& = \frac{D}{2}\Exp\left[ \left|\sum_{t=1}^T Z_t a_t \right| \right] \\
+& \ge \frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T a_t^2}
+\end{align*}
+where we used that $\Exp[Z_t] = 0$, the fact that distributions of $Z_t$ and
+$-Z_t$ are the same, the formula $\max\{a,b\} = (a+b)/2 + |a-b|/2$, and
+Khinchin's inequality in the last step (Lemma A.9 in
+\cite{Cesa-Bianchi-Lugosi-2006}).
+\end{proof}

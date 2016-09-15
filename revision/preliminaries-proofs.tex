@@ -1,0 +1,59 @@
+\section{Proofs for Preliminaries}
+\label{section:definitions-proofs}
+
+\begin{proof}[Proof of Proposition~\ref{proposition:diameter-vs-range}]
+Let $S = \sup_{u \in K} f(u)$ and $v^* = \argmin_{v \in K} f(v)$. The minimizer
+$v^*$ is guaranteed to exist by lower semi-continuity of $f$ and compactness of
+$K$.  Optimality condition for $v^*$ and $1$-strong convexity of $f$ imply that
+for any $u \in K$,
+$$
+S
+\ge f(u) - f(v^*)
+\ge f(u) - f(v^*) - \langle \grad f(v^*), u - v^* \rangle
+\ge \frac{1}{2}\|u - v^*\|^2 \; .
+$$
+In other words, $\|u - v^*\| \le \sqrt{2S}$. By triangle inequality,
+$$
+D = \sup_{u,v \in K} \|u - v\| \le \sup_{u,v \in K} \left( \|u - v^*\| + \|v^ * - v\| \right) \le 2\sqrt{2S} = \sqrt{8S} \; .
+$$
+\end{proof}
+
+\begin{proof}[Proof of Property 6 of Proposition~\ref{proposition:conjugate-properties}]
+To bound $\Breg_{f^*}(x,y)$ we add a non-negative divergence term
+$\Breg_{f^*}(y,x)$.
+\begin{align*}
+\Breg_{f^*}(x, y)
+& \le \Breg_{f^*}(x,y) + \Breg_{f^*}(y,x)
+= \langle x - y, \grad f^*(x) - \grad f^*(y) \rangle \\
+& \le \|x - y\|_* \cdot \| \grad f^*(x) - \grad f^*(y) \|
+\le D \|x - y\|_* \; ,
+\end{align*}
+where we have used H\"older's inequality and property 7 of the Proposition.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lemma:generic-regret-bound}]
+By Fenchel-Young inequality,
+\begin{align*}
+\sum_{t=1}^T \left( R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) \right)
+& = R_{T+1}^*(-L_T) - R_1^*(0) \\
+& \ge - \langle L_T, u \rangle - R_{T+1}(u)  - R_1^*(0) \\
+& = - R_{T+1}(u)  - R_1^*(0) - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+\end{align*}
+We add $\sum_{t=1}^T \langle \ell_t, w_t \rangle$ to both sides and we obtain
+$\Regret_T(u)$ on the right side. After rearrangement of the terms, we get an upper bound
+on the regret:
+\begin{align*}
+\Regret_T(u)
+& = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \\
+& \le R_{T+1}(u) + R_1^*(0) + \sum_{t=1}^T \left( R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, w_t \rangle \right) \; .
+\end{align*}
+By Proposition~\ref{proposition:conjugate-properties}, property 2, we have $w_t =
+\grad R_t^*(-L_{t-1})$ and therefore we can rewrite the sum in last expression as
+\begin{align*}
+& \sum_{t=1}^T R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, w_t \rangle \\
+& = \sum_{t=1}^T R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, \grad R_t^*(-L_{t-1}) \rangle \\
+& = \sum_{t=1}^T R_t^*(-L_t) - R_t^*(-L_{t-1}) + \langle \ell_t, \grad R_t^*(-L_{t-1}) \rangle - R_t^*(-L_t) + R_{t+1}^*(-L_t) \\
+& = \sum_{t=1}^T \Breg_{R_t^*}(-L_t, -L_{t-1}) - R_t^*(-L_t) + R_{t+1}^*(-L_t) \; .
+\end{align*}
+This finishes the proof.
+\end{proof}

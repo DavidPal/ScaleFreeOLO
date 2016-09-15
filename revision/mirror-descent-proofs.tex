@@ -1,0 +1,134 @@
+\section{Proofs for Scale-Free Mirror Descent}
+\label{section:mirror-descent-proofs}
+
+\begin{proof}[Proof of Lemma~\ref{lemma:mirror-descent-regret}]
+Let
+\begin{align*}
+\Psi_{t+1}(w)
+& = \langle \ell_t, w \rangle + \Breg_{R_t}(w,w_t) \\
+& = \langle \ell_t, w \rangle + R_t(w) - R_t(w_t) - \langle \grad R_t(w_t) , w - w_t \rangle \; .
+\end{align*}
+Then, $w_{t+1} = \argmin_{w \in K} \Psi_{t+1}(w)$. Note that $\grad
+\Psi_{t+1}(w) = \ell_t + \grad R_t(w) - \grad R_t(w_t)$. The optimality
+condition for $w_{t+1}$ states that $\langle \grad \Psi_{t+1}(w_{t+1}), u -
+w_{t+1} \rangle \ge 0$ for all $u \in K$. Written explicitly,
+$$
+\langle \ell_t + \grad R_t(w_{t+1}) - \grad R_t(w_t), u - w_{t+1} \rangle \ge 0 \; .
+$$
+Adding $\langle \ell_t, w_{t+1} - w_t \rangle$ to both sides and rearranging,
+we have
+\begin{align*}
+\langle \ell_t, w_t - u \rangle
+& \le \langle \grad R_t(w_{t+1}) - \grad R_t(w_t), u - w_{t+1} \rangle  + \langle \ell_t, w_t - w_{t+1} \rangle \\
+& = \langle \ell_t, w_t - w_{t+1} \rangle - \Breg_{R_t}(w_{t+1}, w_t) + \Breg_{R_t}(u,w_t) - \Breg_{R_t}(u, w_{t+1}) \; .
+\end{align*}
+The last equality follows by from definition of Bregman divergence.  Summation
+over all $t=1,2,\dots,T$ gives the final regret bound.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:regret-scale-free-mirror-descent}]
+Let $\eta_t = \frac{1}{\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}}$. We define $\eta_0
+= +\infty$ and $1/\eta_0 = 0$.  Hence $R_t(w) = \frac{1}{\eta_t} R(w)$.  Since
+$R_t$ is $\frac{\lambda}{\eta_t}$-strongly convex, we have
+\begin{align*}
+\langle \ell_t, w_t - w_{t+1} \rangle - \Breg_{R_t}(w_{t+1}, w_t)
+& \le \|\ell_t\|_* \cdot \|w_t - w_{t+1}\| - \frac{\lambda}{2\eta_t} \|w_t - w_{t+1} \|^2 \\
+& \le \max_{z \in \R} \left( \|\ell_t\|_* z - \frac{\lambda}{2 \eta_t} z^2 \right) \\
+& = \frac{\eta_t}{2\lambda} \|\ell_t\|_*^2 \; .
+\end{align*}
+Combining the last inequality with Lemma~\ref{lemma:mirror-descent-regret}, we have
+$$
+\Regret_T(u) \le \sum_{t=1}^T \frac{\eta_t}{2\lambda} \|\ell_t\|_*^2 + \sum_{t=1}^T \left[ \Breg_{R_t}(u,w_t) - \Breg_{R_t}(u, w_{t+1}) \right] \; .
+$$
+Since $R_t(w) = \frac{1}{\eta_t} R(w)$, we have
+\begin{align*}
+\Regret_T(u)
+& \le \frac{1}{2\lambda} \sum_{t=1}^T \eta_t \|\ell_t\|_*^2 + \sum_{t=1}^T \frac{1}{\eta_t} \left[\Breg_R(u, w_t) - \Breg_R(u, w_{t+1})\right] \\
+& \le \frac{1}{2\lambda} \sum_{t=1}^T \eta_t \|\ell_t\|_*^2 + \sum_{t=1}^T \Breg_R(u, w_t) \left( \frac{1}{\eta_t} - \frac{1}{\eta_{t-1}} \right) \\
+& \le \frac{1}{2\lambda} \sum_{t=1}^T \frac{\|\ell_t\|_*^2}{\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}} + \sup_{v \in K} \Breg_R(u,v) \sum_{t=1}^T \left( \frac{1}{\eta_t} - \frac{1}{\eta_{t-1}} \right) \\
+& \le \frac{1}{\lambda} \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \sup_{v \in K} \Breg_R(u,v) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} \qquad \text{(By Lemma~\ref{lemma:sum-of-square-roots-inverses})} \\
+& = \left( \frac{1}{\lambda} + \sup_{v \in K} \Breg_R(u,v) \right) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} \; .
+\end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:first-counter-example}]
+We assume $d=1$. For $d \ge 2$, we simply embed the one-dimensional loss
+vectors into the first coordinate of $\R^d$.  Consider the sequence
+$$
+(\ell_1, \ell_2, \dots, \ell_T) = ( \underbrace{- 1, -1, \dots, -1}_{\lceil T/2 \rceil}, \underbrace{+1, +1, \dots, +1}_{\lfloor T/2 \rfloor})
+$$
+The first half consists of $-1$'s, the second from $+1$'s. For $t \le \lceil T/2 \rceil$
+$$
+w_{t+1} = w_t + \frac{1}{\sqrt{t}}
+$$
+Unrolling the recurrence and using $w_1 = 0$ we get
+$$
+w_t = \sum_{i=1}^{t-1} \frac{1}{\sqrt{i}} \qquad \text{(for $t \le \lceil T/2 \rceil + 1$)} \; .
+$$
+On the other hand, for $t \ge \lceil T/2 \rceil + 1$, we have
+$$
+w_{t+1} = w_t - \frac{1}{\sqrt{t}} \; .
+$$
+Unrolling the recurrence up to $w_{\lceil T/2 \rceil + 1}$ we get
+$$
+w_t
+= w_{\lceil T/2 \rceil + 1} \ \ - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}}
+= \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ \ - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}}
+\qquad \text{(for $t \ge \lceil T/2 \rceil + 1$)} \; .
+$$
+We are ready to lower bound the regret.
+\begin{align*}
+\Regret_T(0)
+& = \sum_{t=1}^T \ell_t w_t \\
+& = - \sum_{t=1}^{\lceil T/2 \rceil} w_t + \sum_{t=\lceil T/2 \rceil + 1}^T w_t  \\
+& = - \sum_{t=1}^{\lceil T/2 \rceil} \sum_{i=1}^{t-1} \frac{1}{\sqrt{i}} \ \ + \sum_{t=\lceil T/2 \rceil + 1}^T \left( \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ - \sum_{i=\lceil T/2 \rceil + 1}^{t-1} \frac{1}{\sqrt{i}} \right) \\
+& = - \sum_{i=1}^{\lceil T/2 \rceil} \frac{\lceil T/2 \rceil - i}{\sqrt{i}} \ + \ \lfloor T/2 \rfloor \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ \ - \sum_{i=\lceil T/2 \rceil + 1}^T \frac{T - i}{\sqrt{i}} \\
+& = - \sum_{i=1}^{\lceil T/2 \rceil} \frac{\lceil T/2 \rceil - \lfloor T/2 \rfloor}{\sqrt{i}} \ + \ \sum_{i=1}^{T} \sqrt{i} \ \ - \ T \!\!\!\! \sum_{i=\lceil T/2 \rceil + 1}^T \frac{1}{\sqrt{i}} \\
+& \ge - \sum_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{i}} \ \ + \ \sum_{i=1}^{T} \sqrt{i} \ \ - \ T \!\!\!\! \sum_{i=\lceil T/2 \rceil + 1}^T \frac{1}{\sqrt{i}} \\
+& \ge - 1 - \int_{i=1}^{\lceil T/2 \rceil} \frac{1}{\sqrt{x}} dx \ + \ \int_{0}^T \!\!\! \sqrt{x} \, dx \ \ - \ T \int_{\lceil T/2 \rceil}^T \frac{1}{\sqrt{x}} dx \\
+& = - 1 - 2\left(\sqrt{\lceil T/2 \rceil} - 1 \right) + \frac{2}{3} T^{3/2} - 2 T \left(\sqrt{T} - \sqrt{\lceil T/2 \rceil} \right) \\
+& \ge 1 - 2 \sqrt{\lceil T/2 \rceil} + \left( \frac{2}{3} - 2 + \sqrt{2} \right) T^{3/2} \; .
+\end{align*}
+The last expression is $\Omega(T^{3/2})$ with dominant term $(\frac{2}{3} - 2 +
+\sqrt{2}) T^{3/2} \approx 0.08 \cdot T^{3/2}$.  For any $T \ge 42$, the
+expression is lower bounded by $\frac{1}{20} T^{3/2}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{theorem:second-counter-example}]
+Let $e_1, e_2, \dots, e_d$ be the standard orthnormal basis of $\R^d$. Consider
+the sequence of loss vectors
+$$
+(\ell_1, \ell_2, \dots, \ell_T) = ( \underbrace{-e_1, -e_1, \dots, -e_1}_{\lceil T/3 \rceil}, \underbrace{-e_2, -e_2, \dots, -e_2}_{\lfloor 2T/3 \rfloor}) \; .
+$$
+First, for any $t \ge \lceil T/3 \rceil + 1$,
+\begin{align*}
+\frac{w_{t,1}}{w_{t,2}}
+& = \frac{\exp(-\sum_{i=1}^{t-1} \ell_{i,1}/\sqrt{i})}{\exp(-\sum_{i=1}^{t-1} \ell_{i,2}/\sqrt{i})} \\
+& = \frac{\exp(\sum_{i=1}^{\lceil T/3 \rceil} 1/\sqrt{i})}{\exp(\sum_{i=\lceil T/3 \rceil + 1}^t 1/\sqrt{i})} \\
+& \ge \frac{\exp(\sum_{i=1}^{\lceil T/3 \rceil} 1/\sqrt{i})}{\exp(\sum_{i=\lceil T/3 \rceil + 1}^T 1/\sqrt{i})} \\
+& = \exp\left(\sum_{i=1}^{\lceil T/3 \rceil} \frac{1}{\sqrt{i}} \ \ - \ \sum_{i=\lceil T/3 \rceil + 1}^T 1/\sqrt{i} \right) \\
+& \ge \exp\left( \int_{1}^{\lceil T/3 \rceil + 1} \frac{dx}{\sqrt{x}} \ \ - \ \int_{\lceil T/3 \rceil}^T \frac{dx}{\sqrt{x}} \right) \\
+& = \exp\left( 2\sqrt{\lceil T/3 \rceil + 1} - 2 - (2\sqrt{T} - 2 \sqrt{\lceil T/3 \rceil}) \right) \\
+& \ge \exp\left( \left( \frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right) \\
+& \ge 4
+\end{align*}
+where the last inequality follows from that $\exp\left( \left(
+\frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right)$ is an increasing function
+of $T$ and the inequality can be easily verified for $T=120$. Since $w_{t,1} +
+w_{t,1} \le 1$ and $w_{t,1} \ge 0$ and $w_{t,2} \ge 0$, the inequality
+$w_{t,1}/w_{t,2} \ge 4$ implies that
+$$
+w_{t,2} \le \frac{1}{5} \qquad \qquad \text{(for any $t \ge \lceil T/3 \rceil + 1$)}.
+$$
+Now, we lower bound the regret. Since $T \ge 120$,
+\begin{align*}
+\Regret_T
+& \ge \Regret_T(e_2) \\
+& = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, e_2 \rangle \\
+& = - \sum_{t=1}^{\lceil T/3 \rceil} w_{t,1} \ \ - \ \sum_{t=\lceil T/3 \rceil + 1}^T w_{t,2}  +  \lfloor 2T/3 \rfloor \\
+& \ge - \lceil T/3 \rceil - \frac{1}{5} \lfloor 2T/3 \rfloor  +  \lfloor 2T/3 \rfloor \\
+& \ge - T/3 - 1 - 2T/15 + 2T/3 - 1 \\
+& = T/5 - 2 \\
+& \ge T/6 \; .
+\end{align*}
+\end{proof}

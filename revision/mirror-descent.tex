@@ -1,0 +1,182 @@
+\section{Scale-Free Mirror Descent}
+\label{section:mirror-descent}
+
+Full-matrix and diagonal versions of \textsc{AdaGrad with Composite MD
+Update}~\cite{Duchi-Hazan-Singer-2011} are an instances of \textsc{MD} for any
+bounded $K$ with regularizers
+$$
+R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} \!\!\!\! w
+\qquad \text{and} \qquad
+R_t(w) = \frac{1}{2} \sum_{j=1}^d w_j^2 \sqrt{ \sum_{i=1}^t \ell_{i,j}^2}
+$$
+respectively. The diagonal version is simply the per-coordinate construction
+applied to the one-dimensional version. When $d=1$, both algorithms are
+equivalent to
+\begin{equation}
+\label{equation:ada-grad-regularizer}
+R_t(w) = \frac{\|w\|_2^2}{2} \sqrt{\sum_{i=1}^t \|\ell_i\|_2^2 } \; .
+\end{equation}
+All three sequences of regularizers give a scale-free algorithm. Regularizer
+\eqref{equation:ada-grad-regularizer} can be viewed as a scale-free
+generalization of GIGA. That is, when $\|\ell_i\|_2
+= 1$ for all $i$, \textsc{MD} with regularizer
+\eqref{equation:ada-grad-regularizer} coincides with GIGA.
+
+Replacing $\frac{1}{2}\|w\|_2^2$ in equation
+\eqref{equation:ada-grad-regularizer} with an arbitrary strongly convex
+function $R:K \to \R$ yields
+\begin{equation}
+\label{equation:scale-free-mirror-descent}
+R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2} \; .
+\end{equation}
+We call the resulting algorithm \textsc{Scale-Free MD} with
+regularizer $R$. Similar to \textsc{SOLO FTRL}, the regularizer
+\eqref{equation:scale-free-mirror-descent} does not uniquely define
+the \textsc{MD} minimizer
+$w_{t+1} = \argmin_{w \in K} \left(\langle \ell_t, w \rangle + \Breg_{R_t}(w,
+w_t) \right)$ when $\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}$ is zero.
+This happens when the loss vectors $\ell_1, \ell_2, \dots, \ell_t$ are all
+zero. In this case, we define
+$w_{t+1} = \argmin_{w \in K} R(w)$ which agrees with
+$w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
+Similarly, $w_1 = \argmin_{w \in K} R(w)$.
+
+The theorem below upper bounds the regret of \textsc{Scale-Free MD} (see also
+\cite{Duchi-Hazan-Singer-2011, Duchi-Shalev-Shwartz-Singer-Tewari-2010,
+Rakhlin-Sridharan-2013}).  Proof is in~\ref{section:mirror-descent-proofs}.
+
+\begin{theorem}[Regret of Scale-Free Mirror Descent]
+\label{theorem:regret-scale-free-mirror-descent}
+Suppose $K \subseteq V$ is a non-empty closed convex set. Suppose that $R:K
+\to \R$ is a $\lambda$-strongly convex function with respect to a norm
+$\|\cdot\|$.  \textsc{Scale-Free MD} with regularizer $R$ satisfies
+for any $u \in K$,
+$$
+\Regret_T(u)
+\le
+\left( \frac{1}{\lambda} + \sup_{v \in K} \Breg_R(u,v) \right) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} \; .
+$$
+\end{theorem}
+
+We choose the regularizer $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex
+function and optimize $\lambda$. The result is the following Corollary. Its
+proof is trivial.
+
+\begin{corollary}[Regret of Scale-Free Mirror Descent]
+\label{corollary:regret-scale-free-mirror-descent}
+Suppose $K \subseteq V$ is a non-empty bounded closed convex set.  Suppose
+that $f:K \to \R$ is a $1$-strongly convex function with respect to a norm
+$\|\cdot\|$.  \textsc{Scale-Free MD} with regularizer
+$$
+R(w) = \frac{f(w)}{\displaystyle \sqrt{\sup_{u,v \in K} \Breg_f(u,v)}}
+\quad \text{satisfies} \quad %
+\Regret_T \le 2 \sqrt{\sup_{u,v \in K} \Breg_f(u,v) \sum_{t=1}^T \|\ell_t\|_*^2} \; .
+$$
+\end{corollary}
+
+The regret bound for \textsc{Scale-Free MD} in the
+Corollary~\ref{corollary:regret-scale-free-mirror-descent} depends on
+$\sup_{u,v \in K} \Breg_f(u,v)$. In contrast, the regret bound for
+\textsc{SOLO FTRL} in Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}
+depend on $\sup_{u \in K} f(u)$.  Similarly, the regret bound in
+Theorem~\ref{theorem:regret-scale-free-mirror-descent} for \textsc{Scale-Free
+MD} depends on $\sup_{v \in K} \Breg_R(u,v)$ and the regret bounds in
+Theorem~\ref{theorem:regret-solo-ftrl}
+for \textsc{SOLO FTRL} depend on $R(u)$. It is not hard to
+show that
+\begin{equation}
+\label{equation:regularizer-vs-divergence}
+\forall u \in K \qquad R(u) \le \sup_{v \in K} \Breg_R(u,v) \; ,
+\end{equation}
+provided that at the minimizer $v^* = \argmin_{v \in K} R(v)$ both $R(v^*)$ and
+$\grad R(v^*)$ are zero. Indeed, in that case, $R(u) = \Breg_R(u,v^*) \le
+\sup_{v \in K} \Breg_R(u,v)$.
+
+The assumption $R(v^*) = 0$ and $\grad R(v^*) = 0$
+are easy to achieve by adding an affine function to the regularizer:
+$$
+R'(u) = R(u) - \langle \grad R(v^*), u - v^* \rangle - R(v^*) \; .
+$$
+The regularizer $R'$ has the same parameter of strong convexity as $R$, the
+associated Bregman divergences $\Breg_{R'}$ and $\Breg_{R}$ are equal, $R'$ and
+$R$ have the same minimizer $v^*$, and $R'(v^*)$ and $\grad R'(v^*)$ are both
+zero.
+
+Thus, inequality \eqref{equation:regularizer-vs-divergence} implies
+that---ignoring constant factors---the regret bound for \textsc{Scale-Free MD}
+is inferior to the regret bound for \textsc{SOLO FTRL}.
+In fact, it is not hard to come up with examples where $R(u)$ is finite whereas
+$\sup_{v \in K} \Breg_R(u,v)$ is infinite. We mention two such examples. The
+first example is $R(w) = \frac{1}{2}\|w\|_2^2$ defined on the whole space $V$,
+where for any $u \in V$, $R(u)$ is a finite value but $\sup_{v \in K}
+\Breg_R(u,v) = \sup_{v \in V} \frac{1}{2}\|u-v\|_2^2 = +\infty$. The second
+example is the shifted negative entropy regularizer $R(w) = \ln(d) +
+\sum_{j=1}^d w_j \ln w_j$ defined on the $d$-dimensional probability simplex $K
+= \{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}$, where for any $u \in
+K$, $R(u)$ is finite and in fact lies in the interval $[0, \ln d]$ but
+$\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in K} \sum_{j=1}^d u_j \ln(u_j/v_j) = +
+\infty$. We revisit these examples in the following subsection.
+
+\subsection{Lower Bounds for Scale-Free Mirror Descent}
+\label{subsection:mirror-descent-lower-bound}
+
+The bounds in Theorem~\ref{theorem:regret-scale-free-mirror-descent} and
+Corollary~\ref{corollary:regret-scale-free-mirror-descent} are vacuous when
+$\Breg_R(u,v)$ is not bounded. One might wonder if the assumption that
+$\Breg_R(u,v)$ is bounded is necessary in order for \textsc{Scale-Free MD} to
+have a sublinear regret. We show necessity of this assumption on two
+counter-examples.  In these counter-examples, we consider strongly convex
+regularizers $R$ such that $\Breg_R(u,v)$ is not bounded and we construct
+sequences of loss vectors $\ell_1, \ell_2, \dots, \ell_T$ such that
+$\|\ell_1\|_* = \|\ell_2\|_* = \dots = \|\ell_T\|_* = 1$ and \textsc{Scale-Free
+MD} has regret $\Omega(T)$ or worse.
+
+The first counter-example is stated as
+Theorem~\ref{theorem:first-counter-example} below; proof is
+in~\ref{section:mirror-descent-proofs}. The decision set is the whole space
+$K=V$ and the regularizer is $R(w) = \frac{1}{2}\|w\|_2^2$. Note that $R(w)$ is
+$1$-strongly convex with respect to $\|\cdot\|_2$ and the dual norm of
+$\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
+$\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs
+sequence of unit-norm loss vectors in the one-dimensional subspace spanned by
+the first vector of the standard orthnormal basis.  On such sequence,
+\textsc{GIGA} and both versions of \textsc{AdaGrad MD} have predictions
+identical to \textsc{Scale-Free MD}. Hence the lower bound applies to all four
+algorithms.
+
+\begin{theorem}[First Counter-Example]
+\label{theorem:first-counter-example}
+Suppose $K = V$. For any $T \ge 42$, there exists a sequence of loss vectors
+$\ell_1, \ell_2, \dots, \ell_T \in V^*$ such that $\|\ell_1\|_2 = \|\ell_2\|_2
+= \dots = \|\ell_T\|_2 = 1$ and \textsc{Scale-Free MD} with
+regularizer $R(w) = \frac{1}{2}\|w\|_2^2$, \textsc{GIGA},
+and both versions of \textsc{AdaGrad MD} satisfy
+$$
+\Regret_T(0) \ge \frac{T^{3/2}}{20} \; .
+$$
+\end{theorem}
+
+The second counter-example is stated as
+Theorem~\ref{theorem:second-counter-example} below; proof is
+in~\ref{section:mirror-descent-proofs}.  The decision set is the
+$d$-dimensional probability simplex $K = \{ w \in \R^d ~:~ w_j \ge 0,
+\sum_{j=1}^d w_j = 1 \}$ and the regularizer is the negative entropy $R(w) =
+\sum_{j=1}^d w_j \ln w_j$.  Negative entropy is $1$-strongly convex with
+respect to $\|\cdot\|_1$ and the dual norm of $\|\cdot\|_1$ is
+\mbox{$\|\cdot\|_\infty$}.  The corresponding Bregman divergence is the
+Kullback-Leibler divergence $\Breg_R(u,v) = \sum_{j=1}^d u_j \ln(u_j/v_j)$.
+Note that despite that negative entropy is upper- and lower-bounded,
+Kullback-Leibler divergence can be arbitrarily large.
+
+\begin{theorem}[Second Counter-Example]
+\label{theorem:second-counter-example}
+Let $d \ge 2$, let $V = \R^d$, and let $K = \{ w \in V ~:~ w_j \ge 0,
+\sum_{j=1}^d w_j = 1 \}$ be the $d$-dimensional probability simplex.  For any
+$T \ge 120$, there exists a sequence of loss vectors $\ell_1, \ell_2, \dots,
+\ell_T \in V^*$ such that $\|\ell_1\|_\infty = \|\ell_2\|_\infty = \dots =
+\|\ell_T\|_\infty = 1$ and \textsc{Scale-Free MD} with regularizer
+$R(w) = \sum_{j=1}^d w_j \ln w_j$ satisfies
+$$
+\Regret_T \ge \frac{T}{6} \; .
+$$
+\end{theorem}
