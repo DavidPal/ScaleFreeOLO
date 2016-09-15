@@ -68,7 +68,7 @@ that depends on $b$ rather than on $B$.
 \textsc{NAG} \cite{Ross-Mineiro-Langford-2013} & $\{u: \max_t \langle \ell_t, u\rangle \le C\}$ & $\frac{1}{2}\|w\|_2^2 $& Partially\footnotemark \\ \hline
 \textsc{Scale invariant algorithms} \cite{Orabona-Crammer-Cesa-Bianchi-2014} & \textbf{Any} & $\frac{1}{2}\|w\|_p^2 + $ any convex func. \newline $1 < p \le 2$ & Partially\textsuperscript{\ref{footnote-label2}} \\ \hline
 %\textsc{AdaFTRL} \textbf{[this paper]} & Any Bounded & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
-\textsc{Scale-free MD} \textbf{[folklore]} & $\sup_{u,v \in K} \Breg_f(u,v) < \infty$ & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
+\textsc{Scale-free MD} \textbf{[this paper]} & $\sup_{u,v \in K} \Breg_f(u,v) < \infty$ & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
 \textsc{SOLO FTRL} \textbf{[this paper]} & \textbf{Any} & \textbf{Any Strongly Convex} & \textbf{Yes} \\ \hline
 \end{tabular}
 \caption{Selected results for OLO. Best results in each column are in bold.
@@ -87,7 +87,7 @@ sequence of invariant $w_t$.}
 There is a clear practical need to design algorithms that adapt automatically
 to the norms of the loss vectors.  A natural, yet overlooked, design method to
 achieve this type of adaptivity is by insisting to have a \textbf{scale-free}
-algorithm.  That is, the sequence of decisions of the algorithm does not change
+algorithm.  That is, with the same parameters, the sequence of decisions of the algorithm does not change
 if the sequence of loss vectors is multiplied by a positive constant.  The most
 important property of scale-free algorithms is that both their loss and their
 regret scale linearly with the maximum norm of the loss vector appearing in the
@@ -103,9 +103,8 @@ developed in \cite{Shalev-Shwartz-2007}.  The name \textsc{Follow The
 Regularized Leader} comes from~\cite{Abernethy-Hazan-Rakhlin-2008}.
 Independently, the same algorithm was proposed in~\cite{Nestorov-2009} for
 convex optimization under the name \textsc{Dual Averaging} and rediscovered
-in~\cite{Xiao-2010} for online convex optimization. The general
-version with time-varying regularizers was analyzed in
-\cite{Orabona-Crammer-Cesa-Bianchi-2014}. \textsc{MD} was originally proposed
+in~\cite{Xiao-2010} for online convex optimization. Time-varying regularizers were analyzed
+in~\cite{Duchi-Hazan-Singer-2011} and generalized in \cite{Orabona-Crammer-Cesa-Bianchi-2014}. \textsc{MD} was originally proposed
 in \cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003}
 for convex optimization. In the online learning literature it makes his first
 appearance, with a different name, in~\cite{Kivinen-Warmuth-1997}.
@@ -144,8 +143,7 @@ OLO with decision set $\R^d$.
 
 \subsection{Overview of the Results}
 
-We design and analyze three scale-free algorithms: \textsc{AdaFTRL},
-\textsc{SOLO FTRL} and \textsc{Scale-Free MD}.  \textsc{AdaFTRL} and
+We design and analyze two scale-free algorithms: \textsc{SOLO FTRL} and \textsc{Scale-Free MD}.  A third one, \textsc{AdaFTRL}, is present in the Appendix~\ref{section:ada-ftrl}. \textsc{AdaFTRL} and
 \textsc{SOLO FTRL} are based on \textsc{FTRL}.  \textsc{AdaFTRL} is a
 generalization of
 \textsc{AdaHedge}~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} to arbitrary

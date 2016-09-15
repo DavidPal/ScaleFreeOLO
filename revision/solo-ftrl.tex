@@ -1,6 +1,8 @@
 \section{\textsc{SOLO FTRL}}
 \label{section:solo-ftrl}
 
+In this section, we introduces our first scale-free algorithm, based on \textsc{FTRL}.
+
 The closest algorithm to a scale-free \textsc{FTRL} in the existing literature
 is the \textsc{AdaGrad FTRL} algorithm~\cite{Duchi-Hazan-Singer-2011}. It uses a
 regularizer on each coordinate of the form
@@ -61,11 +63,12 @@ regret of \textsc{SOLO FTRL} satisfies
 \end{align*}
 \end{theorem}
 
-When $K$ is bounded, we can choose the optimal multiple of the regularizer.  We
+When $K$ is unbounded, we pay a penalty that scales as $\max_{t \le T} \|\ell_t\|_* \sqrt{T}$, that has the same magnitude of the first term in the bound.
+On the other hand, when $K$ is bounded, the second term is a constant and we can choose the optimal multiple of the regularizer.  We
 choose $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex function and
 optimize $\lambda$.  The result of the optimization is
-Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}; the proof is
-in~\ref{section:solo-ftrl-proofs}.
+Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}.
+%; the proof is in~\ref{section:solo-ftrl-proofs}.
 %It is similar to Corollary~\ref{corollary:ada-ftrl-regret-bound} for \textsc{AdaFTRL}. The scaling however is different in the two corollaries.  In Corollary~\ref{corollary:ada-ftrl-regret-bound}, $\lambda \sim 1/(\sup_{v \in K} f(v))$ while in Corollary~\ref{corollary:regret-solo-ftrl-bounded-set} we have $\lambda \sim 1/\sqrt{\sup_{v \in K} f(v)}$.
 
 \begin{corollary}[Regret Bound for Bounded Decision Sets]
@@ -80,6 +83,21 @@ R(w) = \frac{f(w)\sqrt{2.75}}{\sqrt{\sup_{v \in K} f(v)}}
 \Regret_T \le 13.3 \sqrt{\sup_{v \in K} f(v) \sum_{t=1}^{T} \norm{\ell_t}_*^2} \; .
 $$
 \end{corollary}
+%
+\begin{proof}
+Let $S = \sup_{v \in K} f(v)$. Theorem~\ref{theorem:regret-solo-ftrl} applied
+to the regularizer $R(w) = \frac{c}{\sqrt{S}} f(w)$, together with
+Proposition~\ref{proposition:diameter-vs-range} and a crude bound
+$\max_{t=1,2,\dots,T} \|\ell_t\|_* \le \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2}$,
+give
+$$
+\Regret_T \le \left(c + \frac{2.75}{c}  + 3.5\sqrt{8} \right) \sqrt{S \sum_{t=1}^{T} \norm{\ell_t}_*^2} \; .
+$$
+We choose $c$ by minimizing $g(c) = c + \frac{2.75}{c} + 3.5\sqrt{8}$. Clearly,
+$g(c)$ has minimum at $c = \sqrt{2.75}$ and has minimal value $g(\sqrt{2.75}) =
+2\sqrt{2.75} + 3.5\sqrt{8} \le 13.3$.
+\end{proof}
+
 
 \subsection{Proof of Regret Bound for \textsc{SOLO FTRL}}
 \label{section:solo-ftrl-regret-bound}
@@ -131,7 +149,7 @@ On the other hand, if $a_t^2 > \alpha^2 \sum_{t=1}^{t-1} a_i^2$, we have
 where we have used that $a_t = M_t$ and $\sqrt{\sum_{i=1}^{t-1} a_i^2} \ge M_{t-1}$.
 \end{proof}
 
-\begin{lemma}[Simple Inequality]
+\begin{lemma}[{{\cite[Lemma~3.5]{Auer-Cesa-Bianchi-Gentile-2002}}}]
 \label{lemma:sum-of-square-roots-inverses}
 Let $a_1, a_2, \dots, a_T$ be non-negative real numbers. If $a_1 > 0$ then,
 $$
@@ -139,9 +157,8 @@ $$
 $$
 \end{lemma}
 %
-Lemma~\ref{lemma:sum-of-square-roots-inverses} is from
-\cite[Lemma~3.5]{Auer-Cesa-Bianchi-Gentile-2002}.  We give a proof
-in~\ref{section:solo-ftrl-proofs} for completeness.
+For completeness, a proof of Lemma~\ref{lemma:sum-of-square-roots-inverses} is in
+in~\ref{section:solo-ftrl-proofs}.
 
 \begin{proof}[Proof of Theorem~\ref{theorem:regret-solo-ftrl}]
 Let $\eta_t = \frac{1}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}$, hence $R_t(w)
