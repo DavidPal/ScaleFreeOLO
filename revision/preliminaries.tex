@@ -161,7 +161,7 @@ For completeness, we include it in~\ref{section:definitions-proofs}.
 \end{algorithm}
 
 \textsc{Mirror Descent} (MD) is a generic algorithm similar to \textsc{FTRL}
-but quite different in details. The algorithm is stated as
+but quite different in the details. The algorithm is stated as
 Algorithm~\ref{algorithm:mirror-descent-varying-regularizer}. The algorithm is
 parametrized by a sequence $\{R_t\}_{t=0}^\infty$ of convex functions $R_t:K
 \to \R$ called \emph{regularizers}. Each regularizer $R_t$ can depend on past
@@ -174,9 +174,9 @@ dimension of $V$, then $R_t$ fails to be differentiable everywhere.} the
 Bregman divergence, $\Breg_{R_t}(u,v) = R_t(u) - R_t(v) - \langle \grad R_t(v),
 u - v \rangle$ needs to be defined. This is done by choosing a subgradient map
 $\grad R_t:K \to V$, i.e., a function such that $\grad R_t(w)$ is a subgradient
-of $R_t$ at a point $w$. If $R_t$ is a restriction of a differentiable function
+of $R_t$ at any point $w$. If $R_t$ is a restriction of a differentiable function
 $R'_t$, it is convenient to define $\grad R_t(w) = \grad R'_t(w)$ for all $w
-\in K$. The following lemma bounds regret of \textsc{MD}.  Proof can be found
+\in K$. The following lemma bounds the regret of \textsc{MD}.  A proof can be found
 in~\cite{Rakhlin-Sridharan-2009,Duchi-Shalev-Shwartz-Singer-Tewari-2010}.  For
 completeness we give a proof in~\ref{section:mirror-descent-proofs}.
 

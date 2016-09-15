@@ -17,3 +17,8 @@ M. Streeter, H. B. McMahan, Less Regret via Online Conditioning, arXiv:1002.4862
 * Section 5 is quite messy: part of it belongs to the preliminaries (the description of MD, its regret bound, the discussion on AdaGrad/GIGA), and the other part feels like it's there in order to motivate the SOLO-FTRL algorithm (after the latter was presented in Section 4).  I think the authors have to rearrange the material and make the purpose of this section more clear.
 
 - Thanks for pointing this out. We have reorganized the section, moving the preliminaries to Section 2.
+
+
+Reviewer 2
+
+Thanks for the careful reading and the more direct proof for the recurrence, we have included it in the paper.

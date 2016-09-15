@@ -21,14 +21,14 @@ a_T$ and the regret of algorithm $A$ satisfies
 \end{theorem}
 
 The upper bounds on the regret, which we have proved for our algorithms, have
-the same dependency on the norms of loss vectors.  However, a gap remains
+the same dependency on the norms of the loss vectors.  However, a gap remains
 between the lower bound and the upper bounds.
 
 The upper bound on regret of \textsc{SOLO FTRL} is of
 the form $O(\sqrt{\sup_{v \in K} f(v) \sum_{t=1}^T \|\ell_t\|_*^2})$ where $f$
 is any $1$-strongly convex function with respect to $\|\cdot\|$.  The same
 upper bound is also achieved by \textsc{FTRL} with a constant learning rate
-when the number of rounds $T$ and $\sum_{t=1}^T \|\ell_t\|_*^2$ is known
+when the number of rounds $T$ and $\sum_{t=1}^T \|\ell_t\|_*^2$ are known
 upfront \cite[Chapter 2]{Shalev-Shwartz-2011}.  The lower bound is
 $\Omega(D\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$.
 

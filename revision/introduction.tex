@@ -106,7 +106,7 @@ convex optimization under the name \textsc{Dual Averaging} and rediscovered
 in~\cite{Xiao-2010} for online convex optimization. Time-varying regularizers were analyzed
 in~\cite{Duchi-Hazan-Singer-2011} and generalized in \cite{Orabona-Crammer-Cesa-Bianchi-2014}. \textsc{MD} was originally proposed
 in \cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003}
-for convex optimization. In the online learning literature it makes his first
+for convex optimization. In the online learning literature it makes its first
 appearance, with a different name, in~\cite{Kivinen-Warmuth-1997}.
 %A good description of \textsc{MD} is given in~\cite{Rakhlin-Sridharan-2009}.
 
@@ -132,7 +132,7 @@ Only one scale-free algorithm based on \textsc{FTRL} was known. It is the
 learning with expert advice, where the decision set is bounded.
 An algorithm based on \textsc{FTRL} that is ``almost'' scale-free is 
 \textsc{AdaGrad FTRL}~\cite{Duchi-Hazan-Singer-2011}.  This algorithm fail to
-be scale-free due to ``off-by-one'' issue; see~\cite{McMahan-2014} and the
+be scale-free due to ``off-by-one'' issues; see~\cite{McMahan-2014} and the
 discussion in Section~\ref{section:solo-ftrl}. Instead, \textsc{FTRL-Proximal}~\cite{McMahan-Streeter-2010,McMahan-2014} solves the off-by-one issues, but it requires proximal regularizers, that in general do not have a simple form and even in the simple 2-norm case requires bounded domains.
 
 For unbounded decision sets no scale-free algorithm with a non-trivial regret
@@ -156,25 +156,26 @@ arbitrary strongly convex regularizers.  The three algorithms are presented in
 Sections~\ref{section:ada-ftrl}, \ref{section:solo-ftrl} and
 \ref{section:mirror-descent} respectively.
 
-We prove that the regret of \textsc{AdaFTRL} and \textsc{SOLO FTRL} after $T$
+We prove that the regret of \textsc{SOLO FTRL} and \textsc{AdaFTRL} after $T$
 rounds is bounded by $O (\sqrt{\sup_{v \in K} f(v)
 \sum_{t=1}^T\|\ell_t\|_*^2} )$ where $f$ is a non-negative regularizer
 that is $1$-strongly convex with respect to a norm $\|\cdot\|$ and
 $\|\cdot\|_*$ is its dual norm. For \textsc{Scale-Free MD}, we prove $O
 (\sqrt{\sup_{u,v \in K} B_f(u,v) \sum_{t=1}^T\|\ell_t\|_*^2} )$
 where $B_f$ is the Bregman divergence associated with a $1$-strongly convex
-regularizer $f$.  As we discuss, in Section~\ref{section:mirror-descent}, the
-upper bound for \textsc{Scale-Free MD} is never better than the bound for bound
-for \textsc{AdaFTRL} and \textsc{SOLO FTRL}.  In
-Section~\ref{section:lower-bound}, we show that the $\sqrt{\sum_{t=1}^T
-\|\ell_t\|_*^2}$ term in the bounds is necessary by proving $\frac{D}{\sqrt{8}}
+regularizer $f$.  
+%However, as we discuss in Section~\ref{section:mirror-descent}, the
+%upper bound for \textsc{Scale-Free MD} is never better than the bound
+%for \textsc{SOLO FTRL} and \textsc{AdaFTRL}.
+In Section~\ref{section:lower-bound}, we show that the $\sqrt{\sum_{t=1}^T
+\|\ell_t\|_*^2}$ term in the bounds is necessary by proving a $\frac{D}{\sqrt{8}}
 \sqrt{\sum_{t=1}^T\|\ell_t\|_*^2}$ lower bound on the regret of any algorithm
 for OLO for any decision set with diameter $D$ with respect to the primal norm
 $\|\cdot\|$.
 
-For \textsc{SOLO FTRL}, we prove that regret against a competitor $u \in K$ is
+For \textsc{SOLO FTRL}, we prove that the regret against a competitor $u \in K$ is
 at most $O (f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} + \max_{t=1,2,\dots,T}
-\|\ell_t\|_* \sqrt{T} )$.  Same as before, $f$ is a non-negative
+\|\ell_t\|_* \sqrt{T} )$.  As before, $f$ is a non-negative
 $1$-strongly convex regularizer. This bound is non-trivial for any decision
 set, bounded or unbounded.  The result makes \textsc{SOLO FTRL} the
 \textbf{first adaptive algorithm for unbounded decision sets} with a

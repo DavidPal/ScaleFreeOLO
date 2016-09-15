@@ -34,8 +34,7 @@ in~\ref{section:limits}, this is the same as $w_t = \lim_{a \to 0^+} \argmin_{w
 \in K} (\langle L_{t-1}, w \rangle + aR(w))$.
 
 Our main result is an $O(\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$ upper bound on
-the regret of the algorithm after $T$ rounds, without the need to know before
-hand an upper bound on $\|\ell_t\|_*$.  We prove the theorem in
+the regret of the algorithm after $T$ rounds, without the need to know beforehand an upper bound on $\|\ell_t\|_*$.  We prove the theorem in
 Section~\ref{section:ada-ftrl-regret-bound}.
 
 \begin{theorem}[Regret Bound]
@@ -99,7 +98,7 @@ $$
 \end{lemma}
 
 \begin{proof}
-Let $R_t(w) = \Delta_{t-1} R(w)$. Since $R$ is non-negative,
+Recall from \eqref{equation:ada-ftrl} that $R_t(w) = \Delta_{t-1} R(w)$. Since $R$ is non-negative,
 $\{R_t\}_{t=1}^\infty$ is non-decreasing.  Hence, $R_t^*(\ell) \ge
 R_{t+1}^*(\ell)$ for every $\ell \in V^*$ and thus $R_t^*(-L_t) -
 R_{t+1}^*(-L_t) \ge 0$.  So, by Lemma~\ref{lemma:generic-regret-bound},
@@ -138,7 +137,7 @@ $$
 $$
 Using parts 4 and 6 of Proposition~\ref{proposition:conjugate-properties}, we
 can upper bound $\Breg_{R^*}\left( - \frac{L_t}{\Delta_{t-1}}, -
-\frac{L_{t-1}}{\Delta_{t-1}} \right)$ with two different quantities.  Taking
+\frac{L_{t-1}}{\Delta_{t-1}} \right)$ with two different quantities.  Taking the
 minimum of the two quantities finishes the proof.
 \end{proof}
 
@@ -168,31 +167,27 @@ $$
 $$
 \end{lemma}
 %
-\begin{proof}[Proof of Lemma~\ref{lemma:recurrence-solution}]
-We prove the lemma by induction on $T$.  The base case $T=0$ is trivial.
-For $T \ge 1$, let $f(x) = x + \min\{a_T, a_T^2/x\}$. We have
-\begin{align*}
-\Delta_T
-& \le \Delta_{T-1} + \min \left\{a_T, \ \frac{a_T^2}{\Delta_{T-1}} \right\} \\
-& = f \left( \Delta_{T-1} \right) \\
-& \le f \left( \sqrt{3 \sum_{t=1}^{T-1} a_t^2} \right) \\
-& = \sqrt{3 \sum_{t=1}^{T-1} a_t^2} \ + \ \min \left\{ a_T, \ \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}  \; ,
-\end{align*}
-where the second inequality follows from the inductive hypothesis $\Delta_{T-1} \le
-\sqrt{3 \sum_{t=1}^{T-1} a_t^2}$ and that $f(x)$ is non-positive on $[-\infty,
-0)$ and non-negative increasing on $[0,\infty)$. It remains to prove that
-$$
-\sqrt{3 \sum_{t=1}^{T-1} a_t^2} \ + \ \min \left\{ a_T, \ \frac{a_T^2}{\sqrt{3 \sum_{t=1}^{T-1} a_t^2}} \right\}
-\le  \sqrt{3 \sum_{t=1}^T a_t^2} \; .
-$$
-If $a_T = 0$, the inequality clearly holds. Otherwise, $a_T$ is positive and we
-divide through by it and make substitution $z=\frac{\sqrt{\sum_{t=1}^{T-1}
-a_t^2}}{a_T}$, which leads to
-$$
-z\sqrt{3} + \min\left\{1, \frac{1}{z\sqrt{3}}\right\} \le \sqrt{3 + 3z^2}
-$$
-which can be easily checked by considering separately the cases $z \in
-[0,\frac{1}{\sqrt{3}})$ and $z \in [\frac{1}{\sqrt{3}}, \infty)$.
+\begin{proof}
+Observe that
+\[
+\Delta_T^2
+=
+\sum_{t=1}^T (\Delta_t - \Delta_{t-1})(\Delta_t - \Delta_{t-1} + 2\Delta_{t-1}) \; .
+\]
+The left term of the minimum inequality in the definition of $\Delta_t$ gives
+\[
+(\Delta_t - \Delta_{t-1})^2 \le a_t^2,
+\]
+while the right term gives
+\[
+2 (\Delta_t - \Delta_{t-1}) \Delta_{t-1} \le 2 a_t^2 \; .
+\]
+So, we conclude
+\[
+\Delta_T^2
+\le
+3 \sum_{t=1}^T a_t^2\; .
+\]
 \end{proof}
 
 Theorem~\ref{theorem:ada-ftrl-regret-bound}

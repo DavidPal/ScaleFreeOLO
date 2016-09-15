@@ -36,8 +36,8 @@ use Algorithm~\ref{algorithm:ftrl-varying-regularizer} with the regularizer
 R_t(w) = R(w) \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \; ,
 \end{equation}
 where $R:K \to \R$ is any strongly convex function. Through a refined analysis,
-we show that the regularizer suffices to obtain an optimal regret bound for any
-decision set, bounded or unbounded.  We call such variant \textsc{Scale-free
+we show that this regularizer suffices to obtain an optimal regret bound for any
+decision set, bounded or unbounded.  We call this variant \textsc{Scale-free
 Online Linear Optimization FTRL} algorithm (\textsc{SOLO FTRL}).  Our main
 result is Theorem~\ref{theorem:regret-solo-ftrl} below, which is proven in
 Section~\ref{section:solo-ftrl-regret-bound}.
@@ -46,7 +46,7 @@ The regularizer~\eqref{equation:solo-ftrl-regularizer} does not uniquely define
 the \textsc{FTRL} minimizer $w_t = \argmin_{w \in K} R_t(w)$ when
 $\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}$ is zero. This happens if $\ell_1,
 \ell_2, \dots, \ell_{t-1}$ are all zero (and in particular for $t=1$).  In that
-case, we define the $w_t = \argmin_{w \in K} R(w)$ which is consistent with
+case, we define $w_t = \argmin_{w \in K} R(w)$ which is consistent with
 $w_t = \lim_{a \to 0^+}  \argmin_{w \in K} a R(w)$.
 
 \begin{theorem}[Regret of \textsc{SOLO FTRL}]
@@ -164,7 +164,7 @@ in~\ref{section:solo-ftrl-proofs}.
 Let $\eta_t = \frac{1}{\sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2}}$, hence $R_t(w)
 = \frac{1}{\eta_t} R(w)$.  We assume without loss of generality that
 $\|\ell_t\|_* > 0$ for all $t$, since otherwise we can remove all rounds $t$
-where $\ell_t = 0$ without affecting regret and the predictions of the
+where $\ell_t = 0$ without affecting the regret and the predictions of the
 algorithm on the remaining rounds.  By Lemma~\ref{lemma:generic-regret-bound},
 \begin{align*}
 \Regret_T(u)

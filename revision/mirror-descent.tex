@@ -2,7 +2,7 @@
 \label{section:mirror-descent}
 
 Full-matrix and diagonal versions of \textsc{AdaGrad with Composite MD
-Update}~\cite{Duchi-Hazan-Singer-2011} are an instances of \textsc{MD} for any
+Update}~\cite{Duchi-Hazan-Singer-2011} are instances of \textsc{MD} for any
 bounded $K$ with regularizers
 $$
 R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} \!\!\!\! w
@@ -10,7 +10,7 @@ R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} 
 R_t(w) = \frac{1}{2} \sum_{j=1}^d w_j^2 \sqrt{ \sum_{i=1}^t \ell_{i,j}^2}
 $$
 respectively. The diagonal version is simply the per-coordinate construction
-applied to the one-dimensional version. When $d=1$, both algorithms are
+applied to the one-dimensional version, see Section~\ref{sec:per-coordinate}. When $d=1$, both algorithms are
 equivalent to
 \begin{equation}
 \label{equation:ada-grad-regularizer}
@@ -43,7 +43,7 @@ Similarly, $w_1 = \argmin_{w \in K} R(w)$.
 
 The theorem below upper bounds the regret of \textsc{Scale-Free MD} (see also
 \cite{Duchi-Hazan-Singer-2011, Duchi-Shalev-Shwartz-Singer-Tewari-2010,
-Rakhlin-Sridharan-2013}).  Proof is in~\ref{section:mirror-descent-proofs}.
+Rakhlin-Sridharan-2013}).  The proof is in~\ref{section:mirror-descent-proofs}.
 
 \begin{theorem}[Regret of Scale-Free Mirror Descent]
 \label{theorem:regret-scale-free-mirror-descent}
@@ -132,14 +132,14 @@ $\|\ell_1\|_* = \|\ell_2\|_* = \dots = \|\ell_T\|_* = 1$ and \textsc{Scale-Free
 MD} has regret $\Omega(T)$ or worse.
 
 The first counter-example is stated as
-Theorem~\ref{theorem:first-counter-example} below; proof is
+Theorem~\ref{theorem:first-counter-example} below; our proof is
 in~\ref{section:mirror-descent-proofs}. The decision set is the whole space
 $K=V$ and the regularizer is $R(w) = \frac{1}{2}\|w\|_2^2$. Note that $R(w)$ is
 $1$-strongly convex with respect to $\|\cdot\|_2$ and the dual norm of
 $\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
-$\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs
+$\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs a
 sequence of unit-norm loss vectors in the one-dimensional subspace spanned by
-the first vector of the standard orthnormal basis.  On such sequence,
+the first vector of the standard orthnormal basis.  On such a sequence,
 \textsc{GIGA} and both versions of \textsc{AdaGrad MD} have predictions
 identical to \textsc{Scale-Free MD}. Hence the lower bound applies to all four
 algorithms.

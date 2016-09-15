@@ -4,7 +4,7 @@
 \begin{proof}[Proof of Proposition~\ref{proposition:diameter-vs-range}]
 Let $S = \sup_{u \in K} f(u)$ and $v^* = \argmin_{v \in K} f(v)$. The minimizer
 $v^*$ is guaranteed to exist by lower semi-continuity of $f$ and compactness of
-$K$.  Optimality condition for $v^*$ and $1$-strong convexity of $f$ imply that
+$K$.  The optimality condition for $v^*$ and $1$-strong convexity of $f$ imply that
 for any $u \in K$,
 $$
 S
@@ -12,7 +12,7 @@ S
 \ge f(u) - f(v^*) - \langle \grad f(v^*), u - v^* \rangle
 \ge \frac{1}{2}\|u - v^*\|^2 \; .
 $$
-In other words, $\|u - v^*\| \le \sqrt{2S}$. By triangle inequality,
+In other words, $\|u - v^*\| \le \sqrt{2S}$. By the triangle inequality,
 $$
 D = \sup_{u,v \in K} \|u - v\| \le \sup_{u,v \in K} \left( \|u - v^*\| + \|v^ * - v\| \right) \le 2\sqrt{2S} = \sqrt{8S} \; .
 $$
@@ -32,7 +32,7 @@ where we have used H\"older's inequality and property 7 of the Proposition.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lemma:generic-regret-bound}]
-By Fenchel-Young inequality,
+By the Fenchel-Young inequality,
 \begin{align*}
 \sum_{t=1}^T \left( R_{t+1}^*(-L_t) - R_t^*(-L_{t-1}) \right)
 & = R_{T+1}^*(-L_T) - R_1^*(0) \\
