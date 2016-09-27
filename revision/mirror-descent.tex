@@ -21,8 +21,8 @@ $w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
 Similarly, $w_1 = \argmin_{w \in K} R(w)$.
 
 Per-coordinate version of \textsc{Scale-Free MD} with regularizer $R(w) =
-\frac{1}{2}\norm{w}_2^2$ is exactly the same as the diagonal version of
-\textsc{AdaGrad MD}~\cite{Duchi-Hazan-Singer-2011}.
+\frac{1}{2}\norm{w}_2^2$ is exactly the same algorithm as the diagonal version
+of \textsc{AdaGrad MD}~\cite{Duchi-Hazan-Singer-2011}.
 
 The theorem below upper bounds the regret of \textsc{Scale-Free MD} (see also
 \cite{Duchi-Hazan-Singer-2011, Duchi-Shalev-Shwartz-Singer-Tewari-2010,
@@ -122,9 +122,11 @@ $1$-strongly convex with respect to $\|\cdot\|_2$ and the dual norm of
 $\|\cdot\|_2$ is $\|\cdot\|_2$. The corresponding Bregman divergence is
 $\Breg_R(u,v) = \frac{1}{2}\|u-v\|_2^2$. The counter-example constructs a
 sequence of unit-norm loss vectors in the one-dimensional subspace spanned by
-the first vector of the standard orthnormal basis.  On such a sequence,
-\textsc{GIGA} and both versions of \textsc{AdaGrad MD} have predictions
-identical to \textsc{Scale-Free MD}. Hence the lower bound applies to all four
+the first vector of the standard orthnormal basis.  On such a sequence, both
+versions of \textsc{AdaGrad MD} as well as  \textsc{Scale-Free MD} are identical
+to gradient descent with step size $1/\sqrt{t}$, i.e., they are identical
+Zinkevich's \textsc{Generalized Infinitesimal Gradient Ascent} (\textsc{GIGA})
+algorithm~\cite{Zinkevich-2003}. Hence the lower bound applies to all these
 algorithms.
 
 \begin{theorem}[First Counter-Example]
