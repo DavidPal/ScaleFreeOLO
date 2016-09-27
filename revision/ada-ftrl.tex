@@ -1,11 +1,13 @@
 \section{\textsc{AdaFTRL}}
 \label{section:ada-ftrl}
 
-Here we show that it is possible to derive scale-free algorithms in an alternative way. We generalize the \textsc{AdaHedge}
+In this section, we show that it is possible to derive a scale-free algorithm
+different from \textsc{SOLO FTRL}. We generalize the \textsc{AdaHedge}
 algorithm~\cite{de-Rooij-van-Erven-Grunwald-Koolen-2014} to the OLO setting,
-showing that it retains its scale-free property. The analysis is very general
-and based on general properties of strongly convex functions, rather than
-specific properties of the entropic regularizer like in \textsc{AdaHedge}.
+showing that it retains its scale-free property.  We call the resulting
+algorithm \textsc{AdaFTRL}. The analysis is very general and based on general
+properties of strongly convex functions, rather than specific properties of the
+entropic regularizer as in the original analysis of \textsc{AdaHedge}.
 
 Assume that $K$ is bounded and that $R:K \to \R$ is a strongly convex lower
 semi-continuous function bounded from above.  We instantiate
@@ -33,9 +35,10 @@ to strong convexity. As we show in Lemma~\ref{lemma:prediction-limit-existence}
 in~\ref{section:limits}, this is the same as $w_t = \lim_{a \to 0^+} \argmin_{w
 \in K} (\langle L_{t-1}, w \rangle + aR(w))$.
 
-Our main result is an $O(\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$ upper bound on
-the regret of the algorithm after $T$ rounds, without the need to know beforehand an upper bound on $\|\ell_t\|_*$.  We prove the theorem in
-Section~\ref{section:ada-ftrl-regret-bound}.
+Our main result is an $O(\sqrt{\sum_{t=1}^T \|\ell_t\|_*^2})$ upper bound on the
+regret of the algorithm after $T$ rounds, without the need to know beforehand an
+upper bound on $\|\ell_t\|_*$.  We prove the theorem
+in~\ref{section:ada-ftrl-regret-bound}.
 
 \begin{theorem}[Regret Bound]
 \label{theorem:ada-ftrl-regret-bound}
@@ -83,8 +86,6 @@ It remains to find the minimum of $g(c) = \sqrt{3}(1 + c) \max\{\sqrt{8},
 minimum at $c=1/16$ and $g(\frac{1}{16}) = \sqrt{3}(1+\frac{1}{16})\sqrt{8} \le
 5.3$.
 \end{proof}
-
-
 
 \subsection{Proof of Regret Bound for \textsc{AdaFTRL}}
 \label{section:ada-ftrl-regret-bound}
@@ -155,8 +156,8 @@ $\Delta_T$ in terms of $a_1, a_2, \dots, a_T$.
 \begin{lemma}[Solution of the Recurrence]
 \label{lemma:recurrence-solution}
 Let $\{a_t\}_{t=1}^\infty$ be any sequence of non-negative real numbers.
-Suppose that $\{\Delta_t\}_{t=0}^\infty$ is a sequence of real numbers
-satisfying
+Suppose that $\{\Delta_t\}_{t=0}^\infty$ is a sequence of non-negative
+real numbers satisfying
 $$
 \Delta_0 = 0 \qquad \text{and} \qquad
 \Delta_t \le \Delta_{t-1} + \min \left\{ a_t, \ \frac{a_t^2}{\Delta_{t-1}} \right\} \quad \text{for any $t \ge 1$} \; .
@@ -171,9 +172,10 @@ $$
 Observe that
 \[
 \Delta_T^2
-=
-\sum_{t=1}^T (\Delta_t - \Delta_{t-1})(\Delta_t - \Delta_{t-1} + 2\Delta_{t-1}) \; .
+= \sum_{t=1}^T \Delta_t^2 - \Delta_{t-1}^2
+= \sum_{t=1}^T (\Delta_t - \Delta_{t-1})^2 + 2 (\Delta_t - \Delta_{t-1}) \Delta_{t-1} \; .
 \]
+We now bound each term in the sum.
 The left term of the minimum inequality in the definition of $\Delta_t$ gives
 \[
 (\Delta_t - \Delta_{t-1})^2 \le a_t^2,

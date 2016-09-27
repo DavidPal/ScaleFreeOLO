@@ -1,36 +1,15 @@
 \section{Scale-Free Mirror Descent}
 \label{section:mirror-descent}
 
-Full-matrix and diagonal versions of \textsc{AdaGrad with Composite MD
-Update}~\cite{Duchi-Hazan-Singer-2011} are instances of \textsc{MD} for any
-bounded $K$ with regularizers
-$$
-R_t(w) = \frac{1}{2} w^\top \left(\sum_{i=1}^t \ell_i \ell_i^\top \right)^{1/2} \!\!\!\! w
-\qquad \text{and} \qquad
-R_t(w) = \frac{1}{2} \sum_{j=1}^d w_j^2 \sqrt{ \sum_{i=1}^t \ell_{i,j}^2}
-$$
-respectively. The diagonal version is simply the per-coordinate construction
-applied to the one-dimensional version, see Section~\ref{sec:per-coordinate}. When $d=1$, both algorithms are
-equivalent to
-\begin{equation}
-\label{equation:ada-grad-regularizer}
-R_t(w) = \frac{\|w\|_2^2}{2} \sqrt{\sum_{i=1}^t \|\ell_i\|_2^2 } \; .
-\end{equation}
-All three sequences of regularizers give a scale-free algorithm. Regularizer
-\eqref{equation:ada-grad-regularizer} can be viewed as a scale-free
-generalization of GIGA. That is, when $\|\ell_i\|_2
-= 1$ for all $i$, \textsc{MD} with regularizer
-\eqref{equation:ada-grad-regularizer} coincides with GIGA.
-
-Replacing $\frac{1}{2}\|w\|_2^2$ in equation
-\eqref{equation:ada-grad-regularizer} with an arbitrary strongly convex
-function $R:K \to \R$ yields
+In this section, we analyze scale-free version of \textsc{Mirror Descent}.
+Our algorithm uses regularizer
 \begin{equation}
 \label{equation:scale-free-mirror-descent}
 R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2} \; .
 \end{equation}
-We call the resulting algorithm \textsc{Scale-Free MD} with
-regularizer $R$. Similar to \textsc{SOLO FTRL}, the regularizer
+where $R:K \to \R$ an arbitrary strongly convex function.
+We call the resulting algorithm \textsc{Scale-Free MD}.
+Similar to \textsc{SOLO FTRL}, the regularizer
 \eqref{equation:scale-free-mirror-descent} does not uniquely define
 the \textsc{MD} minimizer
 $w_{t+1} = \argmin_{w \in K} \left(\langle \ell_t, w \rangle + \Breg_{R_t}(w,
@@ -40,6 +19,10 @@ zero. In this case, we define
 $w_{t+1} = \argmin_{w \in K} R(w)$ which agrees with
 $w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
 Similarly, $w_1 = \argmin_{w \in K} R(w)$.
+
+Per-coordinate version of \textsc{Scale-Free MD} with regularizer $R(w) =
+\frac{1}{2}\norm{w}_2^2$ is exactly the same as the diagonal version of
+\textsc{AdaGrad MD}~\cite{Duchi-Hazan-Singer-2011}.
 
 The theorem below upper bounds the regret of \textsc{Scale-Free MD} (see also
 \cite{Duchi-Hazan-Singer-2011, Duchi-Shalev-Shwartz-Singer-Tewari-2010,

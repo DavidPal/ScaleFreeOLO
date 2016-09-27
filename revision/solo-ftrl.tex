@@ -1,11 +1,11 @@
 \section{\textsc{SOLO FTRL}}
 \label{section:solo-ftrl}
 
-In this section, we introduces our first scale-free algorithm, based on \textsc{FTRL}.
-
-The closest algorithm to a scale-free \textsc{FTRL} in the existing literature
-is the \textsc{AdaGrad FTRL} algorithm~\cite{Duchi-Hazan-Singer-2011}. It uses a
-regularizer on each coordinate of the form
+In this section, we introduce our first scale-free algorithm; it will be based
+on \textsc{FTRL}. The closest algorithm to a scale-free \textsc{FTRL} in the
+existing literature is the \textsc{AdaGrad FTRL}
+algorithm~\cite{Duchi-Hazan-Singer-2011}. It uses a regularizer on each
+coordinate of the form
 \begin{equation*}
 R_t(w) = R(w) \left(\delta + \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \right).
 \end{equation*}
@@ -14,8 +14,8 @@ $\delta=0$.  Unfortunately, the regret bound in~\cite{Duchi-Hazan-Singer-2011}
 becomes vacuous for such setting in the unbounded case. In fact, it requires
 $\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
 knowledge of the future (see Theorem~5 in~\cite{Duchi-Hazan-Singer-2011}). In
-other words, despite of its name, \textsc{AdaGrad} is not fully adaptive to the
-norm of the gradient vectors. Identical considerations hold for the
+other words, despite of its name, \textsc{AdaGrad FTRL} is not fully adaptive to
+the norm of the gradient vectors. Identical considerations hold for the
 \textsc{FTRL-Proximal} in \cite{McMahan-Streeter-2010,McMahan-2014}: the
 scale-free setting of the learning rate is valid only in the bounded case.
 
@@ -63,13 +63,13 @@ regret of \textsc{SOLO FTRL} satisfies
 \end{align*}
 \end{theorem}
 
-When $K$ is unbounded, we pay a penalty that scales as $\max_{t \le T} \|\ell_t\|_* \sqrt{T}$, that has the same magnitude of the first term in the bound.
-On the other hand, when $K$ is bounded, the second term is a constant and we can choose the optimal multiple of the regularizer.  We
-choose $R(w) = \lambda f(w)$ where $f$ is a $1$-strongly convex function and
-optimize $\lambda$.  The result of the optimization is
+When $K$ is unbounded, we pay a penalty that scales as $\max_{t \le T}
+\|\ell_t\|_* \sqrt{T}$, that has the same magnitude of the first term in the
+bound. On the other hand, when $K$ is bounded, the second term is a constant and
+we can choose the optimal multiple of the regularizer.  We choose $R(w) =
+\lambda f(w)$ where $f$ is a $1$-strongly convex function and optimize
+$\lambda$.  The result of the optimization is
 Corollary~\ref{corollary:regret-solo-ftrl-bounded-set}.
-%; the proof is in~\ref{section:solo-ftrl-proofs}.
-%It is similar to Corollary~\ref{corollary:ada-ftrl-regret-bound} for \textsc{AdaFTRL}. The scaling however is different in the two corollaries.  In Corollary~\ref{corollary:ada-ftrl-regret-bound}, $\lambda \sim 1/(\sup_{v \in K} f(v))$ while in Corollary~\ref{corollary:regret-solo-ftrl-bounded-set} we have $\lambda \sim 1/\sqrt{\sup_{v \in K} f(v)}$.
 
 \begin{corollary}[Regret Bound for Bounded Decision Sets]
 \label{corollary:regret-solo-ftrl-bounded-set}
@@ -103,11 +103,11 @@ $g(c)$ has minimum at $c = \sqrt{2.75}$ and has minimal value $g(\sqrt{2.75}) =
 \label{section:solo-ftrl-regret-bound}
 
 The proof of Theorem~\ref{theorem:regret-solo-ftrl} relies on an inequality
-(Lemma~\ref{lemma:useful}).  Related and weaker inequalities were proved
-in~\cite{Auer-Cesa-Bianchi-Gentile-2002} and~\cite{Jaksch-Ortner-Auer-2010}.
-The main property of this inequality is that on the right-hand side $C$ does
-\emph{not} multiply the $\sqrt{\sum_{t=1}^T a_t^2}$ term.  We will also use the
-well-known technical Lemma~\ref{lemma:sum-of-square-roots-inverses}.
+(Lemma~\ref{lemma:useful}).  Related and weaker inequalities
+(Lemma~\ref{lemma:sum-of-square-roots-inverses}) were proved
+in~\cite{Auer-Cesa-Bianchi-Gentile-2002} and~\cite{Jaksch-Ortner-Auer-2010}. The
+main property of this inequality is that on the right-hand side $C$ does
+\emph{not} multiply the $\sqrt{\sum_{t=1}^T a_t^2}$ term.
 
 \begin{lemma}[Useful Inequality]
 \label{lemma:useful}
@@ -157,7 +157,7 @@ $$
 $$
 \end{lemma}
 %
-For completeness, a proof of Lemma~\ref{lemma:sum-of-square-roots-inverses} is in
+For completeness, a proof of Lemma~\ref{lemma:sum-of-square-roots-inverses} is
 in~\ref{section:solo-ftrl-proofs}.
 
 \begin{proof}[Proof of Theorem~\ref{theorem:regret-solo-ftrl}]

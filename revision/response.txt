@@ -1,24 +1,53 @@
-* Related results (and Table 1): You argue that Proximal-FTRL is "almost scale-free" due to the "off-by-one" issue.  However, the proximal version of FTRL does not suffer from this issue; see, e.g., Theorem 2 in "A Survey of Algorithms and Analysis for Adaptive Online Learning" by McMahan.  Is the Proximal-FTRL algorithm actually scale-free?  Also, why do you claim (in Table 1) that Proximal-FTRL is applicable only w.r.t. the 2-norm, while Theorem 2 in McMahan's survey applies to any strongly convex regularization w.r.t. any norm?  Finally, why is the Optimistic MD algorithm scale-free, and with what predictions?
+* Related results (and Table 1): You argue that Proximal-FTRL is "almost
+scale-free" due to the "off-by-one" issue.  However, the proximal version of
+FTRL does not suffer from this issue; see, e.g., Theorem 2 in "A Survey of
+Algorithms and Analysis for Adaptive Online Learning" by McMahan.  Is the
+Proximal-FTRL algorithm actually scale-free?  Also, why do you claim (in Table
+1) that Proximal-FTRL is applicable only w.r.t. the 2-norm, while Theorem 2 in
+McMahan's survey applies to any strongly convex regularization w.r.t. any norm?
+Finally, why is the Optimistic MD algorithm scale-free, and with what
+predictions?
 
-- While it is possible to apply Proximal-FTRL to any strongly convex regularizer, the McMahan does not provvide a general way to construct proximal regularizers. To the best of our knowledge, the only proximal regularizer we are aware is based on the 2-norm.
-References to Optimistic MD have been removed because not precise.
-The discussion of related work and the table, in Section 1, has been fixed.
+- While it is possible to apply Proximal-FTRL to any strongly convex
+regularizer, the McMahan does not provvide a general way to construct
+proximal regularizers. To the best of our knowledge, the only proximal
+regularizer we are aware is based on the 2-norm.  References to Optimistic MD
+have been removed because not precise.  The discussion of related work and the
+table, in Section 1, has been fixed.
 
-* Section 1.2, 1st par, "SOLO FTRL can be viewed as the "correct" scale-free version of AdaGrad FTRL generalized to arbitrary strongly convex regularizers": I disagree with this claim; SOLO FTRL is very different from AdaGrad---while the latter maintains a "matrix learning rate" (diagonal/non-diagonal), SOLO FTRL maintains a scalar learning rate being adaptive to the scale of the losses.  Also, how is SOLO FTRL similar to Optimistic MD? Is there anything "predictive" in the former algorithm?
+* Section 1.2, 1st par, "SOLO FTRL can be viewed as the "correct" scale-free
+version of AdaGrad FTRL generalized to arbitrary strongly convex regularizers":
+I disagree with this claim; SOLO FTRL is very different from AdaGrad---while
+the latter maintains a "matrix learning rate" (diagonal/non-diagonal), SOLO
+FTRL maintains a scalar learning rate being adaptive to the scale of the
+losses.  Also, how is SOLO FTRL similar to Optimistic MD? Is there anything
+"predictive" in the former algorithm?
 
-- We have changed the text in "SOLO FTRL can be viewed as the "correct" scale-free version of the diagonal version of AdaGrad FTRL generalized to arbitrary strongly convex regularizers".
-Indeed, as explained in Section 2.4, the diagonal version of AdaGrad is nothing else than running d-copies of a FTRL algorithm, one for each coordinate. See also
-M. Streeter, H. B. McMahan, Less Regret via Online Conditioning, arXiv:1002.4862, 2010.
+- We have changed the text in "SOLO FTRL can be viewed as the "correct"
+scale-free version of the diagonal version of AdaGrad FTRL generalized to
+arbitrary strongly convex regularizers".  Indeed, as explained in Section 2.4,
+the diagonal version of AdaGrad is nothing else than running d-copies of a FTRL
+algorithm, one for each coordinate. See also M. Streeter, H. B. McMahan, Less
+Regret via Online Conditioning, arXiv:1002.4862, 2010.
 
-* When discussing related results, I think you should also mention standard doubling tricks (that are commonly used to make algorithms adaptive) and why one should prefer your algorithms.
+* When discussing related results, I think you should also mention standard
+doubling tricks (that are commonly used to make algorithms adaptive) and why
+one should prefer your algorithms.
 
-- As far as we know, there are no known doubling trick to have scale-freeness. The discussion on doubling trick is already present in Section 3.
+- As far as we know, there are no known doubling trick to have scale-freeness.
+The discussion on doubling trick is already present in Section 3.
 
-* Section 5 is quite messy: part of it belongs to the preliminaries (the description of MD, its regret bound, the discussion on AdaGrad/GIGA), and the other part feels like it's there in order to motivate the SOLO-FTRL algorithm (after the latter was presented in Section 4).  I think the authors have to rearrange the material and make the purpose of this section more clear.
+* Section 5 is quite messy: part of it belongs to the preliminaries (the
+description of MD, its regret bound, the discussion on AdaGrad/GIGA), and the
+other part feels like it's there in order to motivate the SOLO-FTRL algorithm
+(after the latter was presented in Section 4).  I think the authors have to
+rearrange the material and make the purpose of this section more clear.
 
-- Thanks for pointing this out. We have reorganized the section, moving the preliminaries to Section 2.
+- Thanks for pointing this out. We have reorganized the section, moving the
+  preliminaries to Section 2.
 
 
 Reviewer 2
 
-Thanks for the careful reading and the more direct proof for the recurrence, we have included it in the paper.
+Thanks for the careful reading and the more direct proof for the recurrence, we
+have included it in the paper.
