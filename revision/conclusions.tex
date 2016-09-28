@@ -8,11 +8,14 @@ of loss vectors. In particular, the algorithms do not assume any upper or lower
 bounds on the norms of the loss vectors or the number of rounds.
 
 We have designed a scale-free algorithm based on \textsc{Follow The Regularizer
-Leader}. Its regret is $O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2} +
-\min{\sqrt{T}, D} \max_{t=1,2,\dots,T} \|\ell_t\|_* \right)$ with respect to any
-competitor $u \in K$, where $f$ is any non-negative $1$-strongly convex function
-defined on $K$ and $D$ is the diameter of $K$. The result makes sense even when
-the decision set $K$ is unbounded.
+Leader}. Its regret with respect to any competitor $u$ is
+$$
+O \left(f(u) \sqrt{\sum_{t=1}^T \|\ell_t\|_*^2}
++ \min\{\sqrt{T}, D\} \max_{t=1,2,\dots,T} \|\ell_t\|_* \right) \; ,
+$$
+where $f$ is any non-negative $1$-strongly convex
+function defined on the decision set and $D$ is the diameter of the decision
+set. The result makes sense even when the decision set is unbounded.
 
 A similar, but weaker result holds for a scale-free algorithm based on
 \textsc{Mirror Descent}. However, we have also shown that this algorithm is
@@ -26,8 +29,11 @@ bound on the regret of any algorithm for any decision set with diameter $D$.
 Notice that with the regularizer $f(u) = \frac{1}{2}\|u\|_2^2$ the regret of
 \textsc{SOLO FTRL} depends quadratically on the norm of the competitor
 $\|u\|_2$. There exist non-scale-free algorithms \cite{McMahan-Streeter-2012,
-McMahan-Abernethy-2013, Orabona-2013, McMahan-Orabona-2014, Orabona-2014} that
-have only a $O(\|u\|_2 \sqrt{\log \|u\|_2})$ or $O(\|u\|_2 \log \|u\|_2)$
-dependency.  These algorithms assume an a priori bound on the norm of the loss
-vectors. It remains an open problem to design algorithms that have sub-quadratic
-dependency on $\norm{u}_2$ and are adaptive to the scale of the loss vectors.
+McMahan-Abernethy-2013, Orabona-2013, McMahan-Orabona-2014, Orabona-2014,
+Orabona-Pal-2016} that have only a $O(\|u\|_2 \sqrt{\log \|u\|_2})$ or
+$O(\|u\|_2 \log \|u\|_2)$ dependency.  These algorithms assume an a priori bound
+on the norm of the loss vectors. Recently, an algorithm that adapts to norms of
+loss vectors and has $O(\|u\|_2 \sqrt{\log \|u\|_2})$ dependency was
+proposed~\cite{Cutkosky-Boahen-2016}. However, the trade-off between the
+dependency on $\norm{u}_2$ and the adaptivity to the norms of the loss vectors
+still remains to be explored.

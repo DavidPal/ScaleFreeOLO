@@ -118,11 +118,11 @@ presented in Table~\ref{table:results}.  All of them are instances of
 \textsc{FTRL} or \textsc{MD}.
 
 Scale-free versions of \textsc{MD} include \textsc{AdaGrad
-MD}~\cite{Duchi-Hazan-Singer-2011}. However, the AdaGrad MD algorithm has a
-non-trivial regret bounds only when the Bregman divergence associated with the
-regularizer is bounded. In particular, since a bound on the Bregman divergence
-implies that the decision set is bounded, the regret bound for \textsc{AdaGrad
-MD} and is vacuous for unbounded sets. In fact, as we show in
+MD}~\cite{Duchi-Hazan-Singer-2011}. However, the \textsc{AdaGrad MD} algorithm
+has a non-trivial regret bounds only when the Bregman divergence associated with
+the regularizer is bounded. In particular, since a bound on the Bregman
+divergence implies that the decision set is bounded, the regret bound for
+\textsc{AdaGrad MD} is vacuous for unbounded sets. In fact, as we show in
 Section~\ref{subsection:mirror-descent-lower-bound}, \textsc{AdaGrad MD} and
 similar algorithms based on \textsc{MD} incurs $\Omega(T)$ regret, in the worst
 case, if the Bregman divergence is not bounded.
