@@ -2,11 +2,13 @@
 \label{section:mirror-descent}
 
 In this section, we analyze scale-free version of \textsc{Mirror Descent}.
-Our algorithm uses regularizer
+Our algorithm uses the regularizer
+%
 \begin{equation}
 \label{equation:scale-free-mirror-descent}
-R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2} \; .
+R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2},
 \end{equation}
+%
 where $R:K \to \R$ an arbitrary strongly convex function.
 We call the resulting algorithm \textsc{Scale-Free MD}.
 Similar to \textsc{SOLO FTRL}, the regularizer

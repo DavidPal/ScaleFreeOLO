@@ -104,15 +104,16 @@ The Regularized Leader} comes from~\cite{Abernethy-Hazan-Rakhlin-2008}.
 Independently, the same algorithm was proposed in~\cite{Nestorov-2009} for
 convex optimization under the name \textsc{Dual Averaging} and rediscovered
 in~\cite{Xiao-2010} for online convex optimization. Time-varying regularizers
-were analyzed in~\cite{Duchi-Hazan-Singer-2011} and generalized in
+were analyzed in~\cite{Duchi-Hazan-Singer-2011} and the analysis tightened in
 \cite{Orabona-Crammer-Cesa-Bianchi-2014}. \textsc{MD} was originally proposed in
 \cite{Nemirovski-Yudin-1983} and later analyzed in~\cite{Beck-Teboulle-2003} for
 convex optimization. In the online learning literature it makes its first
 appearance, with a different name, in~\cite{Kivinen-Warmuth-1997}.
 
 Both \textsc{FTRL} and \textsc{MD} are parametrized by a function called
-\emph{regularizer}. The function is assumed to be strongly convex with respect
-to a given norm. Based on different regularizers different algorithms with
+\emph{regularizer}.
+%The function is assumed to be strongly convex with respect to a given norm.
+Based on different regularizers different algorithms with
 different properties can be instantiated. A summary of algorithms for OLO is
 presented in Table~\ref{table:results}.  All of them are instances of
 \textsc{FTRL} or \textsc{MD}.
@@ -135,8 +136,8 @@ FTRL}~\cite{Duchi-Hazan-Singer-2011}.  This algorithm fail to be scale-free due
 to ``off-by-one'' issue; see~\cite{McMahan-2014} and the discussion in
 Section~\ref{section:solo-ftrl}. Instead,
 \textsc{FTRL-Proximal}~\cite{McMahan-Streeter-2010,McMahan-2014} solves the
-off-by-one issue, but it requires proximal regularizers, that in general do not
-have a simple form and even in the simple 2-norm case requires bounded domains.
+off-by-one issue, but it requires proximal regularizers. In general, proximal regularizers do not
+have a simple form and even the simple 2-norm case requires bounded domains to achieve non-vacuous regret.
 
 For unbounded decision sets no scale-free algorithm with a non-trivial regret
 bound was known. Unbounded decision sets are practically important (see, e.g.,
@@ -160,7 +161,7 @@ arbitrary strongly convex regularizers.  The three algorithms are presented in
 Sections~\ref{section:solo-ftrl} and \ref{section:mirror-descent}, and
 \ref{section:ada-ftrl}, respectively.
 
-We prove that the regret of \textsc{SOLO FTRL} and \textsc{AdaFTRL} after $T$
+We prove that the regret of \textsc{SOLO FTRL} and \textsc{AdaFTRL} on bounded domains after $T$
 rounds is bounded by $O (\sqrt{\sup_{v \in K} f(v) \sum_{t=1}^T\|\ell_t\|_*^2} )$
 where $f$ is a non-negative regularizer that is $1$-strongly convex with respect
 to a norm $\|\cdot\|$ and $\|\cdot\|_*$ is its dual norm. For \textsc{Scale-Free
@@ -191,4 +192,4 @@ Finally, in Section~\ref{subsection:mirror-descent-lower-bound}, we show
 negative results for existing popular variants of \textsc{MD}. We show two
 examples of decision sets and sequences of loss vectors of unit norm on which
 these variants of \textsc{MD} have $\Omega(T)$ regret.  These results indicate
-that \textsc{FTRL} is superior to \textsc{MD}.
+that \textsc{FTRL} is superior to \textsc{MD} in a worst-case sense.

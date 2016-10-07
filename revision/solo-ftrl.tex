@@ -15,8 +15,8 @@ becomes vacuous for such setting in the unbounded case. In fact, it requires
 $\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
 knowledge of the future (see Theorem~5 in~\cite{Duchi-Hazan-Singer-2011}). In
 other words, despite of its name, \textsc{AdaGrad FTRL} is not fully adaptive to
-the norm of the gradient vectors. Identical considerations hold for the
-\textsc{FTRL-Proximal} in \cite{McMahan-Streeter-2010,McMahan-2014}: the
+the norm of the gradient vectors. Similar considerations hold for the
+\textsc{FTRL-Proximal} in \cite{McMahan-Streeter-2010,McMahan-2014}: The
 scale-free setting of the learning rate is valid only in the bounded case.
 
 One simple approach would be to use a doubling trick on $\delta$ in order to
@@ -103,8 +103,8 @@ $g(c)$ has minimum at $c = \sqrt{2.75}$ and has minimal value $g(\sqrt{2.75}) =
 \label{section:solo-ftrl-regret-bound}
 
 The proof of Theorem~\ref{theorem:regret-solo-ftrl} relies on an inequality
-(Lemma~\ref{lemma:useful}).  Related and weaker inequalities
-(Lemma~\ref{lemma:sum-of-square-roots-inverses}) were proved
+(Lemma~\ref{lemma:useful}).  Related and weaker inequalities, like
+Lemma~\ref{lemma:sum-of-square-roots-inverses}, were proved
 in~\cite{Auer-Cesa-Bianchi-Gentile-2002} and~\cite{Jaksch-Ortner-Auer-2010}. The
 main property of this inequality is that on the right-hand side $C$ does
 \emph{not} multiply the $\sqrt{\sum_{t=1}^T a_t^2}$ term.
