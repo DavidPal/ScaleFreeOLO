@@ -55,11 +55,11 @@ Since $R_t(w) = \frac{1}{\eta_t} R(w)$, we have
 We assume $d=1$. For $d \ge 2$, we simply embed the one-dimensional loss
 vectors into the first coordinate of $\R^d$.  Consider the sequence
 $$
-(\ell_1, \ell_2, \dots, \ell_T) = ( \underbrace{- 1, -1, \dots, -1}_{\lceil T/2 \rceil}, \underbrace{+1, +1, \dots, +1}_{\lfloor T/2 \rfloor})
+(\ell_1, \ell_2, \dots, \ell_T) = ( \underbrace{- 1, -1, \dots, -1}_{\lceil T/2 \rceil}, \underbrace{+1, +1, \dots, +1}_{\lfloor T/2 \rfloor}) \; .
 $$
 The first half consists of $-1$'s, the second of $+1$'s. For $t \le \lceil T/2 \rceil$
 $$
-w_{t+1} = w_t + \frac{1}{\sqrt{t}}
+w_{t+1} = w_t + \frac{1}{\sqrt{t}} \; .
 $$
 Unrolling the recurrence and using $w_1 = 0$ we get
 $$
@@ -110,7 +110,7 @@ First, for any $t \ge \lceil T/3 \rceil + 1$,
 & \ge \exp\left( \int_{1}^{\lceil T/3 \rceil + 1} \frac{dx}{\sqrt{x}} \ \ - \ \int_{\lceil T/3 \rceil}^T \frac{dx}{\sqrt{x}} \right) \\
 & = \exp\left( 2\sqrt{\lceil T/3 \rceil + 1} - 2 - (2\sqrt{T} - 2 \sqrt{\lceil T/3 \rceil}) \right) \\
 & \ge \exp\left( \left( \frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right) \\
-& \ge 4
+& \ge 4,
 \end{align*}
 where the last inequality follows from the fact that $\exp\left( \left(
 \frac{4}{\sqrt{3}} - 2 \right) \sqrt{T} - 2 \right)$ is an increasing function
@@ -118,7 +118,7 @@ of $T$ and the inequality can be easily verified for $T=120$. Since $w_{t,1} +
 w_{t,1} \le 1$ and $w_{t,1} \ge 0$ and $w_{t,2} \ge 0$, the inequality
 $w_{t,1}/w_{t,2} \ge 4$ implies that
 $$
-w_{t,2} \le \frac{1}{5} \qquad \qquad \text{(for any $t \ge \lceil T/3 \rceil + 1$)}.
+w_{t,2} \le \frac{1}{5} \qquad \qquad \text{(for any $t \ge \lceil T/3 \rceil + 1$)} \; .
 $$
 Now, we lower bound the regret. Since $T \ge 120$,
 \begin{align*}

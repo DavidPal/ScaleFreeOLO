@@ -23,7 +23,7 @@ $\Exp[\Regret_T] \ge \frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T a_t^2}$. Indeed,
 & = \Exp\left[ \max_{u \in \{x,y\}} \sum_{t=1}^T Z_t a_t \langle \ell, u \rangle \right]  \\
 & = \frac{1}{2} \Exp\left[ \sum_{t=1}^T Z_t a_t \langle \ell, x + y \rangle \right]  + \frac{1}{2}\Exp\left[ \left|\sum_{t=1}^T Z_t a_t \langle \ell, x - y \rangle \right| \right] \\
 & = \frac{D}{2}\Exp\left[ \left|\sum_{t=1}^T Z_t a_t \right| \right] \\
-& \ge \frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T a_t^2}
+& \ge \frac{D}{\sqrt{8}} \sqrt{\sum_{t=1}^T a_t^2},
 \end{align*}
 where we used that $\Exp[Z_t] = 0$, the fact that distributions of $Z_t$ and
 $-Z_t$ are the same, the formula $\max\{a,b\} = (a+b)/2 + |a-b|/2$, and
