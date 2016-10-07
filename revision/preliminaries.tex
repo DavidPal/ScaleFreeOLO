@@ -155,7 +155,7 @@ For completeness, we include it in~\ref{section:definitions-proofs}.
 \STATE Predict $w_t$
 \STATE Observe $\ell_t \in V^*$
 \STATE Choose a regularizer $R_t:K \to \R$
-\STATE $w_{t+1} \leftarrow \argmin_{w \in K} \left( \langle \ell, w \rangle + \Breg_{R_t}(w, w_t) \right)$
+\STATE $w_{t+1} \leftarrow \argmin_{w \in K} \left( \langle \ell_t, w \rangle + \Breg_{R_t}(w, w_t) \right)$
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
