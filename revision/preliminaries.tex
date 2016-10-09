@@ -192,22 +192,3 @@ $$
 The proof of the lemma can be found
 in~\cite{Rakhlin-Sridharan-2009,Duchi-Shalev-Shwartz-Singer-Tewari-2010}.  For
 completeness, we give a proof in~\ref{section:mirror-descent-proofs}.
-
-%Several existing algorithms are special cases of \textsc{MD}.  For example,
-%\textsc{Hedge} is an instance of \textsc{MD} for the probability simplex $K =
-%\{ w \in \R^d ~:~ w_j \ge 0, \sum_{j=1}^d w_j = 1 \}$ with negative entropy
-%regularizer $R_t(w) = \frac{1}{\eta} \sum_{j=1}^d w_j \ln w_j$ where $\eta > 0$
-%is a (constant) learning rate. Note that this algorithm is \emph{not}
-%scale-free.
-
-%The most prominent instance of \textsc{MD} is \textsc{Projected Gradient
-%Descent} defined by the recurrence
-%$$
-%w_{t+1} = \Pi_K \left( w_t - \eta_t \ell_t \right) \; ,
-%$$
-%where $\Pi_K(x) = \argmin_{y \in K} \|x-y\|_2$ is the Euclidean projection to
-%$K$ and $\eta_t > 0$ is the step size.  \textsc{Projected Gradient Descent} is
-%an instance of \textsc{MD} with regularizer $R_t(w) =
-%\frac{1}{2\eta_t}\|w\|_2^2$.  A special case of \textsc{Projected Gradient
-%Descent} with step size $\eta_t = \frac{1}{\sqrt{t}}$ is \textsc{Generalized
-%Infinitesimal Gradient Ascent} (GIGA)~\cite{Zinkevich-2003}.
