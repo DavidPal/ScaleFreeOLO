@@ -85,8 +85,6 @@ are an instances -> are instances
 is simply the per-coordinate <- refer back to section 2.3. Also, this remark only applies if K is a Cartesian product.
 Proof is in -> The proof is in
 
-TO DO
-
 page 16:
 below; proof is in -> below; our proof is in
 constructs sequence -> constructs a sequence

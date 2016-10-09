@@ -10,6 +10,7 @@ R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2},
 \end{equation}
 %
 where $R:K \to \R$ an arbitrary strongly convex function.
+As for \textsc{SOLO FTRL}, it is easy to see that such regularizer gives rise to predictions $w_t$ that are scale-free.
 We call the resulting algorithm \textsc{Scale-Free MD}.
 Similar to \textsc{SOLO FTRL}, the regularizer
 \eqref{equation:scale-free-mirror-descent} does not uniquely define
@@ -102,6 +103,7 @@ K$, $R(u)$ is finite and in fact lies in the interval $[0, \ln d]$ but
 $\sup_{v \in K} \Breg_R(u,v) = \sup_{v \in K} \sum_{j=1}^d u_j \ln(u_j/v_j) = +
 \infty$. We revisit these examples in the following subsection.
 
+
 \subsection{Lower Bounds for Scale-Free Mirror Descent}
 \label{subsection:mirror-descent-lower-bound}
 
@@ -144,7 +146,7 @@ $$
 \end{theorem}
 
 The second counter-example is stated as
-Theorem~\ref{theorem:second-counter-example} below; proof is
+Theorem~\ref{theorem:second-counter-example} below; our proof is
 in~\ref{section:mirror-descent-proofs}.  The decision set is the
 $d$-dimensional probability simplex $K = \{ w \in \R^d ~:~ w_j \ge 0,
 \sum_{j=1}^d w_j = 1 \}$ and the regularizer is the negative entropy $R(w) =

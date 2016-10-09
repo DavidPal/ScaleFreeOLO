@@ -1,0 +1,127 @@
+\documentclass{article}
+
+\usepackage{times}
+\usepackage{enumerate}
+
+
+\author{Francesco Orabona
+\and
+D\'avid P\'al}
+
+\title{Response to the Reviewers}
+
+\begin{document}
+
+\maketitle
+
+\section{Response to Reviewer 1} 
+
+We thank the Reviewer to the very detailed reviewed. We have fixed all the typos spotted by the Reviewer. In the following we reply to his concerns.
+
+\begin{itemize}
+\item First and foremost, the entire discussion of AdaFTRL---as early as in Section 3---seemed to me like a complete distraction from the main meat of the paper, which is the SOLO-FTRL algorithm and how it is superior over MD.  AdaFTRL is quite unintuitive, its guarantees are inferior to those of SOLO-FTRL, and it is also much harder to implement.
+
+\emph{Following the suggestions of the Reviewer, we have moved the entire description of AdaFTRL to the Appendix. Hence, now the main focus of the paper is only on SOLO FTRL and SCALE-FREE MD.}
+
+\item Furthermore, the Scale Free MD algorithm is not really new (it is simply online MD with adaptive step-size) and steals the focus from SOLO-FTRL.  I believe the authors wished to discuss this algorithm only for appraising the superiority of SOLO-FTRL, but this is not made clear enough in their current presentation, and in fact, only adds to the confusion.
+
+\emph{Given the focus of scale-free algorithms of our submission, we believe it is natural to show meta-algorithms that achieve scale-freeness using the two major design strategies for online learning algorithms. In this sense, it is also important to point out the shortcomings of one against the other. Hence, we believe that the description of SCALE-FREE MD is essential in the paper and we prefer to leave it in the paper. Yet, following the suggestions of the Reviewer, we have heavily reorganized the section of SCALE-FREE MD, moving all the preliminaries in Section 2.}
+
+\item Related results (and Table 1): You argue that Proximal-FTRL is "almost
+scale-free" due to the "off-by-one" issue.  However, the proximal version of
+FTRL does not suffer from this issue; see, e.g., Theorem 2 in "A Survey of
+Algorithms and Analysis for Adaptive Online Learning" by McMahan.  Is the
+Proximal-FTRL algorithm actually scale-free?  Also, why do you claim (in Table
+1) that Proximal-FTRL is applicable only w.r.t. the 2-norm, while Theorem 2 in
+McMahan's survey applies to any strongly convex regularization w.r.t. any norm?
+Finally, why is the Optimistic MD algorithm scale-free, and with what
+predictions?
+
+\emph{Proximal-FTRL is indeed scale-free, thanks for pointing out the error. However, while it is possible to apply Proximal-FTRL to any strongly convex regularizer, McMahan (2014) does not provide a general way to construct
+proximal regularizers. To the best of our knowledge, the only proximal
+regularizer we are aware is based on the 2-norm.
+References to Optimistic MD have been removed because not precise.
+The discussion of related work and the
+table, in Section 1, has been changed to reflect all these considerations.}
+
+\item Section 1.2, 1st par, "SOLO FTRL can be viewed as the "correct" scale-free
+version of AdaGrad FTRL generalized to arbitrary strongly convex regularizers":
+I disagree with this claim; SOLO FTRL is very different from AdaGrad---while
+the latter maintains a "matrix learning rate" (diagonal/non-diagonal), SOLO
+FTRL maintains a scalar learning rate being adaptive to the scale of the
+losses.  Also, how is SOLO FTRL similar to Optimistic MD? Is there anything
+"predictive" in the former algorithm?
+
+\emph{We have changed the text in "SOLO FTRL can be viewed as the "correct"
+scale-free version of the diagonal version of AdaGrad FTRL generalized to
+arbitrary strongly convex regularizers".  Indeed, as explained in Section 2.4,
+the diagonal version of AdaGrad is nothing else than running d-copies of a FTRL
+algorithm, one for each coordinate. See also M. Streeter, H. B. McMahan, Less
+Regret via Online Conditioning, arXiv:1002.4862, 2010.}
+
+\item When discussing related results, I think you should also mention standard
+doubling tricks (that are commonly used to make algorithms adaptive) and why
+one should prefer your algorithms.
+
+\emph{As far as we know, there is no known doubling trick to have scale-freeness.
+The discussion on doubling trick and why our solution has to be preferred is already present in Section 3.}
+
+\item Section 5 is quite messy: part of it belongs to the preliminaries (the
+description of MD, its regret bound, the discussion on AdaGrad/GIGA), and the
+other part feels like it's there in order to motivate the SOLO-FTRL algorithm
+(after the latter was presented in Section 4).  I think the authors have to
+rearrange the material and make the purpose of this section more clear.
+
+\emph{Thanks for pointing this out. We have reorganized the section, moving the
+  preliminaries to Section 2.}
+
+\end{itemize}
+  
+\subsection{Minor comments:}
+\begin{itemize}
+\item On first reading, the last sentence of the abstract did not make any sense to me. Consider rephrasing/removing it.
+
+\emph{We have rephrased it.}
+
+\item When defining "scale-free" algorithms (bottom of page 2), it is important to remark that the same decisions are produced when the same algorithm *with the same set of parameters* is used on scaled loss sequences. (I assume you do not intend to allow one to magically tune the step-size so as to match the scale of the losses.)
+
+\emph{We added "with the same parameters".}
+
+\item Page 3, 1st par, "the general version with time-varying regularizers was analyzed in [28]": RDA with time-varying regularization was analyzed already in the AdaGrad paper (and even before that).
+
+\emph{Fixed: Orabona et al. (2014) only tightened the analysis in the AdaGrad paper.}
+
+\item Section 1.2, last par, "These results indicate that FTRL is superior to MD": in what sense? Please make a softer statement and give more details.
+
+\emph{Added "in a worst-case sense".}
+
+\item Please mention explicitly why the SOLO FTRL and ScaleFree-MD algorithms are indeed scale free.
+
+\emph{Added "In fact, with this choice of $\delta$ it is easy to see that the prediction $w_t$ in line 4 of Algorithm~\ref{algorithm:ftrl-varying-regularizer} would be independent of the scaling of the $\ell_t$." in Section 3 and "As for \textsc{SOLO FTRL}, it is easy to see that such regularizer gives rise to predictions $w_t$ that are scale-free." in Section 4.}
+
+\item Section 4 is missing an exposition and dives right into a technical discussion.
+
+\emph{Section 4 is now completely reorganized, see comments above.}
+
+\item In the short discussion after Theorem 2, please state explicitly what happens when K is unbounded (currently you only discuss the case where K is bounded).  This might be obvious, but it's one of the paper's main results.
+
+\emph{Added "When $K$ is unbounded, we pay a penalty that scales as $\max_{t \le T}
+\|\ell_t\|_* \sqrt{T}$, that has the same magnitude of the first term in the
+bound."}
+
+\item I think the proof of Corollary 2 should be included in the body of the paper.
+
+\emph{Done.}
+
+\item Lemma 6: please add the citation ([34, Lemma 3.5]) to the lemma's definition, instead of giving it after the lemma. 
+
+\emph{Done.}
+
+\end{itemize}
+
+\section{Response to Reviewer 2}
+
+Thanks for the careful reading, we have fixed all typos. Also, thanks for the more direct proof for the recurrence, we
+have included it in the paper.
+
+\end{document}
