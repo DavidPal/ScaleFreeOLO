@@ -10,15 +10,18 @@ coordinate of the form
 R_t(w) = R(w) \left(\delta + \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \right).
 \end{equation*}
 This kind of regularizer would yield a scale-free algorithm \emph{only} for
-$\delta=0$. In fact, with this choice of $\delta$ it is easy to see that the predictions $w_t$ in line 4 of Algorithm~\ref{algorithm:ftrl-varying-regularizer} would be indipendent of the scaling of the $\ell_t$.  
-Unfortunately, the regret bound in~\cite{Duchi-Hazan-Singer-2011}
-becomes vacuous for such setting in the unbounded case. In fact, it requires
-$\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
-knowledge of the future (see Theorem~5 in~\cite{Duchi-Hazan-Singer-2011}). In
-other words, despite of its name, \textsc{AdaGrad FTRL} is not fully adaptive to
-the norm of the gradient vectors. Similar considerations hold for the
-\textsc{FTRL-Proximal} in \cite{McMahan-Streeter-2010,McMahan-2014}: The
-scale-free setting of the learning rate is valid only in the bounded case.
+$\delta=0$. In fact, with this choice of $\delta$ it is easy to see that the
+predictions $w_t$ in line 4 of
+Algorithm~\ref{algorithm:ftrl-varying-regularizer} would be independent of the
+scaling of the $\ell_t$.  Unfortunately, the regret bound
+in~\cite{Duchi-Hazan-Singer-2011} becomes vacuous for such setting in the
+unbounded case. In fact, it requires $\delta$ to be greater than $\|\ell_t\|_*$
+for all time steps $t$, requiring knowledge of the future (see Theorem~5
+in~\cite{Duchi-Hazan-Singer-2011}). In other words, despite of its name,
+\textsc{AdaGrad FTRL} is not fully adaptive to the norm of the gradient
+vectors. Similar considerations hold for the \textsc{FTRL-Proximal} in
+\cite{McMahan-Streeter-2010,McMahan-2014}: The scale-free setting of the
+learning rate is valid only in the bounded case.
 
 One simple approach would be to use a doubling trick on $\delta$ in order to
 estimate on the fly the maximum norm of the losses. Note that a naive strategy

@@ -6,22 +6,20 @@ Our algorithm uses the regularizer
 %
 \begin{equation}
 \label{equation:scale-free-mirror-descent}
-R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2},
+R_t(w) = R(w) \sqrt{\sum_{i=1}^t \|\ell_i\|_*^2} \; ,
 \end{equation}
 %
-where $R:K \to \R$ an arbitrary strongly convex function.
-As for \textsc{SOLO FTRL}, it is easy to see that such regularizer gives rise to predictions $w_t$ that are scale-free.
-We call the resulting algorithm \textsc{Scale-Free MD}.
+where $R:K \to \R$ an arbitrary strongly convex function.  As for \textsc{SOLO
+FTRL}, it is easy to see that such regularizer gives rise to predictions $w_t$
+that are scale-free.  We call the resulting algorithm \textsc{Scale-Free MD}.
 Similar to \textsc{SOLO FTRL}, the regularizer
-\eqref{equation:scale-free-mirror-descent} does not uniquely define
-the \textsc{MD} minimizer
-$w_{t+1} = \argmin_{w \in K} \left(\langle \ell_t, w \rangle + \Breg_{R_t}(w,
-w_t) \right)$ when $\sqrt{\sum_{i=1}^t \|\ell_i\|_*^2}$ is zero.
-This happens when the loss vectors $\ell_1, \ell_2, \dots, \ell_t$ are all
-zero. In this case, we define
-$w_{t+1} = \argmin_{w \in K} R(w)$ which agrees with
-$w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a \Breg_{R}(w, w_t)$.
-Similarly, $w_1 = \argmin_{w \in K} R(w)$.
+\eqref{equation:scale-free-mirror-descent} does not uniquely define the
+\textsc{MD} minimizer $w_{t+1} = \argmin_{w \in K} \left(\langle \ell_t, w
+\rangle + \Breg_{R_t}(w, w_t) \right)$ when $\sqrt{\sum_{i=1}^t
+\|\ell_i\|_*^2}$ is zero.  This happens when the loss vectors $\ell_1, \ell_2,
+\dots, \ell_t$ are all zero. In this case, we define $w_{t+1} = \argmin_{w \in
+K} R(w)$ which agrees with $w_{t+1} = \lim_{a \to 0^+} \argmin_{w \in K} a
+\Breg_{R}(w, w_t)$.  Similarly, $w_1 = \argmin_{w \in K} R(w)$.
 
 Per-coordinate version of \textsc{Scale-Free MD} with regularizer $R(w) =
 \frac{1}{2}\norm{w}_2^2$ is exactly the same algorithm as the diagonal version
