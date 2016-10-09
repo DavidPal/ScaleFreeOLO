@@ -10,7 +10,7 @@ coordinate of the form
 R_t(w) = R(w) \left(\delta + \sqrt{\sum_{i=1}^{t-1} \|\ell_i\|_*^2} \right).
 \end{equation*}
 This kind of regularizer would yield a scale-free algorithm \emph{only} for
-$\delta=0$. In fact, with this choice of $\delta$ it is easy to see that the prediction $w_t$ in line 4 of Algorithm~\ref{algorithm:ftrl-varying-regularizer} would be indipendent of the scaling of the $\ell_t$.  
+$\delta=0$. In fact, with this choice of $\delta$ it is easy to see that the predictions $w_t$ in line 4 of Algorithm~\ref{algorithm:ftrl-varying-regularizer} would be indipendent of the scaling of the $\ell_t$.  
 Unfortunately, the regret bound in~\cite{Duchi-Hazan-Singer-2011}
 becomes vacuous for such setting in the unbounded case. In fact, it requires
 $\delta$ to be greater than $\|\ell_t\|_*$ for all time steps $t$, requiring
