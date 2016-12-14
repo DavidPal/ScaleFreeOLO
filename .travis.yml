@@ -1,0 +1,30 @@
+sudo: required
+dist: trusty
+
+before_install:
+- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends
+  texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra
+  dvipng texlive-latex-recommended
+
+script:
+- cd first-submission/
+- pdflatex -interaction=nonstopmode -halt-on-error main.tex
+- bibtex main.aux
+- pdflatex -interaction=nonstopmode -halt-on-error main.tex
+- pdflatex -interaction=nonstopmode -halt-on-error main.tex
+
+- cd ../revision/
+- pdflatex -interaction=nonstopmode -halt-on-error main.tex
+- bibtex main.aux
+- pdflatex -interaction=nonstopmode -halt-on-error main.tex
+- pdflatex -interaction=nonstopmode -halt-on-error main.tex
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: kdxCEc0+vNNKnaL0aCQocmfoOFqDBBbtj6Fu0FNH9xSF8/EM5BK3D11GfnKn4nYC+0zGaovA6meJ0orfAGksIvigMqBYMxELooGE5LoWiFR/qCxAWSvQChumXKwYCsOY/W0OizMJGOBKXQmKPjvDGh/yViBcGcRlDtDRn+pzAszG9GGhbvkIWt2bA0/0FRj3PkEjdOCmACr+WpqyLHqaiytvym50TQuOMd3Y9NK1jkITrxrvNQn5C4Xjm5saUqnZ2o9vDzk7DJtM1BL1obUpOTRjKiba/JDCoTmXS7fqeT6LYYagn1Ae95J+yQFZoo3HgFf9AsgSw8gQRzqvEChjkQPtJMOCOKWGmFGIJiB+5ElZqVhmQtRcsD2AIOnCFe1J0TSNiIgu9KwnOa1i3ti2sHgjR6G25x+RPXW3ywaHj/1gUadwvU8HbKwXvtwM8/gONZDiJD+qqU7faHO83KFwn4ylYUAeWXVxc97WKoM+GSOcQHXYfzd4oN72mSje+dq2DVHlNOeeB4imBdqd1unjVZpYEEM93QHZCKrhQ/oIaiPh/RukjkAKqYbSFCQo9D6HL4KxbbNnpNT6DjXYCDmInUFoOeJqSDXfSAoueGL46/Bo1oUdhNHVLnssGSJ7Y4l6ILFAnAM6ZXiwRKuJpfBaFxk//cXOiDMwj/maJQR5IWU=
+  on:
+    tags: true
+    repo: DavidPal/ScaleFreeOLO
+  file: revision/main.pdf
