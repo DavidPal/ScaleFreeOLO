@@ -1,5 +1,7 @@
 # Scale-Free Online Learning
 
+[![Build Status](https://travis-ci.org/DavidPal/ScaleFreeOLO.svg?branch=master)](https://travis-ci.org/DavidPal/ScaleFreeOLO)
+
 This is LaTeX source for journal version of the paper *Scale-Free Online
 Learning* by [Francesco Orabona](http://francesco.orabona.com/) and [Dávid
 Pál](http://david.palenica.com/).  The paper will be submitted, to the journal
